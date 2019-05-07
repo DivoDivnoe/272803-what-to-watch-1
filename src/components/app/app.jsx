@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const clickHandler = (evt) => {
+  evt.preventDefault();
+};
+
 const App = (props) => {
   const {moviesList: movies} = props;
 
@@ -212,8 +216,8 @@ const App = (props) => {
                     height="175"
                   />
                 </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">
+                <h3 className="small-movie-card__title" >
+                  <a className="small-movie-card__link" href="movie-page.html" onClick={clickHandler} >
                     {title}
                   </a>
                 </h3>
@@ -247,7 +251,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  moviesList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  moviesList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default App;
