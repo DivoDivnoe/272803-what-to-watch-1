@@ -380,9 +380,12 @@ exports[`App component renders correctly 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <button
             className="small-movie-card__play-btn"
+            onClick={[Function]}
             type="button"
           >
             Play
@@ -391,9 +394,9 @@ exports[`App component renders correctly 1`] = `
             className="small-movie-card__image"
           >
             <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
+              alt="Fantastic Beasts"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src=""
               width="280"
             />
           </div>
@@ -405,15 +408,18 @@ exports[`App component renders correctly 1`] = `
               href="movie-page.html"
               onClick={[Function]}
             >
-              Иван Васильевич меняет профессию
+              Fantastic Beasts
             </a>
           </h3>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <button
             className="small-movie-card__play-btn"
+            onClick={[Function]}
             type="button"
           >
             Play
@@ -422,9 +428,9 @@ exports[`App component renders correctly 1`] = `
             className="small-movie-card__image"
           >
             <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
+              alt="Major Payne"
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              src=""
               width="280"
             />
           </div>
@@ -436,38 +442,7 @@ exports[`App component renders correctly 1`] = `
               href="movie-page.html"
               onClick={[Function]}
             >
-              Бриллиантовая рука
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-        >
-          <button
-            className="small-movie-card__play-btn"
-            type="button"
-          >
-            Play
-          </button>
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
-              height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-              onClick={[Function]}
-            >
-              Джентльмены удачи
+              Major Payne
             </a>
           </h3>
         </article>
