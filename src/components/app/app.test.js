@@ -3,14 +3,25 @@ import renderer from 'react-test-renderer';
 import App from './app.jsx';
 
 const mock = {
-  moviesList: [`Иван Васильевич меняет профессию`, `Бриллиантовая рука`, `Джентльмены удачи`],
+  movies: [
+    {
+      title: `Fantastic Beasts`,
+      image: ``,
+      genre: `comedy`,
+    },
+    {
+      title: `Major Payne`,
+      image: ``,
+      genre: `comedy`,
+    },
+  ],
 };
 
 describe(`App component`, () => {
-  const {moviesList} = mock;
+  const {movies} = mock;
 
   it(`renders correctly`, () => {
-    const tree = renderer.create(<App moviesList={moviesList} />).toJSON();
+    const tree = renderer.create(<App movies={movies} />).toJSON();
 
     expect(tree).toMatchSnapshot();
   });
