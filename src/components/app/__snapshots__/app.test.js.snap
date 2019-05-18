@@ -380,26 +380,15 @@ exports[`App component renders correctly 1`] = `
       >
         <article
           className="small-movie-card catalog__movies-card"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
+          onMouseEnter={null}
         >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
+          <video
+            height="175"
+            poster=""
+            width="280"
           >
-            Play
-          </button>
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Fantastic Beasts"
-              height="175"
-              src=""
-              width="280"
-            />
-          </div>
+            Your browser does not support the video tag.
+          </video>
           <h3
             className="small-movie-card__title"
           >
@@ -414,26 +403,15 @@ exports[`App component renders correctly 1`] = `
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
+          onMouseEnter={null}
         >
-          <button
-            className="small-movie-card__play-btn"
-            onClick={[Function]}
-            type="button"
+          <video
+            height="175"
+            poster=""
+            width="280"
           >
-            Play
-          </button>
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Major Payne"
-              height="175"
-              src=""
-              width="280"
-            />
-          </div>
+            Your browser does not support the video tag.
+          </video>
           <h3
             className="small-movie-card__title"
           >

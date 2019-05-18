@@ -14,9 +14,9 @@ class FilmsList extends PureComponent {
   render() {
     const {movies, clickHandler} = this.props;
 
-    const handlePreview = (film) => {
+    const handlePreview = (title) => {
       this.setState({
-        currentFilm: film,
+        currentFilm: title,
       });
     };
     const stopPreview = () => {
@@ -34,6 +34,7 @@ class FilmsList extends PureComponent {
             handlePreview={handlePreview}
             stopPreview={stopPreview}
             key={movie.title}
+            isPlaying={this.state.currentFilm === movie.title}
           />
         ))}
       </div>
@@ -45,6 +46,7 @@ FilmsList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
     genre: PropTypes.oneOf([
       `crime`, `thriller`, `comedy`, `family`, `documentary`, `horror`, `drama`
     ]).isRequired,

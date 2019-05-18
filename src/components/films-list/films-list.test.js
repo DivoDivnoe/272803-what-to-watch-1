@@ -8,11 +8,13 @@ const mock = {
       title: `Fantastic Beasts`,
       image: ``,
       genre: `comedy`,
+      preview: ``,
     },
     {
       title: `Major Payne`,
       image: ``,
       genre: `comedy`,
+      preview: ``,
     },
   ],
   clickHandler: jest.fn(),
@@ -26,7 +28,10 @@ describe(`FilmCard component`, () => {
         <FilmsList
           movies={movies}
           clickHandler={clickHandler}
-        />).toJSON();
+        />,
+        {createNodeMock: (el) => {
+          return el;
+        }}).toJSON();
 
     expect(tree).toMatchSnapshot();
   });
