@@ -27,6 +27,7 @@ class VideoPlayer extends PureComponent {
     } else {
       video.pause();
       video.currentTime = 0;
+      video.load();
     }
   }
 

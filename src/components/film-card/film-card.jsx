@@ -14,6 +14,7 @@ class FilmCard extends PureComponent {
 
     this._chooseFilm = this._chooseFilm.bind(this);
     this._mouseEnterHandler = this._mouseEnterHandler.bind(this);
+    this._toggleState = this._toggleState.bind(this);
   }
 
   render() {
@@ -28,9 +29,7 @@ class FilmCard extends PureComponent {
           image={movie.image}
           preview={movie.preview}
           isPlaying={isPlaying}
-          handleLoaded={() => {
-            this.setState({isLoading: false});
-          }}
+          handleLoaded={this._toggleState}
         />
         <h3 className="small-movie-card__title" >
           <a className="small-movie-card__link" href="movie-page.html" onClick={this._chooseFilm}>
@@ -62,6 +61,10 @@ class FilmCard extends PureComponent {
       clearTimeout(timeoutId);
       currentTarget.onmouseleave = null;
     };
+  }
+
+  _toggleState() {
+    this.setState({isLoading: false});
   }
 }
 
