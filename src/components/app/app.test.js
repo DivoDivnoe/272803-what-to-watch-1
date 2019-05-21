@@ -8,11 +8,13 @@ const mock = {
       title: `Fantastic Beasts`,
       image: ``,
       genre: `comedy`,
+      preview: ``,
     },
     {
       title: `Major Payne`,
       image: ``,
       genre: `comedy`,
+      preview: ``,
     },
   ],
 };
@@ -21,7 +23,11 @@ describe(`App component`, () => {
   const {movies} = mock;
 
   it(`renders correctly`, () => {
-    const tree = renderer.create(<App movies={movies} />).toJSON();
+    const tree = renderer.create(
+        <App movies={movies} />,
+        {createNodeMock: (el) => {
+          return el;
+        }}).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

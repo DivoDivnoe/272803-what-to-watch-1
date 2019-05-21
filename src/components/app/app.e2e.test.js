@@ -10,17 +10,24 @@ const movies = [
     title: `Fantastic Beasts`,
     image: ``,
     genre: `comedy`,
+    preview: ``,
   },
   {
     title: `Major Payne`,
     image: ``,
     genre: `comedy`,
+    preview: ``,
   },
 ];
 
 describe(`App component`, () => {
   it(`reacts correctly to clicking the title link`, () => {
-    const app = mount(<App movies={movies} />);
+    const app = mount(
+        <App movies={movies} />,
+        {createNodeMock: (el) => {
+          return el;
+        }}
+    );
 
     const titleLinks = app.find(`.small-movie-card__link`);
     const linkClickPrevention = jest.fn();
