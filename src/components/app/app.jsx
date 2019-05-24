@@ -1,12 +1,15 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import FilmsList from '../films-list/films-list.jsx';
+import GenreTabs, {appGenres} from '../genre-tabs/genre-tabs.jsx';
+import {connect} from 'react-redux';
+import ActionCreator, {filterFilms} from '../../reducer/reducer';
 
 const clickHandler = () => {};
 
 class App extends PureComponent {
   render() {
-    const {movies} = this.props;
+    const {movies, genre, filterGenreHandler} = this.props;
 
     return (
       <div className="app">
@@ -149,59 +152,7 @@ class App extends PureComponent {
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-            <ul className="catalog__genres-list">
-              <li className="catalog__genres-item catalog__genres-item--active">
-                <a href="#" className="catalog__genres-link">
-                  All genres
-                </a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">
-                  Comedies
-                </a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">
-                  Crime
-                </a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">
-                  Documentary
-                </a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">
-                  Dramas
-                </a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">
-                  Horror
-                </a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">
-                  Kids & Family
-                </a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">
-                  Romance
-                </a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">
-                  Sci-Fi
-                </a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">
-                  Thrillers
-                </a>
-              </li>
-            </ul>
-
+            <GenreTabs genre={genre} clickHandler={filterGenreHandler} />
             <FilmsList movies={movies} clickHandler={clickHandler} />
 
             <div className="catalog__more">
@@ -234,7 +185,25 @@ App.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-  })).isRequired
+  })).isRequired,
+  genre: PropTypes.oneOf(appGenres).isRequired,
+  filterGenreHandler: PropTypes.func.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state, ownProps) => {
+  return Object.assign({}, ownProps, {
+    genre: state.genre,
+    movies: filterFilms(state.films, state.genre),
+  });
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    filterGenreHandler: (genre) => {
+      dispatch(ActionCreator[`GENRE_FILTER`](genre));
+    }
+  };
+};
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

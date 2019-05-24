@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app.jsx';
+import {App} from './app.jsx';
 
 const mock = {
   movies: [
@@ -17,14 +17,16 @@ const mock = {
       preview: ``,
     },
   ],
+  genre: `all`,
+  filterGenreHandler: jest.fn(),
 };
 
 describe(`App component`, () => {
-  const {movies} = mock;
+  const {movies, genre, filterGenreHandler} = mock;
 
   it(`renders correctly`, () => {
     const tree = renderer.create(
-        <App movies={movies} />,
+        <App movies={movies} genre={genre} filterGenreHandler={filterGenreHandler} />,
         {createNodeMock: (el) => {
           return el;
         }}).toJSON();
