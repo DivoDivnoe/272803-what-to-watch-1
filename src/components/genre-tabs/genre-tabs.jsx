@@ -1,5 +1,5 @@
 import React from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const TabName = {
   all: `All genres`,
@@ -14,13 +14,11 @@ const TabName = {
   thriller: `Thrillers`,
 };
 
-export const appGenres = Object.keys(TabName);
-
-const GenreTabs = ({genre, clickHandler}) => {
+const GenreTabs = ({genre, clickHandler, genres}) => {
 
   return (
     <ul className="catalog__genres-list">
-      {appGenres.map((appGenre, index) => {
+      {genres.map((appGenre, index) => {
         const className = `catalog__genres-item ${appGenre === genre ? `catalog__genres-item--active` : ``}`;
 
         return (
@@ -39,8 +37,20 @@ const GenreTabs = ({genre, clickHandler}) => {
 };
 
 GenreTabs.propTypes = {
-  genre: Proptypes.oneOf(appGenres).isRequired,
-  clickHandler: Proptypes.func.isRequired,
+  genre: PropTypes.oneOf([
+    `all`,
+    `comedy`,
+    `crime`,
+    `documentary`,
+    `drama`,
+    `horror`,
+    `family`,
+    `romance`,
+    `sciFi`,
+    `thriller`,
+  ]).isRequired,
+  clickHandler: PropTypes.func.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default GenreTabs;

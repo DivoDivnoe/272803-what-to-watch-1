@@ -3,22 +3,15 @@
 exports[`FilmCard component renders correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
-  onMouseEnter={null}
+  onMouseEnter={[Function]}
 >
-  <video
-    height="175"
-    poster="https://vokrug.tv/pic/news/d/d/8/4/dd84fb57fee799d831753daa2e0eb07e.jpg"
-    width="280"
-  >
-    Your browser does not support the video tag.
-  </video>
+  <div />
   <h3
     className="small-movie-card__title"
   >
     <a
       className="small-movie-card__link"
       href="movie-page.html"
-      onClick={[Function]}
     >
       Иван Васильевич меняет профессию
     </a>

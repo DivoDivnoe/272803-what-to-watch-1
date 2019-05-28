@@ -2,6 +2,8 @@ import React from 'react';
 import {create} from 'react-test-renderer';
 import FilmsList from './films-list.jsx';
 
+const MockComponent = () => <div />;
+
 const mock = {
   movies: [
     {
@@ -17,21 +19,17 @@ const mock = {
       preview: ``,
     },
   ],
-  clickHandler: jest.fn(),
 };
 
-describe(`FilmCard component`, () => {
+describe(`FilmsList component`, () => {
   it(`renders correctly`, () => {
-    const {movies, clickHandler} = mock;
+    const {movies} = mock;
 
     const tree = create(
         <FilmsList
           movies={movies}
-          clickHandler={clickHandler}
-        />,
-        {createNodeMock: (el) => {
-          return el;
-        }}).toJSON();
+          renderFilmCard={(movie) => <MockComponent key={movie.title} />}
+        />).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

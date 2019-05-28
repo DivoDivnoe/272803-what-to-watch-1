@@ -1,46 +1,15 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import FilmCard from '../film-card/film-card.jsx';
 
-class FilmsList extends PureComponent {
-  constructor(props) {
-    super(props);
+const FilmsList = (props) => {
+  const {movies, renderFilmCard} = props;
 
-    this.state = {
-      currentFilm: null,
-    };
-  }
-
-  render() {
-    const {movies, clickHandler} = this.props;
-
-    const handlePreview = (title) => {
-      this.setState({
-        currentFilm: title,
-      });
-    };
-    const stopPreview = () => {
-      this.setState({
-        currentFilm: null,
-      });
-    };
-
-    return (
-      <div className="catalog__movies-list">
-        {movies.map((movie) => (
-          <FilmCard
-            movie={movie}
-            clickHandler={clickHandler}
-            handlePreview={handlePreview}
-            stopPreview={stopPreview}
-            key={movie.title}
-            isPlaying={this.state.currentFilm === movie.title}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="catalog__movies-list">
+      {movies.map((movie) => renderFilmCard(movie))}
+    </div>
+  );
+};
 
 FilmsList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
@@ -51,7 +20,7 @@ FilmsList.propTypes = {
       `crime`, `thriller`, `comedy`, `family`, `documentary`, `horror`, `drama`
     ]).isRequired,
   })).isRequired,
-  clickHandler: PropTypes.func.isRequired,
+  renderFilmCard: PropTypes.func.isRequired,
 };
 
 export default FilmsList;

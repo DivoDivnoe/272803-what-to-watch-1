@@ -1,15 +1,16 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import FilmsList from '../films-list/films-list.jsx';
-import GenreTabs, {appGenres} from '../genre-tabs/genre-tabs.jsx';
+import GenreTabs from '../genre-tabs/genre-tabs.jsx';
 import {connect} from 'react-redux';
 import ActionCreator, {filterFilms} from '../../reducer/reducer';
+import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
 
-const clickHandler = () => {};
+const FilmsListWrapped = withCurrentFilm(FilmsList);
 
 class App extends PureComponent {
   render() {
-    const {movies, genre, filterGenreHandler} = this.props;
+    const {movies, genre, filterGenreHandler, genres} = this.props;
 
     return (
       <div className="app">
@@ -152,8 +153,8 @@ class App extends PureComponent {
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-            <GenreTabs genre={genre} clickHandler={filterGenreHandler} />
-            <FilmsList movies={movies} clickHandler={clickHandler} />
+            <GenreTabs genre={genre} clickHandler={filterGenreHandler} genres={genres} />
+            <FilmsListWrapped movies={movies} />
 
             <div className="catalog__more">
               <button className="catalog__button" type="button">
@@ -186,8 +187,20 @@ App.propTypes = {
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   })).isRequired,
-  genre: PropTypes.oneOf(appGenres).isRequired,
+  genre: PropTypes.oneOf([
+    `all`,
+    `comedy`,
+    `crime`,
+    `documentary`,
+    `drama`,
+    `horror`,
+    `family`,
+    `romance`,
+    `sciFi`,
+    `thriller`,
+  ]).isRequired,
   filterGenreHandler: PropTypes.func.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {

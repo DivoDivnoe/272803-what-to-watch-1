@@ -1,59 +1,16 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import VideoPlayer from '../video-player/video-player.jsx';
 
 const TIMEOUT = 1000;
 
-class FilmCard extends PureComponent {
-  constructor(props) {
-    super(props);
+const FilmCard = (props) => {
+  const {movieTitle, renderPlayer, isLoading, stopPreview, handlePreview} = props;
 
-    this.state = {
-      isLoading: true,
-    };
-
-    this._chooseFilm = this._chooseFilm.bind(this);
-    this._mouseEnterHandler = this._mouseEnterHandler.bind(this);
-    this._toggleState = this._toggleState.bind(this);
-  }
-
-  render() {
-    const {movie, isPlaying} = this.props;
-
-    return (
-      <article
-        className="small-movie-card catalog__movies-card"
-        onMouseEnter={this.state.isLoading ? null : this._mouseEnterHandler}
-      >
-        <VideoPlayer
-          image={movie.image}
-          preview={movie.preview}
-          isPlaying={isPlaying}
-          handleLoaded={this._toggleState}
-        />
-        <h3 className="small-movie-card__title" >
-          <a className="small-movie-card__link" href="movie-page.html" onClick={this._chooseFilm}>
-            {movie.title}
-          </a>
-        </h3>
-      </article>
-    );
-  }
-
-  _chooseFilm(evt) {
-    const {movie, clickHandler} = this.props;
-
-    evt.preventDefault();
-
-    clickHandler(movie);
-  }
-
-  _mouseEnterHandler(evt) {
-    const {movie, stopPreview, handlePreview} = this.props;
+  const mouseEnterHandler = (evt) => {
     const {currentTarget} = evt;
 
     const timeoutId = setTimeout(() => {
-      handlePreview(movie.title);
+      handlePreview(movieTitle);
     }, TIMEOUT);
 
     currentTarget.onmouseleave = () => {
@@ -61,26 +18,29 @@ class FilmCard extends PureComponent {
       clearTimeout(timeoutId);
       currentTarget.onmouseleave = null;
     };
-  }
+  };
 
-  _toggleState() {
-    this.setState({isLoading: false});
-  }
-}
+  return (
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={isLoading ? null : mouseEnterHandler}
+    >
+      {renderPlayer()}
+      <h3 className="small-movie-card__title" >
+        <a className="small-movie-card__link" href="movie-page.html">
+          {movieTitle}
+        </a>
+      </h3>
+    </article>
+  );
+};
 
 FilmCard.propTypes = {
-  movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    preview: PropTypes.string.isRequired,
-    genre: PropTypes.oneOf([
-      `crime`, `thriller`, `comedy`, `family`, `documentary`, `horror`, `drama`
-    ]).isRequired,
-  }),
-  clickHandler: PropTypes.func.isRequired,
-  handlePreview: PropTypes.func.isRequired,
+  movieTitle: PropTypes.string.isRequired,
+  renderPlayer: PropTypes.func.isRequired,
   stopPreview: PropTypes.func.isRequired,
-  isPlaying: PropTypes.bool.isRequired,
+  handlePreview: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default FilmCard;
