@@ -4,7 +4,7 @@ import App from './components/app/app.jsx';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {reducer} from './reducer/reducer';
-import {genres} from './mocks/films';
+import {appGenres} from './mocks/films';
 
 const store = createStore(
     reducer,
@@ -16,7 +16,7 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <App genres={genres} />
+        <App genres={appGenres} />
       </Provider>,
       root
   );

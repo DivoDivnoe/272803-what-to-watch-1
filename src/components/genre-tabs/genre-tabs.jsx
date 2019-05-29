@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {appGenres} from '../../mocks/films';
 
 const TabName = {
   all: `All genres`,
@@ -37,18 +38,7 @@ const GenreTabs = ({genre, clickHandler, genres}) => {
 };
 
 GenreTabs.propTypes = {
-  genre: PropTypes.oneOf([
-    `all`,
-    `comedy`,
-    `crime`,
-    `documentary`,
-    `drama`,
-    `horror`,
-    `family`,
-    `romance`,
-    `sciFi`,
-    `thriller`,
-  ]).isRequired,
+  genre: PropTypes.oneOf(appGenres).isRequired,
   clickHandler: PropTypes.func.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

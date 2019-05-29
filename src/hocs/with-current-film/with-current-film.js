@@ -2,8 +2,9 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import FilmCard from '../../components/film-card/film-card.jsx';
 import withLoading from '../with-loading/with-loading';
+import {appGenres} from '../../mocks/films';
 
-const FilmCardWrapped = withLoading(FilmCard);
+const FilmCardWithState = withLoading(FilmCard);
 
 const withCurrentFilm = (Component) => {
   class WithCurrentFilm extends PureComponent {
@@ -23,7 +24,7 @@ const withCurrentFilm = (Component) => {
       return <Component
         movies={movies}
         renderFilmCard={(movie) =>
-          <FilmCardWrapped
+          <FilmCardWithState
             movie={movie}
             handlePreview={(this._setCurrentFilm)}
             stopPreview={this._resetFilm}
@@ -47,18 +48,7 @@ const withCurrentFilm = (Component) => {
       title: PropTypes.string.isRequired,
       image: PropTypes.string.isRequired,
       preview: PropTypes.string.isRequired,
-      genre: PropTypes.oneOf([
-        `all`,
-        `comedy`,
-        `crime`,
-        `documentary`,
-        `drama`,
-        `horror`,
-        `family`,
-        `romance`,
-        `sciFi`,
-        `thriller`,
-      ]).isRequired,
+      genre: PropTypes.oneOf(appGenres).isRequired,
     })).isRequired,
   };
 

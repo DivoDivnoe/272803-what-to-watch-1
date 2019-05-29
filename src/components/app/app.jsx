@@ -5,8 +5,9 @@ import GenreTabs from '../genre-tabs/genre-tabs.jsx';
 import {connect} from 'react-redux';
 import ActionCreator, {filterFilms} from '../../reducer/reducer';
 import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
+import {appGenres} from '../../mocks/films';
 
-const FilmsListWrapped = withCurrentFilm(FilmsList);
+const FilmsListWithState = withCurrentFilm(FilmsList);
 
 class App extends PureComponent {
   render() {
@@ -154,7 +155,7 @@ class App extends PureComponent {
             <h2 className="catalog__title visually-hidden">Catalog</h2>
 
             <GenreTabs genre={genre} clickHandler={filterGenreHandler} genres={genres} />
-            <FilmsListWrapped movies={movies} />
+            <FilmsListWithState movies={movies} />
 
             <div className="catalog__more">
               <button className="catalog__button" type="button">
@@ -187,18 +188,7 @@ App.propTypes = {
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   })).isRequired,
-  genre: PropTypes.oneOf([
-    `all`,
-    `comedy`,
-    `crime`,
-    `documentary`,
-    `drama`,
-    `horror`,
-    `family`,
-    `romance`,
-    `sciFi`,
-    `thriller`,
-  ]).isRequired,
+  genre: PropTypes.oneOf(appGenres).isRequired,
   filterGenreHandler: PropTypes.func.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
