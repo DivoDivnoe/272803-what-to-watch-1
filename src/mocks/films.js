@@ -1,3 +1,16 @@
+export const appGenres = [
+  `all`,
+  `comedy`,
+  `crime`,
+  `documentary`,
+  `drama`,
+  `horror`,
+  `family`,
+  `romance`,
+  `sciFi`,
+  `thriller`,
+];
+
 export default [
   {
     title: `Иван Васильевич меняет профессию`,
