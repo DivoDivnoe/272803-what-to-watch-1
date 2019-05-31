@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../../components/video-player/video-player.jsx';
+import {appGenres} from '../../mocks/films';
 
 const withLoading = (Component) => {
   class WithLoading extends PureComponent {
@@ -17,13 +18,13 @@ const withLoading = (Component) => {
       const {isLoading} = this.state;
 
       return <Component
-        movieTitle={movie.title}
+        movieTitle={movie.name}
         stopPreview={stopPreview}
         handlePreview={handlePreview}
         isLoading={isLoading}
         renderPlayer={() => <VideoPlayer
-          image={movie.image}
-          preview={movie.preview}
+          image={movie.posterImage}
+          preview={movie.previewVideoLink}
           isPlaying={isPlaying}
           handleLoaded={this._handleLoaded}
         />}
@@ -37,12 +38,10 @@ const withLoading = (Component) => {
 
   WithLoading.propTypes = {
     movie: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      preview: PropTypes.string.isRequired,
-      genre: PropTypes.oneOf([
-        `crime`, `thriller`, `comedy`, `family`, `documentary`, `horror`, `drama`
-      ]).isRequired,
+      name: PropTypes.string.isRequired,
+      posterImage: PropTypes.string.isRequired,
+      previewVideoLink: PropTypes.string.isRequired,
+      genre: PropTypes.oneOf(appGenres).isRequired,
     }),
     handlePreview: PropTypes.func.isRequired,
     stopPreview: PropTypes.func.isRequired,

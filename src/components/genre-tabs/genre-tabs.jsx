@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import {appGenres} from '../../mocks/films';
 
 const TabName = {
-  all: `All genres`,
-  comedy: `Comedies`,
-  crime: `Crime`,
-  documentary: `Documentary`,
-  drama: `Dramas`,
-  horror: `Horror`,
-  family: `Kids & Family`,
-  romance: `Romance`,
-  sciFi: `Sci-Fi`,
-  thriller: `Thrillers`,
+  All: `All genres`,
+  Comedy: `Comedies`,
+  Crime: `Crime`,
+  Documentary: `Documentary`,
+  Drama: `Dramas`,
+  Horror: `Horror`,
+  Family: `Kids & Family`,
+  Romance: `Romance`,
+  SciFi: `Sci-Fi`,
+  Thriller: `Thrillers`,
 };
 
 const GenreTabs = ({genre, clickHandler, genres}) => {

@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import FilmsList from '../films-list/films-list.jsx';
 import GenreTabs from '../genre-tabs/genre-tabs.jsx';
 import {connect} from 'react-redux';
-import ActionCreator, {filterFilms} from '../../reducer/reducer';
+import ActionCreator from '../../reducer/application/application';
 import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
 import {appGenres} from '../../mocks/films';
+import {getFilteredFilms} from '../../reducer/data/selectors';
+import {getGenre} from '../../reducer/application/selectors';
 
 const FilmsListWithState = withCurrentFilm(FilmsList);
 
@@ -185,8 +187,8 @@ class App extends PureComponent {
 
 App.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
   })).isRequired,
   genre: PropTypes.oneOf(appGenres).isRequired,
   filterGenreHandler: PropTypes.func.isRequired,
@@ -195,8 +197,8 @@ App.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return Object.assign({}, ownProps, {
-    genre: state.genre,
-    movies: filterFilms(state.films, state.genre),
+    genre: getGenre(state),
+    movies: getFilteredFilms(state),
   });
 };
 

@@ -7,16 +7,16 @@ const MockComponent = () => <div />;
 const mock = {
   movies: [
     {
-      title: `Fantastic Beasts`,
-      image: ``,
-      genre: `comedy`,
-      preview: ``,
+      name: `Fantastic Beasts`,
+      posterImage: ``,
+      genre: `Comedy`,
+      previewVideoLink: ``,
     },
     {
-      title: `Major Payne`,
-      image: ``,
-      genre: `comedy`,
-      preview: ``,
+      name: `Major Payne`,
+      posterImage: ``,
+      genre: `Comedy`,
+      previewVideoLink: ``,
     },
   ],
 };
@@ -28,7 +28,7 @@ describe(`FilmsList component`, () => {
     const tree = create(
         <FilmsList
           movies={movies}
-          renderFilmCard={(movie) => <MockComponent key={movie.title} />}
+          renderFilmCard={(movie) => <MockComponent key={movie.name} />}
         />).toJSON();
 
     expect(tree).toMatchSnapshot();

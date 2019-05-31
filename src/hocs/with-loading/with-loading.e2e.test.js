@@ -10,10 +10,10 @@ const MockComponentWrapped = withLoading(MockComponent);
 
 const mock = {
   movie: {
-    title: `Major Payne`,
-    image: ``,
-    genre: `comedy`,
-    preview: ``,
+    name: `Major Payne`,
+    posterImage: ``,
+    genre: `Comedy`,
+    previewVideoLink: ``,
   },
   handlePreview: jest.fn(),
   stopPreview: jest.fn(),

@@ -11,16 +11,16 @@ const MockComponentWrapped = withCurrentFilm(MockComponent);
 const mock = {
   movies: [
     {
-      title: `Fantastic Beasts`,
-      image: ``,
-      genre: `comedy`,
-      preview: ``,
+      name: `Fantastic Beasts`,
+      posterImage: ``,
+      genre: `Comedy`,
+      previewVideoLink: ``,
     },
     {
-      title: `Major Payne`,
-      image: ``,
-      genre: `comedy`,
-      preview: ``,
+      name: `Major Payne`,
+      posterImage: ``,
+      genre: `Comedy`,
+      previewVideoLink: ``,
     },
   ],
 };
