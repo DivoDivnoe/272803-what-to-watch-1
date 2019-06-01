@@ -1,5 +1,7 @@
+export const ALL_GENRES_LABEL = `All`;
+
 export const appGenres = [
-  `All`,
+  ALL_GENRES_LABEL,
   `Comedy`,
   `Crime`,
   `Documentary`,

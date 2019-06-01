@@ -1,9 +1,10 @@
 import NameSpace from '../name-spaces';
 import {createSelector} from 'reselect';
 import {getGenre} from '../application/selectors';
+import {ALL_GENRES_LABEL} from '../../mocks/films';
 
 export const filterFilms = (movies, genre) => {
-  if (genre === `All`) {
+  if (genre === ALL_GENRES_LABEL) {
     return movies;
   }
 
