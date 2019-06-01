@@ -28,14 +28,14 @@ const withCurrentFilm = (Component) => {
             movie={movie}
             handlePreview={(this._setCurrentFilm)}
             stopPreview={this._resetFilm}
-            isPlaying={currentFilm === movie.title}
-            key={movie.title}
+            isPlaying={currentFilm === movie.name}
+            key={movie.name}
           />}
       />;
     }
 
-    _setCurrentFilm(title) {
-      this.setState({currentFilm: title});
+    _setCurrentFilm(name) {
+      this.setState({currentFilm: name});
     }
 
     _resetFilm() {
@@ -45,9 +45,9 @@ const withCurrentFilm = (Component) => {
 
   WithCurrentFilm.propTypes = {
     movies: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      preview: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      posterImage: PropTypes.string.isRequired,
+      previewVideoLink: PropTypes.string.isRequired,
       genre: PropTypes.oneOf(appGenres).isRequired,
     })).isRequired,
   };

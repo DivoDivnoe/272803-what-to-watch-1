@@ -5,21 +5,21 @@ import {App} from './app.jsx';
 const mock = {
   movies: [
     {
-      title: `Fantastic Beasts`,
-      image: ``,
-      genre: `comedy`,
-      preview: ``,
+      name: `Fantastic Beasts`,
+      posterImage: ``,
+      genre: `Comedy`,
+      previewVideoLink: ``,
     },
     {
-      title: `Major Payne`,
-      image: ``,
-      genre: `comedy`,
-      preview: ``,
+      name: `Major Payne`,
+      posterImage: ``,
+      genre: `Comedy`,
+      previewVideoLink: ``,
     },
   ],
-  genre: `all`,
+  genre: `All`,
   filterGenreHandler: jest.fn(),
-  genres: [`all`, `crime`, `thriller`],
+  genres: [`All`, `Crime`, `Thriller`],
 };
 
 describe(`App component`, () => {

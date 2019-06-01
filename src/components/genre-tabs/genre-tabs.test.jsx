@@ -3,9 +3,9 @@ import {create} from 'react-test-renderer';
 import GenreTabs from './genre-tabs.jsx';
 
 const mock = {
-  genre: `horror`,
+  genre: `Horror`,
   clickHandler: jest.fn(),
-  genres: [`all`, `crime`, `thriller`],
+  genres: [`All`, `Crime`, `Thriller`],
 };
 
 describe(`GenreTabs component`, () => {

@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {appGenres} from '../../mocks/films';
+import {appGenres, AppGenre} from '../../mocks/films';
 
 const TabName = {
-  all: `All genres`,
-  comedy: `Comedies`,
-  crime: `Crime`,
-  documentary: `Documentary`,
-  drama: `Dramas`,
-  horror: `Horror`,
-  family: `Kids & Family`,
-  romance: `Romance`,
-  sciFi: `Sci-Fi`,
-  thriller: `Thrillers`,
+  [AppGenre.ALL_GENRES_LABEL]: `All genres`,
+  [AppGenre.COMEDY_GENRE]: `Comedies`,
+  [AppGenre.CRIME_GENRE]: `Crime`,
+  [AppGenre.DOCUMENTARY_GENRE]: `Documentary`,
+  [AppGenre.DRAMA_GENRE]: `Dramas`,
+  [AppGenre.HORROR_GENRE]: `Horror`,
+  [AppGenre.FAMILY_GENRE]: `Kids & Family`,
+  [AppGenre.ROMANCE_GENRE]: `Romance`,
+  [AppGenre.SCIENCE_GENRE]: `Sci-Fi`,
+  [AppGenre.THRILLER_GENRE]: `Thrillers`,
+  [AppGenre.ACTION_GENRE]: `Actions`,
+  [AppGenre.ADVENTURE_GENRE]: `Adventures`,
+  [AppGenre.FANTASY_GENRE]: `Fantasy`,
 };
 
 const GenreTabs = ({genre, clickHandler, genres}) => {
