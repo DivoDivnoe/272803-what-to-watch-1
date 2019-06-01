@@ -52,14 +52,6 @@ const ActionCreator = {
   })
 };
 
-export const filterFilms = (movies, genre) => {
-  if (genre === `All`) {
-    return movies;
-  }
-
-  return movies.filter((movie) => movie.genre === genre);
-};
-
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case `LOAD_FILMS`:
