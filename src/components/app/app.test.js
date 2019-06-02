@@ -20,10 +20,23 @@ const mock = {
   genre: `All`,
   filterGenreHandler: jest.fn(),
   genres: [`All`, `Crime`, `Thriller`],
+  isAuthorizationRequired: false,
+  userData: null,
+  authUserHandler: jest.fn(),
+  changeAuthStatus: jest.fn(),
 };
 
 describe(`App component`, () => {
-  const {movies, genre, filterGenreHandler, genres} = mock;
+  const {
+    movies,
+    genre,
+    filterGenreHandler,
+    genres,
+    isAuthorizationRequired,
+    userData,
+    authUserHandler,
+    changeAuthStatus
+  } = mock;
 
   it(`renders correctly`, () => {
     const tree = renderer.create(
@@ -32,6 +45,10 @@ describe(`App component`, () => {
           genre={genre}
           filterGenreHandler={filterGenreHandler}
           genres={genres}
+          isAuthorizationRequired={isAuthorizationRequired}
+          userData={userData}
+          authUserHandler={authUserHandler}
+          changeAuthStatus={changeAuthStatus}
         />,
         {createNodeMock: (el) => {
           return el;
