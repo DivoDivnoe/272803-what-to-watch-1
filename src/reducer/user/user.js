@@ -7,13 +7,14 @@ const initialState = {
 Object.freeze(initialState);
 
 export const Operation = {
-  setUserData: (userData) => (dispatch, _getState, api) => {
+  setUserData: (userData, callback) => (dispatch, _getState, api) => {
     return api.post(`/login`, userData)
       .then((response) => {
         const transformedData = transformObjProps(response.data);
 
         dispatch(ActionCreator[`SET_USER_DATA`](transformedData));
-        dispatch(ActionCreator[`REQUIRED_AUTHORIZATION`](false));
+
+        callback();
       });
   }
 };
