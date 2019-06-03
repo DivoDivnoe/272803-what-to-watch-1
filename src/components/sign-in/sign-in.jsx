@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SignIn = (props) => {
-  const {authUserHandler} = props;
+  const {authUserHandler, history} = props;
 
   const submitFormHandler = (evt) => {
     evt.preventDefault();
@@ -12,7 +12,7 @@ const SignIn = (props) => {
     const password = target[`user-password`].value;
 
     if (email.length && password.length) {
-      authUserHandler({email, password});
+      authUserHandler({email, password}, () => history.push(`/favorites`));
     }
   };
 
@@ -79,6 +79,7 @@ const SignIn = (props) => {
 
 SignIn.propTypes = {
   authUserHandler: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default SignIn;

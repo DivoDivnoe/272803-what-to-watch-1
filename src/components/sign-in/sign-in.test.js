@@ -7,7 +7,7 @@ describe(`SignIn component`, () => {
     const authUserHandler = jest.fn();
 
     const tree = renderer.create(
-        <SignIn authUserHandler={authUserHandler} />
+        <SignIn authUserHandler={authUserHandler} history={{}} />
     );
 
     expect(tree).toMatchSnapshot();

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter} from 'react-router-dom';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
@@ -10,7 +11,7 @@ import {Operation} from './reducer/data/data';
 import {appGenres} from './mocks/films';
 import createAPI from './api';
 
-const api = createAPI((...args) => store.dispatch(...args));
+const api = createAPI();
 
 const store = createStore(
     reducer,
@@ -27,7 +28,9 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <App genres={appGenres} />
+        <BrowserRouter>
+          <App genres={appGenres} />
+        </BrowserRouter>
       </Provider>,
       root
   );

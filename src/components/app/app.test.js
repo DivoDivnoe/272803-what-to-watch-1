@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {App} from './app.jsx';
+import {BrowserRouter} from 'react-router-dom';
 
 const mock = {
   movies: [
@@ -40,16 +41,18 @@ describe(`App component`, () => {
 
   it(`renders correctly`, () => {
     const tree = renderer.create(
-        <App
-          movies={movies}
-          genre={genre}
-          filterGenreHandler={filterGenreHandler}
-          genres={genres}
-          isAuthorizationRequired={isAuthorizationRequired}
-          userData={userData}
-          authUserHandler={authUserHandler}
-          changeAuthStatus={changeAuthStatus}
-        />,
+        <BrowserRouter>
+          <App
+            movies={movies}
+            genre={genre}
+            filterGenreHandler={filterGenreHandler}
+            genres={genres}
+            isAuthorizationRequired={isAuthorizationRequired}
+            userData={userData}
+            authUserHandler={authUserHandler}
+            changeAuthStatus={changeAuthStatus}
+          />
+        </BrowserRouter>,
         {createNodeMock: (el) => {
           return el;
         }}).toJSON();

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FilmsList from '../films-list/films-list.jsx';
 import GenreTabs from '../genre-tabs/genre-tabs.jsx';
 import {connect} from 'react-redux';
+import {Switch, Route} from 'react-router-dom';
 import ActionCreator from '../../reducer/application/application';
 import UserActionCreator from '../../reducer/user/user';
 import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
@@ -11,9 +12,12 @@ import {getFilteredFilms} from '../../reducer/data/selectors';
 import {getGenre} from '../../reducer/application/selectors';
 import {getAuthorizationRequired, getUserData} from '../../reducer/user/selectors';
 import {Operation} from '../../reducer/user/user';
-import SignIn from '../../components/sign-in/sign-in.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
+import Favorites from '../favorites/favorites.jsx';
+import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
 
 const FilmsListWithState = withCurrentFilm(FilmsList);
+const PrivateRoute = withPrivateRoute(Route);
 
 class App extends PureComponent {
   constructor(props) {
@@ -21,22 +25,49 @@ class App extends PureComponent {
 
     this._renderUserBlock = this._renderUserBlock.bind(this);
     this._signIn = this._signIn.bind(this);
+    this._renderMain = this._renderMain.bind(this);
   }
 
   render() {
-    const {
-      movies,
-      genre,
-      filterGenreHandler,
-      genres,
-      isAuthorizationRequired,
-      authUserHandler,
-      userData
-    } = this.props;
+    const {authUserHandler, userData} = this.props;
 
-    if (isAuthorizationRequired && !userData) {
-      return <SignIn authUserHandler={authUserHandler} />;
+    return (
+      <Switch>
+        <Route path="/" exact render={this._renderMain} />
+        <Route path="/login" render={({history}) => (
+          <SignIn authUserHandler={authUserHandler} history={history} />
+        )} />
+        <PrivateRoute path="/favorites" userData={userData} component={Favorites} />
+      </Switch>
+    );
+  }
+
+  _renderUserBlock() {
+    const {userData} = this.props;
+
+    if (!userData) {
+      return (
+        <div className="user-block">
+          <a href="sign-in.html" className="user-block__link" onClick={this._signIn}>Sign in</a>
+        </div>
+      );
     }
+
+    return (
+      <div className="user-block__avatar">
+        <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+      </div>
+    );
+  }
+
+  _signIn(evt) {
+    evt.preventDefault();
+
+    this.props.changeAuthStatus(true);
+  }
+
+  _renderMain() {
+    const {genres, genre, movies, filterGenreHandler} = this.props;
 
     return (
       <React.Fragment>
@@ -129,30 +160,6 @@ class App extends PureComponent {
       </React.Fragment>
     );
   }
-
-  _renderUserBlock() {
-    const {userData} = this.props;
-
-    if (!userData) {
-      return (
-        <div className="user-block">
-          <a href="sign-in.html" className="user-block__link" onClick={this._signIn}>Sign in</a>
-        </div>
-      );
-    }
-
-    return (
-      <div className="user-block__avatar">
-        <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-      </div>
-    );
-  }
-
-  _signIn(evt) {
-    evt.preventDefault();
-
-    this.props.changeAuthStatus(true);
-  }
 }
 
 App.propTypes = {
@@ -191,8 +198,8 @@ const mapDispatchToProps = (dispatch) => {
     changeAuthStatus: (status) => {
       dispatch(UserActionCreator[`REQUIRED_AUTHORIZATION`](status));
     },
-    authUserHandler: (data) => {
-      dispatch(Operation.setUserData(data));
+    authUserHandler: (data, callback) => {
+      dispatch(Operation.setUserData(data, callback));
     }
   };
 };
