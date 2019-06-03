@@ -15,6 +15,8 @@ import {Operation} from '../../reducer/user/user';
 import SignIn from '../sign-in/sign-in.jsx';
 import Favorites from '../favorites/favorites.jsx';
 import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
+import Header from '../header/header.jsx';
+import Footer from '../footer/footer.jsx';
 
 const FilmsListWithState = withCurrentFilm(FilmsList);
 const PrivateRoute = withPrivateRoute(Route);
@@ -23,8 +25,6 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
 
-    this._renderUserBlock = this._renderUserBlock.bind(this);
-    this._signIn = this._signIn.bind(this);
     this._renderMain = this._renderMain.bind(this);
   }
 
@@ -42,32 +42,8 @@ class App extends PureComponent {
     );
   }
 
-  _renderUserBlock() {
-    const {userData} = this.props;
-
-    if (!userData) {
-      return (
-        <div className="user-block">
-          <a href="sign-in.html" className="user-block__link" onClick={this._signIn}>Sign in</a>
-        </div>
-      );
-    }
-
-    return (
-      <div className="user-block__avatar">
-        <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-      </div>
-    );
-  }
-
-  _signIn(evt) {
-    evt.preventDefault();
-
-    this.props.changeAuthStatus(true);
-  }
-
   _renderMain() {
-    const {genres, genre, movies, filterGenreHandler} = this.props;
+    const {genres, genre, movies, filterGenreHandler, userData} = this.props;
 
     return (
       <React.Fragment>
@@ -78,19 +54,7 @@ class App extends PureComponent {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              {this._renderUserBlock()}
-            </div>
-          </header>
+          <Header userData={userData} isMainPage={true} />
 
           <div className="movie-card__wrap">
             <div className="movie-card__info">
@@ -143,19 +107,7 @@ class App extends PureComponent {
             </div>
           </section>
 
-          <footer className="page-footer">
-            <div className="logo">
-              <a className="logo__link logo__link--light">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="copyright">
-              <p>© 2019 What to watch Ltd.</p>
-            </div>
-          </footer>
+          <Footer isMainPage={true} />
         </div>
       </React.Fragment>
     );

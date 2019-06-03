@@ -47,17 +47,13 @@ Array [
       <div
         className="user-block"
       >
-        <div
-          className="user-block"
+        <a
+          className="user-block__link"
+          href="/login"
+          onClick={[Function]}
         >
-          <a
-            className="user-block__link"
-            href="sign-in.html"
-            onClick={[Function]}
-          >
-            Sign in
-          </a>
-        </div>
+          Sign in
+        </a>
       </div>
     </header>
     <div
