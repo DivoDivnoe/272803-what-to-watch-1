@@ -1,9 +1,8 @@
 import axios from 'axios';
-import ActionCreator from './reducer/user/user';
 
 const FORBIDDEN_STATUS_CODE = 403;
 
-const createAPI = (dispatch) => {
+const createAPI = () => {
   const api = axios.create({
     baseURL: `https://es31-server.appspot.com/wtw`,
     timeout: 5000,
@@ -13,7 +12,7 @@ const createAPI = (dispatch) => {
   const onSuccess = (response) => response;
   const onFail = (err) => {
     if (err.response.status === FORBIDDEN_STATUS_CODE) {
-      dispatch(ActionCreator[`REQUIRED_AUTHORIZATION`](true));
+      history.pushState(null, null, `/login`);
     }
 
     return err;

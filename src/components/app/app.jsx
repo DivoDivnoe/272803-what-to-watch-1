@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FilmsList from '../films-list/films-list.jsx';
 import GenreTabs from '../genre-tabs/genre-tabs.jsx';
 import {connect} from 'react-redux';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import ActionCreator from '../../reducer/application/application';
 import UserActionCreator from '../../reducer/user/user';
 import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
@@ -12,7 +12,8 @@ import {getFilteredFilms} from '../../reducer/data/selectors';
 import {getGenre} from '../../reducer/application/selectors';
 import {getAuthorizationRequired, getUserData} from '../../reducer/user/selectors';
 import {Operation} from '../../reducer/user/user';
-import SignIn from '../../components/sign-in/sign-in.jsx';
+import SignIn from '../sign-in/sign-in.jsx';
+import Favorites from '../favorites/favorites.jsx';
 import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
 
 const FilmsListWithState = withCurrentFilm(FilmsList);
@@ -25,7 +26,6 @@ class App extends PureComponent {
     this._renderUserBlock = this._renderUserBlock.bind(this);
     this._signIn = this._signIn.bind(this);
     this._renderMain = this._renderMain.bind(this);
-    this._renderFavourites = this._renderFavourites.bind(this);
   }
 
   render() {
@@ -37,7 +37,7 @@ class App extends PureComponent {
         <Route path="/login" render={({history}) => (
           <SignIn authUserHandler={authUserHandler} history={history} />
         )} />
-        <PrivateRoute path="/favourites" userData={userData} render={this._renderFavourites} />
+        <PrivateRoute path="/favorites" userData={userData} component={Favorites} />
       </Switch>
     );
   }
@@ -65,8 +65,6 @@ class App extends PureComponent {
 
     this.props.changeAuthStatus(true);
   }
-
-  _renderFavourites() {}
 
   _renderMain() {
     const {genres, genre, movies, filterGenreHandler} = this.props;

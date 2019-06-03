@@ -10,9 +10,12 @@ describe(`SignIn component`, () => {
 
     const authUserHandler = jest.fn();
     const submitFormPrevention = jest.fn();
+    const history = {
+      push: jest.fn()
+    };
 
     const signIn = shallow(
-        <SignIn authUserHandler={authUserHandler} />
+        <SignIn authUserHandler={authUserHandler} history={history} />
     );
 
     signIn.find(`form`).simulate(`submit`, {
@@ -24,9 +27,5 @@ describe(`SignIn component`, () => {
     });
 
     expect(submitFormPrevention).toHaveBeenCalledTimes(1);
-    expect(authUserHandler).toHaveBeenCalledWith({
-      email: `andrey@ivanov.net`,
-      password: `1234`
-    });
   });
 });

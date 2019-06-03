@@ -18,6 +18,7 @@ const withPrivateRoute = (Component) => {
       avatarUrl: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
     }),
+    path: PropTypes.string.isRequired,
   };
 
   return WithPrivateRoute;

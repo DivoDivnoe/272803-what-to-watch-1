@@ -11,7 +11,7 @@ import {Operation} from './reducer/data/data';
 import {appGenres} from './mocks/films';
 import createAPI from './api';
 
-const api = createAPI((...args) => store.dispatch(...args));
+const api = createAPI();
 
 const store = createStore(
     reducer,

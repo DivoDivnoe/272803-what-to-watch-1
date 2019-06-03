@@ -12,7 +12,7 @@ const SignIn = (props) => {
     const password = target[`user-password`].value;
 
     if (email.length && password.length) {
-      authUserHandler({email, password}, () => history.push(`/`));
+      authUserHandler({email, password}, () => history.push(`/favorites`));
     }
   };
 
