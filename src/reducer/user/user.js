@@ -2,19 +2,30 @@ import {transformObjProps} from '../data/data';
 
 const initialState = {
   isAuthorizationRequired: false,
-  userData: null,
+  userData: {},
 };
 Object.freeze(initialState);
+
+const dispatchUserData = (dispatch, response) => {
+  const transformedData = transformObjProps(response.data);
+
+  dispatch(ActionCreator[`SET_USER_DATA`](transformedData));
+
+  console.log('data', transformedData);
+};
 
 export const Operation = {
   setUserData: (userData, callback) => (dispatch, _getState, api) => {
     return api.post(`/login`, userData)
       .then((response) => {
-        const transformedData = transformObjProps(response.data);
-
-        dispatch(ActionCreator[`SET_USER_DATA`](transformedData));
-
+        dispatchUserData(dispatch, response);
         callback();
+      });
+  },
+  checkIsAuthUser: () => (dispatch, _getState, api) => {
+    return api.get(`/login`)
+      .then((response) => {
+        dispatchUserData(dispatch, response);
       });
   }
 };

@@ -12,7 +12,7 @@ const createAPI = () => {
   const onSuccess = (response) => response;
   const onFail = (err) => {
     if (err.response.status === FORBIDDEN_STATUS_CODE) {
-      history.pushState(null, null, `/login`);
+      // history.pushState(null, null, `/login`);
     }
 
     return err;

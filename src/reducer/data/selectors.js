@@ -12,6 +12,7 @@ export const filterFilms = (movies, genre) => {
 };
 
 export const getFilms = (state) => state[NameSpace.DATA].films;
+export const getFavorites = (state) => state[NameSpace.DATA].favorites;
 export const getFilteredFilms = createSelector(
     getFilms,
     getGenre,

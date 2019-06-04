@@ -5,10 +5,10 @@ import UserBlock from '../user-block/user-block.jsx';
 
 
 const Header = (props) => {
-  const {userData, isMainPage} = props;
+  const {userData, isMainPage, additionalClassName} = props;
 
   return (
-    <header className="page-header movie-card__head">
+    <header className={`page-header ${additionalClassName}`}>
       <Logo isMainPage={isMainPage} isLight={false} />
       <UserBlock userData={userData} />
     </header>
@@ -17,12 +17,13 @@ const Header = (props) => {
 
 Header.propTypes = {
   userData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    email: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    name: PropTypes.string,
   }),
   isMainPage: PropTypes.bool.isRequired,
+  additionalClassName: PropTypes.string.isRequired,
 };
 
 export default Header;

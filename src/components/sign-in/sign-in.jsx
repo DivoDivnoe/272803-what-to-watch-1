@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Header from '../header/header.jsx';
+import Footer from '../footer/footer.jsx';
 
 const SignIn = (props) => {
-  const {authUserHandler, history} = props;
+  const {history, authUserHandler} = props;
+
+  const findPath = () => history.location.search.split(`=`)[1];
+  const redirect = () => history.push(findPath());
 
   const submitFormHandler = (evt) => {
     evt.preventDefault();
@@ -12,23 +17,13 @@ const SignIn = (props) => {
     const password = target[`user-password`].value;
 
     if (email.length && password.length) {
-      authUserHandler({email, password}, () => history.push(`/favorites`));
+      authUserHandler({email, password}, redirect);
     }
   };
 
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <a href="main.html" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
-
-        <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
+      <Header userData={{}} isMainPage={false} additionalClassName={`user-page__head`} />
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={submitFormHandler}>
@@ -60,19 +55,7 @@ const SignIn = (props) => {
         </form>
       </div>
 
-      <footer className="page-footer">
-        <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer isMainPage={false} />
     </div>
   );
 };

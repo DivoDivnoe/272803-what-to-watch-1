@@ -8,18 +8,22 @@ import ActionCreator from '../../reducer/application/application';
 import UserActionCreator from '../../reducer/user/user';
 import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
 import {appGenres} from '../../mocks/films';
-import {getFilteredFilms} from '../../reducer/data/selectors';
+import {getFilteredFilms, getFavorites} from '../../reducer/data/selectors';
 import {getGenre} from '../../reducer/application/selectors';
 import {getAuthorizationRequired, getUserData} from '../../reducer/user/selectors';
 import {Operation} from '../../reducer/user/user';
+import {Operation as dataOperation} from '../../reducer/data/data';
 import SignIn from '../sign-in/sign-in.jsx';
 import Favorites from '../favorites/favorites.jsx';
 import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
+import Catalog from '../catalog/catalog.jsx';
+import withShownFilms from '../../hocs/with-shown-films/with-shown-films';
 
 const FilmsListWithState = withCurrentFilm(FilmsList);
 const PrivateRoute = withPrivateRoute(Route);
+const CatalogWithButton = withShownFilms(Catalog);
 
 class App extends PureComponent {
   constructor(props) {
@@ -28,16 +32,33 @@ class App extends PureComponent {
     this._renderMain = this._renderMain.bind(this);
   }
 
+  componentDidMount() {
+    this.props.checkIsAuthUser();
+  }
+
   render() {
-    const {authUserHandler, userData} = this.props;
+    const {authUserHandler, userData, loadFavoritesHandler, favorites, checkIsAuthUser} = this.props;
 
     return (
       <Switch>
         <Route path="/" exact render={this._renderMain} />
         <Route path="/login" render={({history}) => (
-          <SignIn authUserHandler={authUserHandler} history={history} />
+          <SignIn authUserHandler={authUserHandler} history={history} userData/>
         )} />
-        <PrivateRoute path="/favorites" userData={userData} component={Favorites} />
+        <PrivateRoute
+          path="/favorites"
+          checkIsAuthUser={checkIsAuthUser}
+          userData={userData}
+          render={() => {
+            return (
+              <Favorites
+                loadFavoritesHandler={loadFavoritesHandler}
+                movies={favorites}
+                userData={userData}
+              />
+            );
+          }}
+        />
       </Switch>
     );
   }
@@ -54,7 +75,7 @@ class App extends PureComponent {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header userData={userData} isMainPage={true} />
+          <Header userData={userData} isMainPage={true} additionalClassName={`movie-card__head`} />
 
           <div className="movie-card__wrap">
             <div className="movie-card__info">
@@ -94,18 +115,12 @@ class App extends PureComponent {
         </section>
 
         <div className="page-content">
-          <section className="catalog">
-            <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-            <GenreTabs genre={genre} clickHandler={filterGenreHandler} genres={genres} />
-            <FilmsListWithState movies={movies} />
-
-            <div className="catalog__more">
-              <button className="catalog__button" type="button">
-                Show more
-              </button>
-            </div>
-          </section>
+          <CatalogWithButton
+            movies={movies}
+            renderTabs={() => (
+              <GenreTabs genre={genre} clickHandler={filterGenreHandler} genres={genres} />
+            )}
+          />
 
           <Footer isMainPage={true} />
         </div>
@@ -124,13 +139,19 @@ App.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   userData: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    email: PropTypes.string.isRequired,
-    avatarUrl: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    id: PropTypes.number,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    name: PropTypes.string,
   }),
   authUserHandler: PropTypes.func.isRequired,
   changeAuthStatus: PropTypes.func.isRequired,
+  loadFavoritesHandler: PropTypes.func.isRequired,
+  favorites: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
+  })).isRequired,
+  checkIsAuthUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -139,6 +160,7 @@ const mapStateToProps = (state, ownProps) => {
     movies: getFilteredFilms(state),
     isAuthorizationRequired: getAuthorizationRequired(state),
     userData: getUserData(state),
+    favorites: getFavorites(state),
   });
 };
 
@@ -152,6 +174,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     authUserHandler: (data, callback) => {
       dispatch(Operation.setUserData(data, callback));
+    },
+    loadFavoritesHandler: () => {
+      dispatch(dataOperation.loadFavorites());
+    },
+    checkIsAuthUser: () => {
+      dispatch(Operation.checkIsAuthUser());
     }
   };
 };
