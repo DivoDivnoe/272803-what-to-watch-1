@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
+import Logo from '../logo/logo.jsx';
 
-const SignIn = (props) => {
+const SignInPage = (props) => {
   const {history, authUserHandler} = props;
 
-  const findPath = () => history.location.search.split(`=`)[1];
-  const redirect = () => history.push(findPath());
+  const path = history.location.search.split(`=`)[1];
+  const redirect = () => history.push(path);
 
   const submitFormHandler = (evt) => {
     evt.preventDefault();
@@ -23,7 +24,11 @@ const SignIn = (props) => {
 
   return (
     <div className="user-page">
-      <Header userData={{}} isMainPage={false} additionalClassName={`user-page__head`} />
+      <Header extraClassName={`user-page__head`}>
+        <Logo isMainPage={false} isLight={false} />
+
+        <h1 className="page-title user-page__title">Sign in</h1>
+      </Header>
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={submitFormHandler}>
@@ -60,9 +65,15 @@ const SignIn = (props) => {
   );
 };
 
-SignIn.propTypes = {
+SignInPage.propTypes = {
   authUserHandler: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  userData: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    name: PropTypes.string,
+  }),
 };
 
-export default SignIn;
+export default SignInPage;

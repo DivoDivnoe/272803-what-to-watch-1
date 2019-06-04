@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../../components/video-player/video-player.jsx';
-import {appGenres} from '../../mocks/films';
+import {appGenres} from '../../reducer/data/data';
 
 const withLoading = (Component) => {
   class WithLoading extends PureComponent {

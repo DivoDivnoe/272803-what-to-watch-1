@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {appGenres} from '../../mocks/films';
+import {appGenres} from '../../reducer/data/data.js';
 
 const FILMS_ITER_AMOUNT = 20;
 

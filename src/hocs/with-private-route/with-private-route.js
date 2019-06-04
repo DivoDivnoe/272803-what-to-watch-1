@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom';
 
 const withPrivateRoute = (Component) => {
   const WithPrivateRoute = (props) => {
-    if (Object.keys(props.userData).length) {
+    if (props.isAuthenticated) {
       return <Component {...props} />;
     }
 
@@ -12,12 +12,7 @@ const withPrivateRoute = (Component) => {
   };
 
   WithPrivateRoute.propTypes = {
-    userData: PropTypes.shape({
-      id: PropTypes.number,
-      email: PropTypes.string,
-      avatarUrl: PropTypes.string,
-      name: PropTypes.string,
-    }),
+    isAuthenticated: PropTypes.bool.isRequired,
     path: PropTypes.string.isRequired,
   };
 

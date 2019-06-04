@@ -2,13 +2,17 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
-import FilmsList from '../films-list/films-list.jsx';
-import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
-import {appGenres} from '../../mocks/films';
+import {appGenres} from '../../reducer/data/data.js';
+import Catalog from '../catalog/catalog.jsx';
+import Logo from '../logo/logo.jsx';
+import UserBlock from '../user-block/user-block.jsx';
 
-const FilmsListWithState = withCurrentFilm(FilmsList);
 
 class Favorites extends PureComponent {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     this.props.loadFavoritesHandler();
   }
@@ -18,13 +22,19 @@ class Favorites extends PureComponent {
 
     return (
       <div className="user-page">
-        <Header userData={userData} isMainPage={false} additionalClassName={`user-page__head`} />
+        <Header extraClassName={`user-page__head`}>
+          <Logo isMainPage={false} isLight={false} />
 
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
+          <h1 className="page-title user-page__title">My list</h1>
 
-          <FilmsListWithState movies={movies} />
-        </section>
+          <UserBlock userData={userData} />
+        </Header>
+
+        <Catalog
+          movies={movies}
+          renderTabs={() => {}}
+          renderButton={() => {}}
+        />
 
         <Footer isMainPage={false} />
       </div>

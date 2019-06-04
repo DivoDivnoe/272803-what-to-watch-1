@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import FilmCard from '../../components/film-card/film-card.jsx';
 import withLoading from '../with-loading/with-loading';
-import {appGenres} from '../../mocks/films';
+import {appGenres} from '../../reducer/data/data.js';
 
 const FilmCardWithState = withLoading(FilmCard);
 

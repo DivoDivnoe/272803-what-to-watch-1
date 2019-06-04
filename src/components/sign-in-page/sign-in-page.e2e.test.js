@@ -1,11 +1,11 @@
 import React from 'react';
 import {configure, shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import SignIn from './sign-in.jsx';
+import SignInPage from './sign-in-page.jsx';
 
 configure({adapter: new Adapter()});
 
-describe(`SignIn component`, () => {
+describe(`SignInPage component`, () => {
   it(`handles correctly submit form event`, () => {
 
     const authUserHandler = jest.fn();
@@ -15,7 +15,7 @@ describe(`SignIn component`, () => {
     };
 
     const signIn = shallow(
-        <SignIn authUserHandler={authUserHandler} history={history} />
+        <SignInPage authUserHandler={authUserHandler} history={history} />
     );
 
     signIn.find(`form`).simulate(`submit`, {

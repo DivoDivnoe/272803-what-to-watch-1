@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {appGenres, AppGenre} from '../../mocks/films';
+import {appGenres, AppGenre} from '../../reducer/data/data.js';
 
 const TabName = {
   [AppGenre.ALL_GENRES_LABEL]: `All genres`,

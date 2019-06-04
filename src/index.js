@@ -8,7 +8,6 @@ import {compose} from 'recompose';
 import App from './components/app/app.jsx';
 import reducer from './reducer/index';
 import {Operation} from './reducer/data/data';
-import {appGenres} from './mocks/films';
 import createAPI from './api';
 
 const api = createAPI();
@@ -29,7 +28,7 @@ const init = () => {
   ReactDOM.render(
       <Provider store={store}>
         <BrowserRouter>
-          <App genres={appGenres} />
+          <App />
         </BrowserRouter>
       </Provider>,
       root

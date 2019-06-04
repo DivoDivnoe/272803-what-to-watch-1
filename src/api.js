@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-const FORBIDDEN_STATUS_CODE = 403;
+export const FORBIDDEN_STATUS_CODE = 403;
+export const HOST_NAME = `https://es31-server.appspot.com`;
 
 const createAPI = () => {
   const api = axios.create({
-    baseURL: `https://es31-server.appspot.com/wtw`,
+    baseURL: `${HOST_NAME}/wtw`,
     timeout: 5000,
     withCredentials: true,
   });

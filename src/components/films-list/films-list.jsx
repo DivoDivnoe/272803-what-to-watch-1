@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {appGenres} from '../../mocks/films';
+import {appGenres} from '../../reducer/data/data.js';
 
 const FilmsList = (props) => {
   const {movies, renderFilmCard} = props;

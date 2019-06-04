@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilmsList from '../films-list/films-list.jsx';
-import {appGenres} from '../../mocks/films';
+import {appGenres} from '../../reducer/data/data';
 import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
 
 const FilmsListWithState = withCurrentFilm(FilmsList);
