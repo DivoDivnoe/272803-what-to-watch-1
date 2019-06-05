@@ -1,72 +1,6 @@
-import {filterFilms} from './selectors';
 import ActionCreator, {reducer, Operation, transformObjProps} from './data';
 import MockAdapter from 'axios-mock-adapter';
 import createAPI from '../../api';
-
-describe(`filterFilms function`, () => {
-  it(`returns full films list, when all genres are chosen`, () => {
-    const films = [
-      {
-        name: `some title`,
-        posterImage: `some image`,
-        genre: `Crime`,
-        previewVideoLink: `some http`,
-      },
-      {
-        name: `some other title`,
-        posterImage: `some other image`,
-        genre: `Thriller`,
-        previewVideoLink: `some other http`,
-      },
-    ];
-
-    const filteredFilms = filterFilms(films, `All`);
-
-    expect(filteredFilms).toEqual(films);
-  });
-
-  it(`returns right films list, when one of genres is chosen`, () => {
-    const films = [
-      {
-        name: `some title`,
-        posterImage: `some image`,
-        genre: `Crime`,
-        previewVideoLink: `some http`,
-      },
-      {
-        name: `some other title`,
-        posterImage: `some other image`,
-        genre: `Thriller`,
-        previewVideoLink: `some other http`,
-      },
-    ];
-
-    const filteredFilms = filterFilms(films, `Thriller`);
-
-    expect(filteredFilms).toEqual([films[1]]);
-  });
-
-  it(`returns empty list, when there are no films with chosen genre`, () => {
-    const films = [
-      {
-        name: `some title`,
-        posterImage: `some image`,
-        genre: `Crime`,
-        previewVideoLink: `some http`,
-      },
-      {
-        name: `some other title`,
-        posterImage: `some other image`,
-        genre: `Thriller`,
-        previewVideoLink: `some other http`,
-      },
-    ];
-
-    const filteredFilms = filterFilms(films, `Drama`);
-
-    expect(filteredFilms).toEqual([]);
-  });
-});
 
 describe(`transformObjProps function`, () => {
   it(`turns snake styled props to camel case`, () => {
@@ -127,7 +61,6 @@ describe(`questionLoader function`, () => {
 
     filmsLoader(dispatch, jest.fn(), api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenCalledNthWith(1, {
           type: `LOAD_QUESTIONS`,
           payload: [{fake: true}],

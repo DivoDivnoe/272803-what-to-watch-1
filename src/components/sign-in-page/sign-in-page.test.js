@@ -6,10 +6,16 @@ import {BrowserRouter} from 'react-router-dom';
 describe(`SignInPage component`, () => {
   it(`renders correctly`, () => {
     const authUserHandler = jest.fn();
+    const history = {
+      location: {
+        search: ``
+      },
+      push: jest.fn()
+    };
 
     const tree = renderer.create(
         <BrowserRouter>
-          <SignInPage authUserHandler={authUserHandler} history={{}} />
+          <SignInPage authUserHandler={authUserHandler} history={history} />
         </BrowserRouter>
     );
 

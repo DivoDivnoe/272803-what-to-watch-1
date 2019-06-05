@@ -2,11 +2,8 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
-import AppActionCreator from '../../reducer/application/application';
 import UserActionCreator from '../../reducer/user/user';
-import {appGenres} from '../../reducer/data/data';
-import {getFilteredFilms, getFavorites, getGenres} from '../../reducer/data/selectors';
-import {getGenre} from '../../reducer/application/selectors';
+import {getFilms, getFavorites, getGenres} from '../../reducer/data/selectors';
 import {getAuthorizationRequired, getUserData} from '../../reducer/user/selectors';
 import {Operation as UserOperation} from '../../reducer/user/user';
 import DataActionCreator, {Operation as dataOperation} from '../../reducer/data/data';
@@ -32,9 +29,7 @@ class App extends PureComponent {
       favorites,
       checkIsAuthUser,
       genres,
-      genre,
       movies,
-      filterGenreHandler
     } = this.props;
 
     const isAuthenticated = !!Object.keys(userData).length;
@@ -44,9 +39,7 @@ class App extends PureComponent {
         <Route path="/" exact render={() => (
           <MainPage
             genres={genres}
-            genre={genre}
             movies={movies}
-            filterGenreHandler={filterGenreHandler}
             userData={userData}
           />
         )} />
@@ -82,8 +75,6 @@ App.propTypes = {
     name: PropTypes.string.isRequired,
     posterImage: PropTypes.string.isRequired,
   })).isRequired,
-  genre: PropTypes.oneOf(appGenres).isRequired,
-  filterGenreHandler: PropTypes.func.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   userData: PropTypes.shape({
@@ -104,8 +95,7 @@ App.propTypes = {
 
 const mapStateToProps = (state, ownProps) => {
   return Object.assign({}, ownProps, {
-    genre: getGenre(state),
-    movies: getFilteredFilms(state),
+    movies: getFilms(state),
     isAuthorizationRequired: getAuthorizationRequired(state),
     userData: getUserData(state),
     favorites: getFavorites(state),
@@ -115,9 +105,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    filterGenreHandler: (genre) => {
-      dispatch(AppActionCreator[`GENRE_FILTER`](genre));
-    },
     changeAuthStatus: (status) => {
       dispatch(UserActionCreator[`REQUIRED_AUTHORIZATION`](status));
     },

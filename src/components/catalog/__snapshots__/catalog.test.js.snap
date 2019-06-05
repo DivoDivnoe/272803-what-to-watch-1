@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Catalog component renders correctly 1`] = `
+<section
+  className="catalog"
+>
+  <h2
+    className="catalog__title visually-hidden"
+  >
+    Catalog
+  </h2>
+  <div
+    className="catalog__movies-list"
+  >
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={null}
+    >
+      <video
+        height="175"
+        poster=""
+        width="280"
+      >
+        Your browser does not support the video tag.
+      </video>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Fantastic Beasts
+        </a>
+      </h3>
+    </article>
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseEnter={null}
+    >
+      <video
+        height="175"
+        poster=""
+        width="280"
+      >
+        Your browser does not support the video tag.
+      </video>
+      <h3
+        className="small-movie-card__title"
+      >
+        <a
+          className="small-movie-card__link"
+          href="movie-page.html"
+        >
+          Major Payne
+        </a>
+      </h3>
+    </article>
+  </div>
+  <div />
+</section>
+`;

@@ -19,7 +19,6 @@ const TabName = {
 };
 
 const GenreTabs = ({genre, clickHandler, genres}) => {
-
   return (
     <ul className="catalog__genres-list">
       {genres.map((appGenre, index) => {
@@ -28,6 +27,7 @@ const GenreTabs = ({genre, clickHandler, genres}) => {
         return (
           <li className={className} key={`tab-${index}`} onClick={(evt) => {
             evt.preventDefault();
+
             clickHandler(appGenre);
           }}>
             <a href="#" className="catalog__genres-link">

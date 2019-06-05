@@ -11,6 +11,9 @@ describe(`SignInPage component`, () => {
     const authUserHandler = jest.fn();
     const submitFormPrevention = jest.fn();
     const history = {
+      location: {
+        search: ``
+      },
       push: jest.fn()
     };
 
