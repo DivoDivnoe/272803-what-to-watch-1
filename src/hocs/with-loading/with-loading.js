@@ -23,7 +23,7 @@ const withLoading = (Component) => {
         handlePreview={handlePreview}
         isLoading={isLoading}
         renderPlayer={() => <VideoPlayer
-          image={movie.posterImage}
+          image={movie.backgroundImage}
           preview={movie.previewVideoLink}
           isPlaying={isPlaying}
           handleLoaded={this._handleLoaded}

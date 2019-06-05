@@ -7,11 +7,19 @@ import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
 const FilmsListWithState = withCurrentFilm(FilmsList);
 
 const Catalog = (props) => {
-  const {movies, renderTabs, renderButton} = props;
+  const {
+    movies,
+    renderTabs,
+    renderButton,
+    extraClassName,
+    renderTitle
+  } = props;
+
+  const extraClass = extraClassName || ``;
 
   return (
-    <section className="catalog">
-      <h2 className="catalog__title visually-hidden">Catalog</h2>
+    <section className={`catalog ${extraClass}`}>
+      {renderTitle()}
 
       {renderTabs()}
 
@@ -29,8 +37,10 @@ Catalog.propTypes = {
     previewVideoLink: PropTypes.string.isRequired,
     genre: PropTypes.oneOf(appGenres).isRequired,
   })).isRequired,
+  renderTitle: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   renderButton: PropTypes.func.isRequired,
+  extraClassName: PropTypes.string,
 };
 
 export default Catalog;

@@ -70,6 +70,9 @@ class MainPage extends PureComponent {
 
         <div className="page-content">
           <CatalogInteractive
+            renderTitle={() => (
+              <h2 className="catalog__title visually-hidden">Catalog</h2>
+            )}
             movies={movies}
             genres={genres}
           />

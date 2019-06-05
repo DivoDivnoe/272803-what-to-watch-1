@@ -25,12 +25,13 @@ const withFilters = (Component) => {
     }
 
     render() {
-      const {genres} = this.props;
+      const {genres, renderTitle} = this.props;
       const {genre} = this.state;
 
       return (
         <Component
           movies={this._getSlicedMovies(this._getGenreFilteredMovies())}
+          renderTitle={renderTitle}
           renderTabs={() => (
             <GenreTabs
               genre={genre}
@@ -105,6 +106,7 @@ const withFilters = (Component) => {
       name: PropTypes.string.isRequired,
       posterImage: PropTypes.string.isRequired,
     })).isRequired,
+    renderTitle: PropTypes.func.isRequired,
   };
 
   return WithFilters;

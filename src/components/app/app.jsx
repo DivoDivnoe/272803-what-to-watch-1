@@ -12,6 +12,7 @@ import Favorites from '../favorites/favorites.jsx';
 import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
 import withPublicRedirect from '../../hocs/with-public-redirect/with-public-redirect';
 import MainPage from '../main-page/main-page.jsx';
+import FilmPage from '../film-page/film-page.jsx';
 
 const PrivateRoute = withPrivateRoute(Route);
 const RoutePublicRedirect = withPublicRedirect(Route);
@@ -41,6 +42,13 @@ class App extends PureComponent {
             genres={genres}
             movies={movies}
             userData={userData}
+          />
+        )} />
+        <Route path="/film/:id" render={({match}) => (
+          <FilmPage
+            userData={userData}
+            match={match}
+            movies={movies}
           />
         )} />
         <RoutePublicRedirect
@@ -74,6 +82,14 @@ App.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     posterImage: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    rating: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
   })).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
