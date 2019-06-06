@@ -6,6 +6,8 @@ import Catalog from '../catalog/catalog.jsx';
 import Logo from '../logo/logo.jsx';
 import UserBlock from '../user-block/user-block.jsx';
 import withFilters from '../../hocs/with-filters/with-filters';
+import PageContent from '../page-content/page-content.jsx';
+import MovieHeroButton from '../movie-hero-button/move-hero-button.jsx';
 
 const CatalogInteractive = withFilters(Catalog);
 
@@ -50,25 +52,14 @@ class MainPage extends PureComponent {
                 </p>
 
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button">
-                    <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s" />
-                    </svg>
-                    <span>Play</span>
-                  </button>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add" />
-                    </svg>
-                    <span>My list</span>
-                  </button>
+                  {[`play`, `list`].map((type, index) => <MovieHeroButton type={type} key={`${type}-${index}`} />)}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <div className="page-content">
+        <PageContent>
           <CatalogInteractive
             renderTitle={() => (
               <h2 className="catalog__title visually-hidden">Catalog</h2>
@@ -78,7 +69,7 @@ class MainPage extends PureComponent {
           />
 
           <Footer isMainPage={true} />
-        </div>
+        </PageContent>
       </React.Fragment>
     );
   }

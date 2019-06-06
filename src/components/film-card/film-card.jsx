@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 const TIMEOUT = 1000;
 
 const FilmCard = (props) => {
-  const {movieTitle, renderPlayer, isLoading, stopPreview, handlePreview} = props;
+  const {
+    movieTitle,
+    renderPlayer,
+    isLoading,
+    stopPreview,
+    handlePreview,
+    movieId,
+  } = props;
 
   const mouseEnterHandler = (evt) => {
     const {currentTarget} = evt;
@@ -27,9 +35,9 @@ const FilmCard = (props) => {
     >
       {renderPlayer()}
       <h3 className="small-movie-card__title" >
-        <a className="small-movie-card__link" href="movie-page.html">
+        <Link className="small-movie-card__link" to={`/film/${movieId}`}>
           {movieTitle}
-        </a>
+        </Link>
       </h3>
     </article>
   );
@@ -41,6 +49,7 @@ FilmCard.propTypes = {
   stopPreview: PropTypes.func.isRequired,
   handlePreview: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  movieId: PropTypes.number.isRequired,
 };
 
 export default FilmCard;

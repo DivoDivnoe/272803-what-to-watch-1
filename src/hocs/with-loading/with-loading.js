@@ -19,11 +19,12 @@ const withLoading = (Component) => {
 
       return <Component
         movieTitle={movie.name}
+        movieId={movie.id}
         stopPreview={stopPreview}
         handlePreview={handlePreview}
         isLoading={isLoading}
         renderPlayer={() => <VideoPlayer
-          image={movie.backgroundImage}
+          image={movie.previewImage}
           preview={movie.previewVideoLink}
           isPlaying={isPlaying}
           handleLoaded={this._handleLoaded}

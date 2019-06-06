@@ -10,8 +10,6 @@ const dispatchUserData = (dispatch, response) => {
   const transformedData = transformObjProps(response.data);
 
   dispatch(ActionCreator[`SET_USER_DATA`](transformedData));
-
-  console.log('data', transformedData);
 };
 
 export const Operation = {

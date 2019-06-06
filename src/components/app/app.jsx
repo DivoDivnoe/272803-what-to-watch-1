@@ -28,7 +28,6 @@ class App extends PureComponent {
       userData,
       loadFavoritesHandler,
       favorites,
-      checkIsAuthUser,
       genres,
       movies,
     } = this.props;
@@ -63,7 +62,6 @@ class App extends PureComponent {
           )} />
         <PrivateRoute
           path="/favorites"
-          checkIsAuthUser={checkIsAuthUser}
           isAuthenticated={isAuthenticated}
           render={() => (
             <Favorites

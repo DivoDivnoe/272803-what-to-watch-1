@@ -1,9 +1,19 @@
 import React, {PureComponent} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Footer from '../footer/footer.jsx';
 import Header from '../header/header.jsx';
 import UserBlock from '../user-block/user-block.jsx';
 import Logo from '../logo/logo.jsx';
+import Catalog from '../catalog/catalog.jsx';
+import PageContent from '../page-content/page-content.jsx';
+import MovieHeroButton, {MovieHeroButtonType} from '../movie-hero-button/move-hero-button.jsx';
+import FilmOverview from '../film-overview/film-overview.jsx';
+import FilmDetails from '../film-details/film-details.jsx';
+import FilmReviews from '../film-reviews/film-reviews.jsx';
+import withLoadComments from '../../hocs/with-load-comments/with-load-comments.js';
+
+const FilmReviewsWithLoading = withLoadComments(FilmReviews);
 
 const FilmPageTab = {
   FILM_OVERVIEW_LABEL: `Overview`,
@@ -12,6 +22,13 @@ const FilmPageTab = {
 };
 
 const filmPageTabs = Object.keys(FilmPageTab).map((key) => FilmPageTab[key]);
+const buttonTypes = Object.keys(MovieHeroButtonType);
+
+const TabContentRenderer = {
+  [FilmPageTab.FILM_OVERVIEW_LABEL]: FilmOverview,
+  [FilmPageTab.FILM_DETAILS_LABEL]: FilmDetails,
+  [FilmPageTab.FILM_REVIEWS_LABEL]: FilmReviewsWithLoading,
+};
 
 class FilmPage extends PureComponent {
   constructor(props) {
@@ -27,11 +44,20 @@ class FilmPage extends PureComponent {
     };
   }
 
+  _setTab(label) {
+    this.setState({tab: label});
+  }
+
   componentDidUpdate(prevProps) {
     if (!prevProps.movies.length && this.props.movies.length) {
       this._setFilm();
       this._setSimilarFilms();
+      console.log('film', this.film)
     }
+  }
+
+  _renderTabContent(Component) {
+    return <Component film={this.film} id={this.id} />;
   }
 
   _setFilm() {
@@ -49,8 +75,6 @@ class FilmPage extends PureComponent {
     const {userData} = this.props;
     const {tab} = this.state;
     const {film} = this;
-
-    console.log('film', film)
 
     return (
       <React.Fragment>
@@ -76,19 +100,9 @@ class FilmPage extends PureComponent {
                 </p>
 
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button">
-                    <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s"></use>
-                    </svg>
-                    <span>Play</span>
-                  </button>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                    <span>My list</span>
-                  </button>
-                  <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                  {buttonTypes.map((type, index) => <MovieHeroButton type={type} key={`${type}-${index}`} />)}
+
+                  <Link to="/" className="btn movie-card__button">Add review</Link>
                 </div>
               </div>
             </div>
@@ -104,82 +118,40 @@ class FilmPage extends PureComponent {
                 <nav className="movie-nav movie-card__nav">
                   <ul className="movie-nav__list">
                     {filmPageTabs.map((label, index) => (
-                      <li className={`movie-nav__item ${label === tab ? `movie-nav__item--active` : ``}`} key={`label-${index}`}>
+                      <li
+                        className={`movie-nav__item ${label === tab ? `movie-nav__item--active` : ``}`}
+                        key={`label-${index}`}
+                        onClick={(evt) => {
+                          evt.preventDefault();
+
+                          this._setTab(label);
+                        }}
+                      >
                         <a href="#" className="movie-nav__link">{label}</a>
                       </li>
                     ))}
                   </ul>
                 </nav>
 
-                <div className="movie-rating">
-                  <div className="movie-rating__score">{film.rating}</div>
-                  <p className="movie-rating__meta">
-                    <span className="movie-rating__level">Very good</span>
-                    <span className="movie-rating__count">{film.scoresCount} ratings</span>
-                  </p>
-                </div>
-
-                <div className="movie-card__text">
-                  <p>{film.description}</p>
-
-                  <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
-
-                  <p className="movie-card__starring"><strong>Starring: {film.starring && film.starring.join(`, `)} and other</strong></p>
-                </div>
+                {this._renderTabContent(TabContentRenderer[this.state.tab])}
               </div>
             </div>
           </div>
         </section>
 
-        <div className="page-content">
-          <section className="catalog catalog--like-this">
-            <h2 className="catalog__title">More like this</h2>
-
-            <div className="catalog__movies-list">
-              <article className="small-movie-card catalog__movies-card">
-                <button className="small-movie-card__play-btn" type="button">Play</button>
-                <div className="small-movie-card__image">
-                  <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <button className="small-movie-card__play-btn" type="button">Play</button>
-                <div className="small-movie-card__image">
-                  <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <button className="small-movie-card__play-btn" type="button">Play</button>
-                <div className="small-movie-card__image">
-                  <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-                </h3>
-              </article>
-
-              <article className="small-movie-card catalog__movies-card">
-                <button className="small-movie-card__play-btn" type="button">Play</button>
-                <div className="small-movie-card__image">
-                  <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-                </h3>
-              </article>
-            </div>
-          </section>
+        <PageContent>
+          <Catalog
+            movies={this.similarFilms}
+            extraClassName={`catalog--like-this`}
+            renderTitle={() => (
+              <h2 className="catalog__title">More like this</h2>
+            )}
+            renderTabs={() => {}}
+            renderButton={() => {}}
+          />
 
           <Footer isMainPage={false} />
-        </div>
+        </PageContent>
       </React.Fragment>
     );
   }
