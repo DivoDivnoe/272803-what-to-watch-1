@@ -8,7 +8,12 @@ import UserBlock from '../user-block/user-block.jsx';
 import withFilters from '../../hocs/with-filters/with-filters';
 import PageContent from '../page-content/page-content.jsx';
 import MovieHeroButton from '../movie-hero-button/move-hero-button.jsx';
+import MovieHero from '../movie-hero/movie-hero.jsx';
+import withLoading from '../../hocs/with-loading/with-loading';
+import withPlaying from '../../hocs/with-playing/with-playing';
+import {appGenres} from '../../reducer/data/data';
 
+const MovieHeroWithLoading = withPlaying(withLoading(MovieHero));
 const CatalogInteractive = withFilters(Catalog);
 
 class MainPage extends PureComponent {
@@ -19,45 +24,27 @@ class MainPage extends PureComponent {
       userData,
     } = this.props;
 
+    const renderMovieHero = () => {
+      if (movies.length) {
+        const randomMovie = movies[Math.floor(Math.random() * movies.length)];
+
+        console.log('data', userData)
+
+        return (
+          <MovieHeroWithLoading
+            userData={userData}
+            movie={randomMovie}
+            isFull={true}
+          />
+        );
+      }
+
+      return null;
+    };
+
     return (
       <React.Fragment>
-        <section className="movie-card">
-          <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
-          </div>
-
-          <h1 className="visually-hidden">WTW</h1>
-
-          <Header extraClassName="movie-card__head">
-            <Logo isMainPage={true} isLight={false} />
-            <UserBlock userData={userData} />
-          </Header>
-
-          <div className="movie-card__wrap">
-            <div className="movie-card__info">
-              <div className="movie-card__poster">
-                <img
-                  src="img/the-grand-budapest-hotel-poster.jpg"
-                  alt="The Grand Budapest Hotel poster"
-                  width="218"
-                  height="327"
-                />
-              </div>
-
-              <div className="movie-card__desc">
-                <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
-                <p className="movie-card__meta">
-                  <span className="movie-card__genre">Drama</span>
-                  <span className="movie-card__year">2014</span>
-                </p>
-
-                <div className="movie-card__buttons">
-                  {[`play`, `list`].map((type, index) => <MovieHeroButton type={type} key={`${type}-${index}`} />)}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {renderMovieHero()}
 
         <PageContent>
           <CatalogInteractive
@@ -79,6 +66,15 @@ MainPage.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     posterImage: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    rating: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    genre: PropTypes.oneOf(appGenres).isRequired,
   })).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   userData: PropTypes.shape({

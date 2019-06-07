@@ -6,7 +6,7 @@ import UserActionCreator from '../../reducer/user/user';
 import {getFilms, getFavorites, getGenres} from '../../reducer/data/selectors';
 import {getAuthorizationRequired, getUserData} from '../../reducer/user/selectors';
 import {Operation as UserOperation} from '../../reducer/user/user';
-import DataActionCreator, {Operation as dataOperation} from '../../reducer/data/data';
+import DataActionCreator, {Operation as dataOperation, appGenres} from '../../reducer/data/data';
 import SignInPage from '../sign-in-page/sign-in-page.jsx';
 import Favorites from '../favorites/favorites.jsx';
 import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
@@ -88,6 +88,7 @@ App.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     released: PropTypes.number.isRequired,
+    genre: PropTypes.oneOf(appGenres).isRequired,
   })).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,

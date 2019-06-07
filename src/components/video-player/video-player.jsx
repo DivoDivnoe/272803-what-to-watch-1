@@ -11,7 +11,7 @@ class VideoPlayer extends PureComponent {
   componentDidMount() {
     const video = this._videoRef.current;
 
-    video.src = this.props.preview;
+    video.src = this.props.video;
     video.muted = true;
 
     video.oncanplaythrough = () => {
@@ -35,18 +35,17 @@ class VideoPlayer extends PureComponent {
     const video = this._videoRef.current;
 
     video.oncanplaythrough = null;
-    video.onmouseenter = null;
     video.src = ``;
   }
 
   render() {
-    const {image} = this.props;
+    const {image, size} = this.props;
 
     return (
       <video
         ref={this._videoRef}
-        width="280"
-        height="175"
+        width={size.width}
+        height={size.height}
         poster={image}
       >
       Your browser does not support the video tag.
@@ -57,9 +56,13 @@ class VideoPlayer extends PureComponent {
 
 VideoPlayer.propTypes = {
   image: PropTypes.string.isRequired,
-  preview: PropTypes.string.isRequired,
+  video: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   handleLoaded: PropTypes.func.isRequired,
+  size: PropTypes.shape({
+    width: PropTypes.string,
+    height: PropTypes.string,
+  }).isRequired,
 };
 
 export default VideoPlayer;

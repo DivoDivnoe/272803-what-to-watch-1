@@ -26,6 +26,7 @@ const withCurrentFilm = (Component) => {
         renderFilmCard={(movie) =>
           <FilmCardWithState
             movie={movie}
+            isFull={false}
             handlePreview={(this._setCurrentFilm)}
             stopPreview={this._resetFilm}
             isPlaying={currentFilm === movie.name}

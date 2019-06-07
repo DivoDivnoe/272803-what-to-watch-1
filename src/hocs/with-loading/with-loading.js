@@ -14,20 +14,18 @@ const withLoading = (Component) => {
     }
 
     render() {
-      const {movie, isPlaying, stopPreview, handlePreview} = this.props;
+      const {movie, isPlaying, isFull} = this.props;
       const {isLoading} = this.state;
 
       return <Component
-        movieTitle={movie.name}
-        movieId={movie.id}
-        stopPreview={stopPreview}
-        handlePreview={handlePreview}
+        {...this.props}
         isLoading={isLoading}
-        renderPlayer={() => <VideoPlayer
-          image={movie.previewImage}
-          preview={movie.previewVideoLink}
+        renderPlayer={(size) => <VideoPlayer
+          image={isFull ? movie.backgroundImage : movie.previewImage}
+          video={isFull ? movie.videoLink : movie.previewVideoLink}
           isPlaying={isPlaying}
           handleLoaded={this._handleLoaded}
+          size={size}
         />}
       />;
     }
@@ -43,10 +41,10 @@ const withLoading = (Component) => {
       posterImage: PropTypes.string.isRequired,
       previewVideoLink: PropTypes.string.isRequired,
       genre: PropTypes.oneOf(appGenres).isRequired,
+      videoLink: PropTypes.string.isRequired,
     }),
-    handlePreview: PropTypes.func.isRequired,
-    stopPreview: PropTypes.func.isRequired,
     isPlaying: PropTypes.bool.isRequired,
+    isFull: PropTypes.bool.isRequired,
   };
 
   return WithLoading;
