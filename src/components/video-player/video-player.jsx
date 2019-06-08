@@ -9,26 +9,42 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
+    const {isFull, updateTimeHandler} = this.props;
     const video = this._videoRef.current;
 
     video.src = this.props.video;
-    video.muted = true;
 
     video.oncanplaythrough = () => {
       this.props.handleLoaded();
     };
+
+    if (isFull) {
+      // video.ontimeupdate = () => {
+      //   updateTimeHandler();
+      // };
+    } else {
+      video.muted = true;
+    }
   }
 
   componentDidUpdate() {
     const video = this._videoRef.current;
+    const {isFull, isPlaying, currentTime} = this.props;
 
-    if (this.props.isPlaying) {
+    if (isPlaying) {
       video.play();
     } else {
       video.pause();
-      video.currentTime = 0;
-      video.load();
+
+      if (!isFull) {
+        video.currentTime = 0;
+        video.load();
+      }
     }
+
+    // if (isFull && video.currentTime && video.currentTime !== currentTime) {
+    //   video.currentTime = currentTime;
+    // }
   }
 
   componentWillUnmount() {
@@ -39,7 +55,7 @@ class VideoPlayer extends PureComponent {
   }
 
   render() {
-    const {image, size} = this.props;
+    const {image, size, className} = this.props;
 
     return (
       <video
@@ -47,6 +63,7 @@ class VideoPlayer extends PureComponent {
         width={size.width}
         height={size.height}
         poster={image}
+        className={className || ``}
       >
       Your browser does not support the video tag.
       </video>
@@ -59,10 +76,14 @@ VideoPlayer.propTypes = {
   video: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   handleLoaded: PropTypes.func.isRequired,
+  isFull: PropTypes.bool.isRequired,
+  currentTime: PropTypes.number,
+  className: PropTypes.string,
   size: PropTypes.shape({
     width: PropTypes.string,
     height: PropTypes.string,
-  }).isRequired,
+  }),
+  updateTimeHandler: PropTypes.func,
 };
 
 export default VideoPlayer;

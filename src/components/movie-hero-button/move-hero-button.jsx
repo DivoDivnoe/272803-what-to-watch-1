@@ -25,13 +25,13 @@ export const MovieHeroButtonType = {
 };
 
 const MovieHeroButton = (props) => {
-  const {type} = props;
+  const {type, clickHandler} = props;
   const {title, renderIcon} = MovieHeroButtonType[type];
 
   const className = `btn btn--${type} movie-card__button`;
 
   return (
-    <button className={className} type="button">
+    <button className={className} type="button" onClick={clickHandler}>
       {renderIcon()}
       <span>{title}</span>
     </button>
@@ -40,6 +40,7 @@ const MovieHeroButton = (props) => {
 
 MovieHeroButton.propTypes = {
   type: PropTypes.oneOf([`play`, `list`]),
+  clickHandler: PropTypes.func.isRequired,
 };
 
 export default MovieHeroButton;

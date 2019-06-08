@@ -20,12 +20,14 @@ const withLoading = (Component) => {
       return <Component
         {...this.props}
         isLoading={isLoading}
-        renderPlayer={(size) => <VideoPlayer
+        renderPlayer={(options) => <VideoPlayer
           image={isFull ? movie.backgroundImage : movie.previewImage}
           video={isFull ? movie.videoLink : movie.previewVideoLink}
           isPlaying={isPlaying}
           handleLoaded={this._handleLoaded}
-          size={size}
+          size={options.size}
+          className={options.className}
+          isFull={isFull}
         />}
       />;
     }

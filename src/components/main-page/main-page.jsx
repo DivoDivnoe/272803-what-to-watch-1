@@ -1,64 +1,47 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
 import Catalog from '../catalog/catalog.jsx';
-import Logo from '../logo/logo.jsx';
-import UserBlock from '../user-block/user-block.jsx';
 import withFilters from '../../hocs/with-filters/with-filters';
 import PageContent from '../page-content/page-content.jsx';
-import MovieHeroButton from '../movie-hero-button/move-hero-button.jsx';
 import MovieHero from '../movie-hero/movie-hero.jsx';
-import withLoading from '../../hocs/with-loading/with-loading';
-import withPlaying from '../../hocs/with-playing/with-playing';
 import {appGenres} from '../../reducer/data/data';
+import withLoading from '../../hocs/with-loading/with-loading';
+import withPlayerControls from '../../hocs/with-player-controls/with-player-controls';
+import PlayerMain from '../player-main/player-main.jsx';
 
-const MovieHeroWithLoading = withPlaying(withLoading(MovieHero));
 const CatalogInteractive = withFilters(Catalog);
+const Player = withPlayerControls(withLoading(PlayerMain));
 
 class MainPage extends PureComponent {
   render() {
-    const {
-      genres,
-      movies,
-      userData,
-    } = this.props;
+    const {isPlayerActive, movies, genres, movie, switchPlayer, userData} = this.props;
 
-    const renderMovieHero = () => {
-      if (movies.length) {
-        const randomMovie = movies[Math.floor(Math.random() * movies.length)];
-
-        console.log('data', userData)
-
-        return (
-          <MovieHeroWithLoading
+    if (!isPlayerActive) {
+      return (
+        <React.Fragment>
+          <MovieHero
             userData={userData}
-            movie={randomMovie}
-            isFull={true}
-          />
-        );
-      }
-
-      return null;
-    };
-
-    return (
-      <React.Fragment>
-        {renderMovieHero()}
-
-        <PageContent>
-          <CatalogInteractive
-            renderTitle={() => (
-              <h2 className="catalog__title visually-hidden">Catalog</h2>
-            )}
-            movies={movies}
-            genres={genres}
+            movie={movie}
+            switchPlayer={switchPlayer}
           />
 
-          <Footer isMainPage={true} />
-        </PageContent>
-      </React.Fragment>
-    );
+          <PageContent>
+            <CatalogInteractive
+              renderTitle={() => (
+                <h2 className="catalog__title visually-hidden">Catalog</h2>
+              )}
+              movies={movies}
+              genres={genres}
+            />
+
+            <Footer isMainPage={true} />
+          </PageContent>
+        </React.Fragment>
+      );
+    }
+
+    return <Player movie={movie} switchPlayer={switchPlayer} />;
   }
 }
 
@@ -76,6 +59,19 @@ MainPage.propTypes = {
     released: PropTypes.number.isRequired,
     genre: PropTypes.oneOf(appGenres).isRequired,
   })).isRequired,
+  movie: PropTypes.shape({
+    name: PropTypes.string,
+    posterImage: PropTypes.string,
+    description: PropTypes.string,
+    director: PropTypes.string,
+    starring: PropTypes.arrayOf(PropTypes.string),
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    backgroundImage: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    released: PropTypes.number,
+    genre: PropTypes.oneOf(appGenres),
+  }),
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   userData: PropTypes.shape({
     id: PropTypes.number,
@@ -83,6 +79,8 @@ MainPage.propTypes = {
     avatarUrl: PropTypes.string,
     name: PropTypes.string,
   }),
+  isPlayerActive: PropTypes.bool.isRequired,
+  switchPlayer: PropTypes.func.isRequired,
 };
 
 export default MainPage;

@@ -1,0 +1,120 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import {appGenres} from '../../reducer/data/data';
+import Fullscreen from 'react-full-screen';
+
+const PlayerMain = (props) => {
+  const {
+    currentTime,
+    isLoading,
+    renderPlayer,
+    movie,
+    switchPlayer,
+    isPlaying,
+    togglePlay,
+    isFullScreen,
+    toggleFullScreen,
+    setFullScreen,
+  } = props;
+
+  const renderPreloader = () => (
+    <div
+      className="player__preloader"
+      style={{position: `absolute`, left: `50%`, top: `50%`, transform: `translate(-50%, -50%)`}}
+    >
+      <img src="/img/preloader.gif" width="50" height="50" alt="preload" />
+    </div>
+  );
+
+  const renderButtonContent = () => {
+    if (isPlaying) {
+      return (
+        <React.Fragment>
+          <svg viewBox="0 0 14 21" width="14" height="21">
+            <use xlinkHref="#pause"></use>
+          </svg>
+          <span>Pause</span>
+        </React.Fragment>
+      );
+    }
+
+    return (
+      <React.Fragment>
+        <svg viewBox="0 0 19 19" width="19" height="19">
+          <use xlinkHref="#play-s"></use>
+        </svg>
+        <span>Play</span>
+      </React.Fragment>
+    );
+  };
+
+  return (
+    <Fullscreen
+      enabled={isFullScreen}
+      onChange={(isFull) => setFullScreen(isFull)}
+    >
+      <div className="player">
+        {isLoading && renderPreloader()}
+        {renderPlayer({
+          size: {width: `100%`, height: `100%`},
+          className: `player__video`
+        })}
+
+        <button type="button" className="player__exit" onClick={switchPlayer}>Exit</button>
+
+        <div className="player__controls">
+          <div className="player__controls-row">
+            <div className="player__time">
+              <progress className="player__progress" value="30" max="100"></progress>
+              <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
+            </div>
+            <div className="player__time-value">1:30:29</div>
+          </div>
+
+          <div className="player__controls-row">
+            <button type="button" className="player__play" onClick={togglePlay}>
+              {renderButtonContent()}
+            </button>
+            <div className="player__name">Transpotting</div>
+
+            <button type="button" className="player__full-screen" onClick={toggleFullScreen}>
+              <svg viewBox="0 0 27 27" width="27" height="27">
+                <use xlinkHref="#full-screen"></use>
+              </svg>
+              <span>Full screen</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </Fullscreen>
+  );
+};
+
+PlayerMain.propTypes = {
+  renderPlayer: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  isFullScreen: PropTypes.bool.isRequired,
+  currentTime: PropTypes.number.isRequired,
+  setCurrentTime: PropTypes.func.isRequired,
+  resetPlayer: PropTypes.func.isRequired,
+  togglePlay: PropTypes.func.isRequired,
+  toggleFullScreen: PropTypes.func.isRequired,
+  switchPlayer: PropTypes.func.isRequired,
+  setFullScreen: PropTypes.func.isRequired,
+  movie: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    rating: PropTypes.number.isRequired,
+    scoresCount: PropTypes.number.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    genre: PropTypes.oneOf(appGenres).isRequired,
+  }),
+};
+
+export default PlayerMain;

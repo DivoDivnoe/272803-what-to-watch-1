@@ -7,12 +7,16 @@ import UserBlock from '../user-block/user-block.jsx';
 import {appGenres} from '../../reducer/data/data';
 
 const MovieHero = (props) => {
-  const {userData, renderPlayer, movie, isPlaying, isPlayingMode} = props;
+  const {userData, movie, switchPlayer} = props;
+  const buttonObjs = [
+    {type: `play`, handler: switchPlayer},
+    {type: `list`, handler: () => {}}
+  ];
 
   return (
     <section className="movie-card">
       <div className="movie-card__bg" style={{backgroundColor: movie.backgroundColor}}>
-        {!isPlayingMode && <img src={movie.backgroundImage} alt={movie.name}/>}
+        {<img src={movie.backgroundImage} alt={movie.name}/>}
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -25,12 +29,12 @@ const MovieHero = (props) => {
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <div className="movie-card__poster">
-            {<img
+            <img
               src={movie.posterImage}
               alt={movie.name}
               width="218"
               height="327"
-            />}
+            />
           </div>
 
           <div className="movie-card__desc">
@@ -41,7 +45,9 @@ const MovieHero = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              {[`play`, `list`].map((type, index) => <MovieHeroButton type={type} key={`${type}-${index}`} />)}
+              {buttonObjs.map((item, index) => (
+                <MovieHeroButton type={item.type} key={`${item.type}-${index}`} clickHandler={item.handler} />
+              ))}
             </div>
           </div>
         </div>
@@ -57,14 +63,20 @@ MovieHero.propTypes = {
     avatarUrl: PropTypes.string,
     name: PropTypes.string,
   }),
-  renderPlayer: PropTypes.func.isRequired,
   movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    previewVideoLink: PropTypes.string.isRequired,
-    genre: PropTypes.oneOf(appGenres).isRequired,
-    videoLink: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    posterImage: PropTypes.string,
+    description: PropTypes.string,
+    director: PropTypes.string,
+    starring: PropTypes.arrayOf(PropTypes.string),
+    rating: PropTypes.number,
+    scoresCount: PropTypes.number,
+    backgroundImage: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    released: PropTypes.number,
+    genre: PropTypes.oneOf(appGenres),
   }),
+  switchPlayer: PropTypes.func.isRequired,
 };
 
 export default MovieHero;

@@ -15,6 +15,8 @@ import withLoadComments from '../../hocs/with-load-comments/with-load-comments.j
 
 const FilmReviewsWithLoading = withLoadComments(FilmReviews);
 
+const SIMILAR_FILMS_AMOUNT = 4;
+
 const FilmPageTab = {
   FILM_OVERVIEW_LABEL: `Overview`,
   FILM_DETAILS_LABEL: `Details`,
@@ -33,11 +35,6 @@ const TabContentRenderer = {
 class FilmPage extends PureComponent {
   constructor(props) {
     super(props);
-    const {match} = props;
-
-    this.id = +match.params.id;
-    this._setFilm();
-    this._setSimilarFilms();
 
     this.state = {
       tab: FilmPageTab.FILM_OVERVIEW_LABEL,
@@ -48,40 +45,30 @@ class FilmPage extends PureComponent {
     this.setState({tab: label});
   }
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.movies.length && this.props.movies.length) {
-      this._setFilm();
-      this._setSimilarFilms();
-      console.log('film', this.film)
-    }
-  }
-
-  _renderTabContent(Component) {
-    return <Component film={this.film} id={this.id} />;
-  }
-
-  _setFilm() {
-    this.film = this.props.movies.find((movie) => movie.id === this.id) || {};
-  }
-
-  _setSimilarFilms() {
-    this.similarFilms = this.props.movies
-      .filter((movie) => movie.genre === this.film.genre && movie.name !== this.film.name)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 4);
+  _renderTabContent(Component, film, id) {
+    return <Component film={film} id={id} />;
   }
 
   render() {
-    const {userData} = this.props;
+    const {userData, movies, match} = this.props;
     const {tab} = this.state;
-    const {film} = this;
+
+    const film = movies.find((movie) => movie.id === +match.params.id) || {};
+    const similarFilms = movies
+      .filter((movie) => movie.genre === film.genre && movie.name !== film.name)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, SIMILAR_FILMS_AMOUNT);
 
     return (
       <React.Fragment>
         <section className="movie-card movie-card--full">
           <div className="movie-card__hero">
             <div className="movie-card__bg">
-              <img src={film.backgroundImage} alt={film.name} style={{backgroundColor: film.backgroundColor}} />
+              <img
+                src={film.backgroundImage}
+                alt={film.name}
+                style={{backgroundColor: film.backgroundColor}}
+              />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -100,9 +87,13 @@ class FilmPage extends PureComponent {
                 </p>
 
                 <div className="movie-card__buttons">
-                  {buttonTypes.map((type, index) => <MovieHeroButton type={type} key={`${type}-${index}`} />)}
+                  {buttonTypes.map((type, index) => (
+                    <MovieHeroButton type={type} key={`${type}-${index}`} />
+                  ))}
 
-                  <Link to="/" className="btn movie-card__button">Add review</Link>
+                  <Link to="/" className="btn movie-card__button">
+                    Add review
+                  </Link>
                 </div>
               </div>
             </div>
@@ -119,7 +110,9 @@ class FilmPage extends PureComponent {
                   <ul className="movie-nav__list">
                     {filmPageTabs.map((label, index) => (
                       <li
-                        className={`movie-nav__item ${label === tab ? `movie-nav__item--active` : ``}`}
+                        className={`movie-nav__item ${
+                          label === tab ? `movie-nav__item--active` : ``
+                        }`}
                         key={`label-${index}`}
                         onClick={(evt) => {
                           evt.preventDefault();
@@ -127,13 +120,15 @@ class FilmPage extends PureComponent {
                           this._setTab(label);
                         }}
                       >
-                        <a href="#" className="movie-nav__link">{label}</a>
+                        <a href="#" className="movie-nav__link">
+                          {label}
+                        </a>
                       </li>
                     ))}
                   </ul>
                 </nav>
 
-                {this._renderTabContent(TabContentRenderer[this.state.tab])}
+                {this._renderTabContent(TabContentRenderer[this.state.tab], film, +match.params.id)}
               </div>
             </div>
           </div>
@@ -141,11 +136,9 @@ class FilmPage extends PureComponent {
 
         <PageContent>
           <Catalog
-            movies={this.similarFilms}
+            movies={similarFilms}
             extraClassName={`catalog--like-this`}
-            renderTitle={() => (
-              <h2 className="catalog__title">More like this</h2>
-            )}
+            renderTitle={() => <h2 className="catalog__title">More like this</h2>}
             renderTabs={() => {}}
             renderButton={() => {}}
           />
@@ -164,18 +157,20 @@ FilmPage.propTypes = {
     avatarUrl: PropTypes.string,
     name: PropTypes.string,
   }),
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    rating: PropTypes.number.isRequired,
-    scoresCount: PropTypes.number.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-  })).isRequired,
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+        rating: PropTypes.number.isRequired,
+        scoresCount: PropTypes.number.isRequired,
+        backgroundImage: PropTypes.string.isRequired,
+        backgroundColor: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+      })
+  ).isRequired,
   match: PropTypes.object.isRequired,
 };
 

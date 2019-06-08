@@ -29,7 +29,10 @@ class FilmCard extends PureComponent {
         onMouseEnter={isLoading ? null : this._mouseEnterHandler}
       >
         <Link to={link}>
-          {renderPlayer({width: `280`, height: `175`})}
+          {renderPlayer({
+            size: {width: `280`, height: `175`},
+            className: ``,
+          })}
         </Link>
         <h3 className="small-movie-card__title" >
           <Link className="small-movie-card__link" to={link}>
@@ -62,7 +65,6 @@ class FilmCard extends PureComponent {
     currentTarget.onmouseleave = () => {
       stopPreview();
       clearTimeout(this.timeoutId);
-      console.log('leave')
       currentTarget.onmouseleave = null;
       delete this.timeoutId;
     };

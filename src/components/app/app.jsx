@@ -13,9 +13,12 @@ import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
 import withPublicRedirect from '../../hocs/with-public-redirect/with-public-redirect';
 import MainPage from '../main-page/main-page.jsx';
 import FilmPage from '../film-page/film-page.jsx';
+import withPlayerActive from '../../hocs/with-player-active/with-player-active';
 
 const PrivateRoute = withPrivateRoute(Route);
 const RoutePublicRedirect = withPublicRedirect(Route);
+
+const MainPageWithPlayerSwitch = withPlayerActive(MainPage);
 
 class App extends PureComponent {
   componentDidMount() {
@@ -37,7 +40,7 @@ class App extends PureComponent {
     return (
       <Switch>
         <Route path="/" exact render={() => (
-          <MainPage
+          <MainPageWithPlayerSwitch
             genres={genres}
             movies={movies}
             userData={userData}
