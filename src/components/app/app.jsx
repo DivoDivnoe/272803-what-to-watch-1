@@ -101,6 +101,7 @@ class App extends PureComponent {
   }
 }
 
+
 App.propTypes = {
   movies: PropTypes.arrayOf(PropType.movie).isRequired,
   promoFilm: PropType.movie,
