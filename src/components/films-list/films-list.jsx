@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {appGenres} from '../../mocks/films';
+import PropType from '../../proptypes.js';
 
 const FilmsList = (props) => {
   const {movies, renderFilmCard} = props;
@@ -13,12 +13,7 @@ const FilmsList = (props) => {
 };
 
 FilmsList.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    previewVideoLink: PropTypes.string.isRequired,
-    genre: PropTypes.oneOf(appGenres).isRequired,
-  })).isRequired,
+  movies: PropTypes.arrayOf(PropType.movie).isRequired,
   renderFilmCard: PropTypes.func.isRequired,
 };
 

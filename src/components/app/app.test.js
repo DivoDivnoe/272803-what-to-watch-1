@@ -7,36 +7,72 @@ const mock = {
   movies: [
     {
       name: `Fantastic Beasts`,
+      description: `very interesting film`,
+      director: `Steven Spielberg`,
+      starring: [`Andrey Ivanov`, `Sergey Rubets`],
+      rating: 10,
+      scoresCount: 100000,
+      backgroundImage: ``,
+      backgroundColor: `cyan`,
+      released: 2019,
       posterImage: ``,
       genre: `Comedy`,
       previewVideoLink: ``,
+      previewImage: ``,
     },
     {
       name: `Major Payne`,
+      description: `very interesting film`,
+      director: `Steven Spielberg`,
+      starring: [`Andrey Ivanov`, `Sergey Rubets`],
+      rating: 10,
+      scoresCount: 100000,
+      backgroundImage: ``,
+      backgroundColor: `cyan`,
+      released: 2019,
       posterImage: ``,
       genre: `Comedy`,
       previewVideoLink: ``,
+      previewImage: ``,
     },
   ],
+  promoFilm: {
+    name: `Major Payne`,
+    description: `very interesting film`,
+    director: `Steven Spielberg`,
+    starring: [`Andrey Ivanov`, `Sergey Rubets`],
+    rating: 10,
+    scoresCount: 100000,
+    backgroundImage: ``,
+    backgroundColor: `cyan`,
+    released: 2019,
+    posterImage: ``,
+    genre: `Comedy`,
+    previewVideoLink: ``,
+    previewImage: ``,
+  },
+  favorites: [],
   genre: `All`,
-  filterGenreHandler: jest.fn(),
   genres: [`All`, `Crime`, `Thriller`],
-  isAuthorizationRequired: false,
-  userData: null,
+  userData: {},
   authUserHandler: jest.fn(),
-  changeAuthStatus: jest.fn(),
+  checkIsAuthUser: jest.fn(),
+  setToFavoritesHandler: jest.fn(),
+  loadFavorites: jest.fn(),
 };
 
 describe(`App component`, () => {
   const {
     movies,
+    promoFilm,
+    favorites,
     genre,
-    filterGenreHandler,
     genres,
-    isAuthorizationRequired,
     userData,
     authUserHandler,
-    changeAuthStatus
+    checkIsAuthUser,
+    setToFavoritesHandler,
+    loadFavorites,
   } = mock;
 
   it(`renders correctly`, () => {
@@ -44,13 +80,15 @@ describe(`App component`, () => {
         <BrowserRouter>
           <App
             movies={movies}
+            promoFilm={promoFilm}
+            favorites={favorites}
             genre={genre}
-            filterGenreHandler={filterGenreHandler}
             genres={genres}
-            isAuthorizationRequired={isAuthorizationRequired}
             userData={userData}
             authUserHandler={authUserHandler}
-            changeAuthStatus={changeAuthStatus}
+            checkIsAuthUser={checkIsAuthUser}
+            setToFavoritesHandler={setToFavoritesHandler}
+            loadFavorites={loadFavorites}
           />
         </BrowserRouter>,
         {createNodeMock: (el) => {

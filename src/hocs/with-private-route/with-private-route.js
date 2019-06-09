@@ -4,21 +4,27 @@ import {Redirect} from 'react-router-dom';
 
 const withPrivateRoute = (Component) => {
   const WithPrivateRoute = (props) => {
-    if (props.userData) {
-      return <Component {...props} />;
-    }
+    const {path, isAuthenticated, render} = props;
 
-    return <Redirect to="/login" />;
+    const renderPrivate = () => {
+      if (isAuthenticated) {
+        return render;
+      }
+
+      const redirect = (properties) => (
+        <Redirect to={`/login?redirect=${properties.match.url}`} />
+      );
+
+      return redirect;
+    };
+
+    return <Component path={path} render={renderPrivate()} />;
   };
 
   WithPrivateRoute.propTypes = {
-    userData: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      email: PropTypes.string.isRequired,
-      avatarUrl: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
+    isAuthenticated: PropTypes.bool.isRequired,
     path: PropTypes.string.isRequired,
+    render: PropTypes.func.isRequired,
   };
 
   return WithPrivateRoute;

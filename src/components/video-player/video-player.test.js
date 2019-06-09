@@ -3,22 +3,45 @@ import renderer from 'react-test-renderer';
 import VideoPlayer from './video-player.jsx';
 
 const mock = {
-  image: `https://vokrug.tv/pic/news/d/d/8/4/dd84fb57fee799d831753daa2e0eb07e.jpg`,
-  preview: ``,
+  image: ``,
+  video: ``,
   handleLoaded: jest.fn(),
   isPlaying: false,
+  isFull: false,
+  className: `f`,
+  size: {
+    width: `300`,
+    height: `150`,
+  },
+  updateTimeHandler: jest.fn(),
+  setDuration: jest.fn(),
 };
 
 describe(`VideoPlayer component`, () => {
   it(`renders correctly`, () => {
-    const {image, preview, handleLoaded, isPlaying} = mock;
+    const {
+      image,
+      video,
+      handleLoaded,
+      isPlaying,
+      isFull,
+      className,
+      size,
+      updateTimeHandler,
+      setDuration,
+    } = mock;
 
     const tree = renderer.create(
         <VideoPlayer
           image={image}
-          preview={preview}
+          video={video}
           handleLoaded={handleLoaded}
           isPlaying={isPlaying}
+          isFull={isFull}
+          className={className}
+          size={size}
+          updateTimeHandler={updateTimeHandler}
+          setDuration={setDuration}
         />,
         {createNodeMock: (el) => {
           return el;

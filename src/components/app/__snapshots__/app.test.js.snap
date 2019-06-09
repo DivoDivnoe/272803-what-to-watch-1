@@ -7,10 +7,15 @@ Array [
   >
     <div
       className="movie-card__bg"
+      style={
+        Object {
+          "backgroundColor": "cyan",
+        }
+      }
     >
       <img
-        alt="The Grand Budapest Hotel"
-        src="img/bg-the-grand-budapest-hotel.jpg"
+        alt="Major Payne"
+        src=""
       />
     </div>
     <h1
@@ -47,17 +52,13 @@ Array [
       <div
         className="user-block"
       >
-        <div
-          className="user-block"
+        <a
+          className="user-block__link"
+          href="/login"
+          onClick={[Function]}
         >
-          <a
-            className="user-block__link"
-            href="sign-in.html"
-            onClick={[Function]}
-          >
-            Sign in
-          </a>
-        </div>
+          Sign in
+        </a>
       </div>
     </header>
     <div
@@ -70,9 +71,9 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
+            alt="Major Payne"
             height="327"
-            src="img/the-grand-budapest-hotel-poster.jpg"
+            src=""
             width="218"
           />
         </div>
@@ -82,7 +83,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            The Grand Budapest Hotel
+            Major Payne
           </h2>
           <p
             className="movie-card__meta"
@@ -90,12 +91,12 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Drama
+              Comedy
             </span>
             <span
               className="movie-card__year"
             >
-              2014
+              2019
             </span>
           </p>
           <div
@@ -103,6 +104,8 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
+              disabled={false}
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -120,6 +123,8 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
+              disabled={false}
+              onClick={[Function]}
               type="button"
             >
               <svg
@@ -144,7 +149,7 @@ Array [
     className="page-content"
   >
     <section
-      className="catalog"
+      className="catalog "
     >
       <h2
         className="catalog__title visually-hidden"
@@ -195,19 +200,26 @@ Array [
           className="small-movie-card catalog__movies-card"
           onMouseEnter={null}
         >
-          <video
-            height="175"
-            poster=""
-            width="280"
+          <a
+            href="/film/undefined"
+            onClick={[Function]}
           >
-            Your browser does not support the video tag.
-          </video>
+            <video
+              className=""
+              height="175"
+              poster=""
+              width="280"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/film/undefined"
+              onClick={[Function]}
             >
               Fantastic Beasts
             </a>
@@ -217,34 +229,31 @@ Array [
           className="small-movie-card catalog__movies-card"
           onMouseEnter={null}
         >
-          <video
-            height="175"
-            poster=""
-            width="280"
+          <a
+            href="/film/undefined"
+            onClick={[Function]}
           >
-            Your browser does not support the video tag.
-          </video>
+            <video
+              className=""
+              height="175"
+              poster=""
+              width="280"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/film/undefined"
+              onClick={[Function]}
             >
               Major Payne
             </a>
           </h3>
         </article>
-      </div>
-      <div
-        className="catalog__more"
-      >
-        <button
-          className="catalog__button"
-          type="button"
-        >
-          Show more
-        </button>
       </div>
     </section>
     <footer
