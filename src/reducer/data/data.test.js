@@ -1,31 +1,55 @@
-import ActionCreator, {reducer, Operation, transformObjProps} from './data';
+import ActionCreator, {reducer, Operation} from './data';
 import MockAdapter from 'axios-mock-adapter';
 import createAPI from '../../api';
 
-describe(`transformObjProps function`, () => {
-  it(`turns snake styled props to camel case`, () => {
-    const obj = {
-      some_name: ``,
-      some_other_name: ``,
-    };
-
-    const transformedObj = transformObjProps(obj);
-
-    expect(transformedObj).toEqual({
-      someName: ``,
-      someOtherName: ``,
-    });
-  });
-});
-
-describe(`ActionCreator LOAD_FILMS`, () => {
-  it(`returns right action`, () => {
+describe(`ActionCreator`, () => {
+  it(`LOAD_FILMS returns right action`, () => {
     const filmsList = [{name: `film1`}, {name: `film2`}];
     const action = ActionCreator[`LOAD_FILMS`](filmsList);
 
     expect(action).toEqual({
       type: `LOAD_FILMS`,
       payload: filmsList,
+    });
+  });
+
+  it(`LOAD_PROMO_FILM returns right action`, () => {
+    const film = {name: `film2`};
+    const action = ActionCreator[`LOAD_PROMO_FILM`](film);
+
+    expect(action).toEqual({
+      type: `LOAD_PROMO_FILM`,
+      payload: film,
+    });
+  });
+
+  it(`LOAD_FAVORITES returns right action`, () => {
+    const filmsList = [{name: `film1`}, {name: `film2`}];
+    const action = ActionCreator[`LOAD_FAVORITES`](filmsList);
+
+    expect(action).toEqual({
+      type: `LOAD_FAVORITES`,
+      payload: filmsList,
+    });
+  });
+
+  it(`UPDATE_FAVORITES returns right action`, () => {
+    const film = {name: `film2`};
+    const action = ActionCreator[`UPDATE_FAVORITES`](film);
+
+    expect(action).toEqual({
+      type: `UPDATE_FAVORITES`,
+      payload: film,
+    });
+  });
+
+  it(`SET_GENRES returns right action`, () => {
+    const genres = [`All`, `Comedy`];
+    const action = ActionCreator[`SET_GENRES`](genres);
+
+    expect(action).toEqual({
+      type: `SET_GENRES`,
+      payload: genres,
     });
   });
 });

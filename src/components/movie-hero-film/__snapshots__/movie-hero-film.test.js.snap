@@ -1,0 +1,256 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieHeroFilm component renders correctly 1`] = `
+<section
+  className="movie-card movie-card--full"
+>
+  <div
+    className="movie-card__hero"
+  >
+    <div
+      className="movie-card__bg"
+      style={
+        Object {
+          "backgroundColor": "cyan",
+        }
+      }
+    >
+      <img
+        alt="Fantastic Beasts"
+        src=""
+      />
+    </div>
+    <h1
+      className="visually-hidden"
+    >
+      WTW
+    </h1>
+    <header
+      className="page-header movie-card__head"
+    >
+      <div
+        className="logo"
+      >
+        <a
+          className="logo__link"
+          href="/"
+          onClick={[Function]}
+        >
+          <span
+            className="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            className="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            className="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        className="user-block"
+      >
+        <a
+          className="user-block__link"
+          href="/login"
+          onClick={[Function]}
+        >
+          Sign in
+        </a>
+      </div>
+    </header>
+    <div
+      className="movie-card__wrap"
+    >
+      <div
+        className="movie-card__desc"
+      >
+        <h2
+          className="movie-card__title"
+        >
+          Fantastic Beasts
+        </h2>
+        <p
+          className="movie-card__meta"
+        >
+          <span
+            className="movie-card__genre"
+          >
+            Comedy
+          </span>
+          <span
+            className="movie-card__year"
+          >
+            2019
+          </span>
+        </p>
+        <div
+          className="movie-card__buttons"
+        >
+          <button
+            className="btn btn--play movie-card__button"
+            disabled={false}
+            onClick={[MockFunction]}
+            type="button"
+          >
+            <svg
+              height="19"
+              viewBox="0 0 19 19"
+              width="19"
+            >
+              <use
+                xlinkHref="#play-s"
+              />
+            </svg>
+            <span>
+              Play
+            </span>
+          </button>
+          <button
+            className="btn btn--list movie-card__button"
+            disabled={false}
+            onClick={[MockFunction]}
+            type="button"
+          >
+            <svg
+              height="20"
+              viewBox="0 0 19 20"
+              width="19"
+            >
+              <use
+                xlinkHref="#add"
+              />
+            </svg>
+            <span>
+              My list
+            </span>
+          </button>
+          <a
+            className="btn movie-card__button"
+            href="/"
+            onClick={[Function]}
+          >
+            Add review
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="movie-card__wrap movie-card__translate-top"
+  >
+    <div
+      className="movie-card__info"
+    >
+      <div
+        className="movie-card__poster movie-card__poster--big"
+      >
+        <img
+          alt="Fantastic Beasts poster"
+          height="327"
+          src=""
+          width="218"
+        />
+      </div>
+      <div
+        className="movie-card__desc"
+      >
+        <nav
+          className="movie-nav movie-card__nav"
+        />
+        <div
+          className="movie-card__text movie-card__row"
+        >
+          <div
+            className="movie-card__text-col"
+          >
+            <p
+              className="movie-card__details-item"
+            >
+              <strong
+                className="movie-card__details-name"
+              >
+                Director
+              </strong>
+              <span
+                className="movie-card__details-value"
+              >
+                Steven Spielberg
+              </span>
+            </p>
+            <p
+              className="movie-card__details-item"
+            >
+              <strong
+                className="movie-card__details-name"
+              >
+                Starring
+              </strong>
+              <span
+                className="movie-card__details-value"
+              >
+                <span>
+                  Andrey Ivanov
+                  , 
+                </span>
+                <br />
+                Sergey Rubets
+              </span>
+            </p>
+          </div>
+          <div
+            className="movie-card__text-col"
+          >
+            <p
+              className="movie-card__details-item"
+            >
+              <strong
+                className="movie-card__details-name"
+              >
+                Run Time
+              </strong>
+              <span
+                className="movie-card__details-value"
+              />
+            </p>
+            <p
+              className="movie-card__details-item"
+            >
+              <strong
+                className="movie-card__details-name"
+              >
+                Genre
+              </strong>
+              <span
+                className="movie-card__details-value"
+              >
+                Comedy
+              </span>
+            </p>
+            <p
+              className="movie-card__details-item"
+            >
+              <strong
+                className="movie-card__details-name"
+              >
+                Released
+              </strong>
+              <span
+                className="movie-card__details-value"
+              >
+                2019
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+`;

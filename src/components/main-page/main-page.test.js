@@ -7,30 +7,70 @@ const mock = {
   movies: [
     {
       name: `Fantastic Beasts`,
+      description: `very interesting film`,
+      director: `Steven Spielberg`,
+      starring: [`Andrey Ivanov`, `Sergey Rubets`],
+      rating: 10,
+      scoresCount: 100000,
+      backgroundImage: ``,
+      backgroundColor: `cyan`,
+      released: 2019,
       posterImage: ``,
       genre: `Comedy`,
       previewVideoLink: ``,
+      previewImage: ``,
     },
     {
       name: `Major Payne`,
+      description: `very interesting film`,
+      director: `Steven Spielberg`,
+      starring: [`Andrey Ivanov`, `Sergey Rubets`],
+      rating: 10,
+      scoresCount: 100000,
+      backgroundImage: ``,
+      backgroundColor: `cyan`,
+      released: 2019,
       posterImage: ``,
       genre: `Comedy`,
       previewVideoLink: ``,
+      previewImage: ``,
     },
   ],
-  genre: `All`,
-  filterGenreHandler: jest.fn(),
+  promoFilm: {
+    name: `Major Payne`,
+    description: `very interesting film`,
+    director: `Steven Spielberg`,
+    starring: [`Andrey Ivanov`, `Sergey Rubets`],
+    rating: 10,
+    scoresCount: 100000,
+    backgroundImage: ``,
+    backgroundColor: `cyan`,
+    released: 2019,
+    posterImage: ``,
+    genre: `Comedy`,
+    previewVideoLink: ``,
+    previewImage: ``,
+  },
+  favorites: [],
   genres: [`All`, `Crime`, `Thriller`],
   userData: {},
+  isPlayerActive: false,
+  switchPlayer: jest.fn(),
+  setToFavoritesHandler: jest.fn(),
+  history: {},
 };
 
-describe(`App component`, () => {
+describe(`MainPage component`, () => {
   const {
     movies,
-    genre,
-    filterGenreHandler,
+    promoFilm,
+    favorites,
     genres,
     userData,
+    isPlayerActive,
+    switchPlayer,
+    setToFavoritesHandler,
+    history,
   } = mock;
 
   it(`renders correctly`, () => {
@@ -38,10 +78,14 @@ describe(`App component`, () => {
         <BrowserRouter>
           <MainPage
             movies={movies}
-            genre={genre}
-            filterGenreHandler={filterGenreHandler}
+            promoFilm={promoFilm}
+            favorites={favorites}
             genres={genres}
             userData={userData}
+            isPlayerActive={isPlayerActive}
+            switchPlayer={switchPlayer}
+            setToFavoritesHandler={setToFavoritesHandler}
+            history={history}
           />
         </BrowserRouter>,
         {createNodeMock: (el) => {

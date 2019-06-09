@@ -1,7 +1,7 @@
-import {transformObjProps} from '../data/data';
+import {transformObjProps} from '../../utils/utils';
+import {StatusCode} from '../../constants';
 
 const initialState = {
-  isAuthorizationRequired: false,
   userData: {},
 };
 Object.freeze(initialState);
@@ -13,28 +13,32 @@ const dispatchUserData = (dispatch, response) => {
 };
 
 export const Operation = {
-  setUserData: (userData, callback) => (dispatch, _getState, api) => {
+  setUserData: (userData, onSuccess, onFail) => (dispatch, _getState, api) => {
     return api.post(`/login`, userData)
       .then((response) => {
-        dispatchUserData(dispatch, response);
-        callback();
+        if (response.status === StatusCode.OK) {
+          dispatchUserData(dispatch, response);
+          onSuccess();
+        }
+      })
+      .catch((error) => {
+        const {status} = error.response;
+
+        if (status === StatusCode.FORBIDDEN || status === StatusCode.BAD_REQUEST) {
+          onFail(status);
+        }
       });
   },
   checkIsAuthUser: () => (dispatch, _getState, api) => {
     return api.get(`/login`)
       .then((response) => {
         dispatchUserData(dispatch, response);
-      });
+      })
+      .catch((error) => error);
   }
 };
 
 const ActionCreator = {
-  REQUIRED_AUTHORIZATION: (status) => {
-    return {
-      type: `REQUIRED_AUTHORIZATION`,
-      payload: status,
-    };
-  },
   SET_USER_DATA: (data) => {
     return {
       type: `SET_USER_DATA`,
@@ -45,10 +49,6 @@ const ActionCreator = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case `REQUIRED_AUTHORIZATION`:
-      return Object.assign({}, state, {
-        isAuthorizationRequired: action.payload,
-      });
     case `SET_USER_DATA`:
       return Object.assign({}, state, {
         userData: action.payload,

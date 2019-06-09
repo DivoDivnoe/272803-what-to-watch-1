@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilmsList from '../films-list/films-list.jsx';
-import {appGenres} from '../../reducer/data/data';
 import withCurrentFilm from '../../hocs/with-current-film/with-current-film';
+import PropType from '../../proptypes.js';
 
 const FilmsListWithState = withCurrentFilm(FilmsList);
 
@@ -31,12 +31,7 @@ const Catalog = (props) => {
 };
 
 Catalog.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    previewVideoLink: PropTypes.string.isRequired,
-    genre: PropTypes.oneOf(appGenres).isRequired,
-  })).isRequired,
+  movies: PropTypes.arrayOf(PropType.movie).isRequired,
   renderTitle: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   renderButton: PropTypes.func.isRequired,

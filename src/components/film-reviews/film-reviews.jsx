@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropType from '../../proptypes.js';
 
 const getDateObj = (dateString) => {
   const date = new Date(dateString);
@@ -50,15 +50,7 @@ const FilmReviews = (props) => {
 };
 
 FilmReviews.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-  })).isRequired,
+  reviews: PropType.reviews,
 };
 
 export default FilmReviews;

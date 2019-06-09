@@ -10,26 +10,33 @@ const MockComponentWrapped = withLoading(MockComponent);
 
 const mock = {
   movie: {
-    name: `Major Payne`,
+    name: `Fantastic Beasts`,
+    description: `very interesting film`,
+    director: `Steven Spielberg`,
+    starring: [`Andrey Ivanov`, `Sergey Rubets`],
+    rating: 10,
+    scoresCount: 100000,
+    backgroundImage: ``,
+    backgroundColor: `cyan`,
+    released: 2019,
     posterImage: ``,
     genre: `Comedy`,
     previewVideoLink: ``,
+    previewImage: ``,
   },
-  handlePreview: jest.fn(),
-  stopPreview: jest.fn(),
   isPlaying: false,
+  isFull: true,
 };
 
 describe(`component returned with withLoading hoc`, () => {
   it(`is rendered with right state`, () => {
-    const {movie, handlePreview, stopPreview, isPlaying} = mock;
+    const {movie, isFull, isPlaying} = mock;
 
     const comp = mount(
         <MockComponentWrapped
           movie={movie}
-          handlePreview={handlePreview}
-          stopPreview={stopPreview}
           isPlaying={isPlaying}
+          isFull={isFull}
         />
     );
 

@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {appGenres} from '../../reducer/data/data';
+import PropType from '../../proptypes.js';
 
 const TIMEOUT = 1000;
 
@@ -72,19 +72,7 @@ class FilmCard extends PureComponent {
 }
 
 FilmCard.propTypes = {
-  movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    rating: PropTypes.number.isRequired,
-    scoresCount: PropTypes.number.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-    genre: PropTypes.oneOf(appGenres).isRequired,
-  }),
+  movie: PropType.movie,
   renderPlayer: PropTypes.func.isRequired,
   stopPreview: PropTypes.func.isRequired,
   handlePreview: PropTypes.func.isRequired,

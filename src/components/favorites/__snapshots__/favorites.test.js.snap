@@ -50,7 +50,7 @@ exports[`Favorites component renders correctly 1`] = `
     </div>
   </header>
   <section
-    className="catalog"
+    className="catalog "
   >
     <h2
       className="catalog__title visually-hidden"
@@ -64,19 +64,26 @@ exports[`Favorites component renders correctly 1`] = `
         className="small-movie-card catalog__movies-card"
         onMouseEnter={null}
       >
-        <video
-          height="175"
-          poster=""
-          width="280"
+        <a
+          href="/film/undefined"
+          onClick={[Function]}
         >
-          Your browser does not support the video tag.
-        </video>
+          <video
+            className=""
+            height="175"
+            poster=""
+            width="280"
+          >
+            Your browser does not support the video tag.
+          </video>
+        </a>
         <h3
           className="small-movie-card__title"
         >
           <a
             className="small-movie-card__link"
-            href="movie-page.html"
+            href="/film/undefined"
+            onClick={[Function]}
           >
             Fantastic Beasts
           </a>
@@ -86,19 +93,26 @@ exports[`Favorites component renders correctly 1`] = `
         className="small-movie-card catalog__movies-card"
         onMouseEnter={null}
       >
-        <video
-          height="175"
-          poster=""
-          width="280"
+        <a
+          href="/film/undefined"
+          onClick={[Function]}
         >
-          Your browser does not support the video tag.
-        </video>
+          <video
+            className=""
+            height="175"
+            poster=""
+            width="280"
+          >
+            Your browser does not support the video tag.
+          </video>
+        </a>
         <h3
           className="small-movie-card__title"
         >
           <a
             className="small-movie-card__link"
-            href="movie-page.html"
+            href="/film/undefined"
+            onClick={[Function]}
           >
             Major Payne
           </a>

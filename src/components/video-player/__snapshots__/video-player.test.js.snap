@@ -2,9 +2,10 @@
 
 exports[`VideoPlayer component renders correctly 1`] = `
 <video
-  height="175"
-  poster="https://vokrug.tv/pic/news/d/d/8/4/dd84fb57fee799d831753daa2e0eb07e.jpg"
-  width="280"
+  className="f"
+  height="150"
+  poster=""
+  width="300"
 >
   Your browser does not support the video tag.
 </video>

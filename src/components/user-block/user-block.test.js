@@ -9,7 +9,7 @@ const mock = {
   }
 };
 
-describe(`Favorites component`, () => {
+describe(`UserBlock component`, () => {
   it(`renders correctly`, () => {
     const {userData} = mock;
 

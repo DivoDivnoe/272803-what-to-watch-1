@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-export const FORBIDDEN_STATUS_CODE = 403;
-export const HOST_NAME = `https://es31-server.appspot.com`;
+import {HOST_NAME} from './constants';
 
 const createAPI = () => {
   const api = axios.create({
@@ -9,17 +7,6 @@ const createAPI = () => {
     timeout: 5000,
     withCredentials: true,
   });
-
-  const onSuccess = (response) => response;
-  const onFail = (err) => {
-    if (err.response.status === FORBIDDEN_STATUS_CODE) {
-      // history.pushState(null, null, `/login`);
-    }
-
-    return err;
-  };
-
-  api.interceptors.response.use(onSuccess, onFail);
 
   return api;
 };

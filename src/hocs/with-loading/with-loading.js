@@ -1,26 +1,54 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../../components/video-player/video-player.jsx';
-import {appGenres} from '../../reducer/data/data';
+import PropType from '../../proptypes.js';
 
 const withLoading = (Component) => {
   class WithLoading extends PureComponent {
     constructor(props) {
       super(props);
 
-      this.state = {isLoading: true};
+      this.state = {
+        isLoading: true,
+        duration: 0,
+        currentTime: 0,
+      };
 
       this._handleLoaded = this._handleLoaded.bind(this);
+      this._setDuration = this._setDuration.bind(this);
+      this._setCurrentTime = this._setCurrentTime.bind(this);
+      this._renderPlayer = this._renderPlayer.bind(this);
     }
 
     render() {
-      const {movie, isPlaying, isFull} = this.props;
-      const {isLoading} = this.state;
+      const {isLoading, duration, currentTime} = this.state;
 
       return <Component
         {...this.props}
         isLoading={isLoading}
-        renderPlayer={(options) => <VideoPlayer
+        currentTime={currentTime}
+        duration={duration}
+        renderPlayer={this._renderPlayer}
+      />;
+    }
+
+    _handleLoaded() {
+      this.setState({isLoading: false});
+    }
+
+    _setDuration(duration) {
+      this.setState({duration});
+    }
+
+    _setCurrentTime(time) {
+      this.setState({currentTime: time});
+    }
+
+    _renderPlayer(options) {
+      const {movie, isPlaying, isFull} = this.props;
+
+      return (
+        <VideoPlayer
           image={isFull ? movie.backgroundImage : movie.previewImage}
           video={isFull ? movie.videoLink : movie.previewVideoLink}
           isPlaying={isPlaying}
@@ -28,23 +56,15 @@ const withLoading = (Component) => {
           size={options.size}
           className={options.className}
           isFull={isFull}
-        />}
-      />;
-    }
-
-    _handleLoaded() {
-      this.setState({isLoading: false});
+          setDuration={this._setDuration}
+          updateTimeHandler={this._setCurrentTime}
+        />
+      );
     }
   }
 
   WithLoading.propTypes = {
-    movie: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      posterImage: PropTypes.string.isRequired,
-      previewVideoLink: PropTypes.string.isRequired,
-      genre: PropTypes.oneOf(appGenres).isRequired,
-      videoLink: PropTypes.string.isRequired,
-    }),
+    movie: PropType.movie,
     isPlaying: PropTypes.bool.isRequired,
     isFull: PropTypes.bool.isRequired,
   };

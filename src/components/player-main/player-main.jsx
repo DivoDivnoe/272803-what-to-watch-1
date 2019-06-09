@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {appGenres} from '../../reducer/data/data';
 import Fullscreen from 'react-full-screen';
+import {parseTime} from '../../utils/utils';
 
 const PlayerMain = (props) => {
   const {
     currentTime,
+    duration,
     isLoading,
     renderPlayer,
-    movie,
     switchPlayer,
     isPlaying,
     togglePlay,
@@ -16,6 +16,8 @@ const PlayerMain = (props) => {
     toggleFullScreen,
     setFullScreen,
   } = props;
+
+  const timeElapsed = parseTime(duration - currentTime);
 
   const renderPreloader = () => (
     <div
@@ -65,10 +67,12 @@ const PlayerMain = (props) => {
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value="30" max="100"></progress>
-              <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
+              <progress className="player__progress" value={currentTime} max={duration}></progress>
+              <div className="player__toggler" style={{left: `${currentTime * 100 / duration}%`}}>Toggler</div>
             </div>
-            <div className="player__time-value">1:30:29</div>
+            <div className="player__time-value">
+              {`${timeElapsed.hours}:${timeElapsed.minutes}:${timeElapsed.seconds}`}
+            </div>
           </div>
 
           <div className="player__controls-row">
@@ -96,25 +100,12 @@ PlayerMain.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   isFullScreen: PropTypes.bool.isRequired,
   currentTime: PropTypes.number.isRequired,
-  setCurrentTime: PropTypes.func.isRequired,
+  duration: PropTypes.number.isRequired,
   resetPlayer: PropTypes.func.isRequired,
   togglePlay: PropTypes.func.isRequired,
   toggleFullScreen: PropTypes.func.isRequired,
   switchPlayer: PropTypes.func.isRequired,
   setFullScreen: PropTypes.func.isRequired,
-  movie: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    rating: PropTypes.number.isRequired,
-    scoresCount: PropTypes.number.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-    genre: PropTypes.oneOf(appGenres).isRequired,
-  }),
 };
 
 export default PlayerMain;

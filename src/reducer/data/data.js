@@ -1,56 +1,15 @@
+import {transformObjProps} from '../../utils/utils';
+import {StatusCode} from '../../constants';
+import {AppGenre, appGenres} from '../../constants';
+
 const initialState = {
   films: [],
   favorites: [],
   genres: [],
+  promoFilm: {},
 };
 
 Object.freeze(initialState);
-
-export const AppGenre = {
-  ALL_GENRES_LABEL: `All`,
-  COMEDY_GENRE: `Comedy`,
-  CRIME_GENRE: `Crime`,
-  DOCUMENTARY_GENRE: `Documentary`,
-  DRAMA_GENRE: `Drama`,
-  HORROR_GENRE: `Horror`,
-  FAMILY_GENRE: `Family`,
-  SCIENCE_GENRE: `SciFi`,
-  THRILLER_GENRE: `Thriller`,
-  ACTION_GENRE: `Action`,
-  ADVENTURE_GENRE: `Adventure`,
-  FANTASY_GENRE: `Fantasy`,
-};
-
-export const appGenres = Object.keys(AppGenre).map((key) => AppGenre[key]);
-
-export const transformObjProps = (obj) => {
-  obj = Object.assign({}, obj);
-
-  const keys = Object.keys(obj);
-  const snakeStyleKeys = [];
-
-  keys.forEach((key) => {
-    if (key.indexOf(`_`) >= 0) {
-      snakeStyleKeys.push(key);
-
-      const keyInCamelCase = key.split(`_`).map((str, index) => {
-        if (!index) {
-          return str;
-        }
-
-        return `${str[0].toUpperCase()}${str.substr(1)}`;
-      }).join(``);
-
-      obj[keyInCamelCase] = obj[key];
-    }
-  });
-
-  snakeStyleKeys.forEach((key) => {
-    delete obj[key];
-  });
-
-  return obj;
-};
 
 const getGenresFromFilmsList = (films) => {
   return [AppGenre[`ALL_GENRES_LABEL`]].concat(
@@ -63,22 +22,55 @@ export const Operation = {
     return api
       .get(`/films`)
       .then((response) => {
-        const films = response.data.map((obj) => transformObjProps(obj));
-        const genres = getGenresFromFilmsList(films);
+        if (response.status === StatusCode.OK) {
+          const films = response.data.map((obj) => transformObjProps(obj));
+          const genres = getGenresFromFilmsList(films);
 
-        dispatch(ActionCreator[`LOAD_FILMS`](films));
-        dispatch(ActionCreator[`SET_GENRES`](genres));
+          dispatch(ActionCreator[`LOAD_FILMS`](films));
+          dispatch(ActionCreator[`SET_GENRES`](genres));
+        }
+      });
+  },
+  setToFavorites: (id, status = 1, onFail) => (dispatch, _getState, api) => {
+    return api
+      .post(`/favorite/${id}/${status}`)
+      .then((response) => {
+        if (response.status === StatusCode.OK) {
+          const film = transformObjProps(response.data);
+
+          dispatch(ActionCreator[`UPDATE_FAVORITES`](film));
+        } else if (response.response.status === StatusCode.FORBIDDEN) {
+          onFail();
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === StatusCode.FORBIDDEN) {
+          onFail();
+        }
+      });
+  },
+  loadPromoFilm: () => (dispatch, _getState, api) => {
+    return api
+      .get(`/films/promo`)
+      .then((response) => {
+        if (response.status === StatusCode.OK) {
+          const film = transformObjProps(response.data);
+
+          dispatch(ActionCreator[`LOAD_PROMO_FILM`](film));
+        }
       });
   },
   loadFavorites: () => (dispatch, _getState, api) => {
     return api
       .get(`/favorite`)
       .then((response) => {
-        const films = response.data.map((obj) => transformObjProps(obj));
+        if (response.status === StatusCode.OK) {
+          const films = response.data.map((obj) => transformObjProps(obj));
 
-        return dispatch(ActionCreator[`LOAD_FAVORITES`](films));
+          dispatch(ActionCreator[`LOAD_FAVORITES`](films));
+        }
       });
-  }
+  },
 };
 
 const ActionCreator = {
@@ -86,9 +78,17 @@ const ActionCreator = {
     type: `LOAD_FILMS`,
     payload: films,
   }),
+  LOAD_PROMO_FILM: (film) => ({
+    type: `LOAD_PROMO_FILM`,
+    payload: film,
+  }),
   LOAD_FAVORITES: (films) => ({
     type: `LOAD_FAVORITES`,
     payload: films,
+  }),
+  UPDATE_FAVORITES: (film) => ({
+    type: `UPDATE_FAVORITES`,
+    payload: film,
   }),
   SET_GENRES: (genres) => ({
     type: `SET_GENRES`,
@@ -102,8 +102,12 @@ export const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {films: action.payload});
     case `LOAD_FAVORITES`:
       return Object.assign({}, state, {favorites: action.payload});
+    case `UPDATE_FAVORITES`:
+      return Object.assign({}, state, {favorites: state.favorites.concat(action.payload)});
     case `SET_GENRES`:
       return Object.assign({}, state, {genres: action.payload});
+    case `LOAD_PROMO_FILM`:
+      return Object.assign({}, state, {promoFilm: action.payload});
   }
 
   return state;

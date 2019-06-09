@@ -1,8 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import createAPI from '../../api';
-
-const STATUS_OK_CODE = 200;
+import {StatusCode} from '../../constants';
 
 const withLoadComments = (Component) => {
   class WithLoadComments extends PureComponent {
@@ -17,7 +16,7 @@ const withLoadComments = (Component) => {
       this.api
         .get(`/comments/${this.props.id}`)
         .then((response) => {
-          if (response.status === STATUS_OK_CODE) {
+          if (response.status === StatusCode.OK) {
             this.setState({reviews: response.data});
           }
         });

@@ -16,11 +16,12 @@ const store = createStore(
     reducer,
     compose(
         applyMiddleware(thunk.withExtraArgument(api)),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (a) => a
     )
 );
 
 store.dispatch(Operation.loadFilms());
+store.dispatch(Operation.loadPromoFilm());
 
 const init = () => {
   const root = document.querySelector(`#root`);

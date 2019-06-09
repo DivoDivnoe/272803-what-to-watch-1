@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import PropType from '../../proptypes.js';
 
 const Header = (props) => {
   const {extraClassName} = props;
@@ -13,10 +14,7 @@ const Header = (props) => {
 
 Header.propTypes = {
   extraClassName: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired
+  children: PropType.children,
 };
 
 export default Header;

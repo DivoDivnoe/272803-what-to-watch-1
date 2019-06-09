@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {HOST_NAME} from '../../api';
+import PropType from '../../proptypes';
+import {HOST_NAME} from '../../constants';
 
 const UserBlock = (props) => {
   const {userData} = props;
@@ -28,12 +28,7 @@ const UserBlock = (props) => {
 };
 
 UserBlock.propTypes = {
-  userData: PropTypes.shape({
-    id: PropTypes.number,
-    email: PropTypes.string,
-    avatarUrl: PropTypes.string,
-    name: PropTypes.string,
-  }),
+  userData: PropType.userData,
 };
 
 export default UserBlock;

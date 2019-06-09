@@ -5,15 +5,21 @@ exports[`FilmCard component renders correctly 1`] = `
   className="small-movie-card catalog__movies-card"
   onMouseEnter={[Function]}
 >
-  <div />
+  <a
+    href="/film/undefined"
+    onClick={[Function]}
+  >
+    <div />
+  </a>
   <h3
     className="small-movie-card__title"
   >
     <a
       className="small-movie-card__link"
-      href="movie-page.html"
+      href="/film/undefined"
+      onClick={[Function]}
     >
-      Иван Васильевич меняет профессию
+      Fantastic Beasts
     </a>
   </h3>
 </article>

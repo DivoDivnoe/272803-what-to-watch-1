@@ -1,7 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {BrowserRouter} from 'react-router-dom'
-
+import {BrowserRouter} from 'react-router-dom';
 import Logo from './logo.jsx';
 
 const mock = {

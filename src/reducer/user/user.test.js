@@ -3,24 +3,6 @@ import createAPI from '../../api';
 import MockAdapter from 'axios-mock-adapter';
 
 describe(`reducer returns right state with`, () => {
-  it(`REQUIRED_AUTHORIZATION action`, () => {
-    const initialState = {
-      isAuthorizationRequired: true,
-      userData: null,
-    };
-    const action = {
-      type: `REQUIRED_AUTHORIZATION`,
-      payload: false,
-    };
-
-    const state = reducer(initialState, action);
-
-    expect(state).toEqual({
-      isAuthorizationRequired: false,
-      userData: null,
-    });
-  });
-
   it(`SET_USER_DATA action`, () => {
     const initialState = {
       isAuthorizationRequired: true,
@@ -48,15 +30,6 @@ describe(`reducer returns right state with`, () => {
 });
 
 describe(`ActionCreator`, () => {
-  it(`REQUIRED_AUTHORIZATION returns right action`, () => {
-    const action = ActionCreator[`REQUIRED_AUTHORIZATION`](true);
-
-    expect(action).toEqual({
-      type: `REQUIRED_AUTHORIZATION`,
-      payload: true,
-    });
-  });
-
   it(`SET_USER_DATA returns right action`, () => {
     const userData = {
       email: `some@email.com`,

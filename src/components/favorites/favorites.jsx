@@ -2,23 +2,18 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
-import {appGenres} from '../../reducer/data/data.js';
 import Catalog from '../catalog/catalog.jsx';
 import Logo from '../logo/logo.jsx';
 import UserBlock from '../user-block/user-block.jsx';
-
+import PropType from '../../proptypes.js';
 
 class Favorites extends PureComponent {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.loadFavoritesHandler();
-  }
-
   render() {
-    const {userData, movies} = this.props;
+    const {userData, favorites} = this.props;
 
     return (
       <div className="user-page">
@@ -31,7 +26,8 @@ class Favorites extends PureComponent {
         </Header>
 
         <Catalog
-          movies={movies}
+          movies={favorites}
+          renderTitle={() => <h2 className="catalog__title visually-hidden">Catalog</h2>}
           renderTabs={() => {}}
           renderButton={() => {}}
         />
@@ -43,19 +39,8 @@ class Favorites extends PureComponent {
 }
 
 Favorites.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    previewVideoLink: PropTypes.string.isRequired,
-    genre: PropTypes.oneOf(appGenres).isRequired,
-  })).isRequired,
-  userData: PropTypes.shape({
-    id: PropTypes.number,
-    email: PropTypes.string,
-    avatarUrl: PropTypes.string,
-    name: PropTypes.string,
-  }),
-  loadFavoritesHandler: PropTypes.func.isRequired,
+  userData: PropType.userData,
+  favorites: PropTypes.arrayOf(PropType.movie).isRequired,
 };
 
 export default Favorites;

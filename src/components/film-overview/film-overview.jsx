@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropType from '../../proptypes.js';
 
 const Rating = {
   BAD: `Bad`,
@@ -50,18 +50,7 @@ const FilmOverview = (props) => {
 };
 
 FilmOverview.propTypes = {
-  film: PropTypes.shape({
-    name: PropTypes.string,
-    posterImage: PropTypes.string,
-    description: PropTypes.string,
-    director: PropTypes.string,
-    starring: PropTypes.arrayOf(PropTypes.string),
-    rating: PropTypes.number,
-    scoresCount: PropTypes.number,
-    backgroundImage: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    released: PropTypes.number,
-  }).isRequired,
+  film: PropType.movie,
 };
 
 export default FilmOverview;

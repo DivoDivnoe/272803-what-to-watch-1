@@ -12,7 +12,7 @@ describe(`Header component`, () => {
     const {extraClassName} = mock;
 
     const tree = renderer.create(
-        <Header extraClassName={extraClassName}>
+        <Header extraClassName={extraClassName} >
           <MockComponent />
         </Header>
     ).toJSON();

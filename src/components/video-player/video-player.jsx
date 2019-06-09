@@ -9,19 +9,23 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    const {isFull, updateTimeHandler} = this.props;
+    const {isFull, updateTimeHandler, setDuration, handleLoaded} = this.props;
     const video = this._videoRef.current;
 
     video.src = this.props.video;
 
     video.oncanplaythrough = () => {
-      this.props.handleLoaded();
+      handleLoaded();
+
+      if (isFull) {
+        setDuration(Math.round(video.duration));
+      }
     };
 
     if (isFull) {
-      // video.ontimeupdate = () => {
-      //   updateTimeHandler();
-      // };
+      video.ontimeupdate = () => {
+        updateTimeHandler(Math.round(video.currentTime));
+      };
     } else {
       video.muted = true;
     }
@@ -29,7 +33,7 @@ class VideoPlayer extends PureComponent {
 
   componentDidUpdate() {
     const video = this._videoRef.current;
-    const {isFull, isPlaying, currentTime} = this.props;
+    const {isFull, isPlaying} = this.props;
 
     if (isPlaying) {
       video.play();
@@ -41,16 +45,13 @@ class VideoPlayer extends PureComponent {
         video.load();
       }
     }
-
-    // if (isFull && video.currentTime && video.currentTime !== currentTime) {
-    //   video.currentTime = currentTime;
-    // }
   }
 
   componentWillUnmount() {
     const video = this._videoRef.current;
 
     video.oncanplaythrough = null;
+    video.ontimeupdate = null;
     video.src = ``;
   }
 
@@ -77,13 +78,13 @@ VideoPlayer.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   handleLoaded: PropTypes.func.isRequired,
   isFull: PropTypes.bool.isRequired,
-  currentTime: PropTypes.number,
   className: PropTypes.string,
   size: PropTypes.shape({
     width: PropTypes.string,
     height: PropTypes.string,
   }),
-  updateTimeHandler: PropTypes.func,
+  updateTimeHandler: PropTypes.func.isRequired,
+  setDuration: PropTypes.func.isRequired,
 };
 
 export default VideoPlayer;

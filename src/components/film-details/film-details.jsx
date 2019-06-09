@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropType from '../../proptypes.js';
 
 const getStarringArrayWithBR = (arr) => {
   const result = [];
@@ -62,19 +62,7 @@ const FilmDetails = (props) => {
 };
 
 FilmDetails.propTypes = {
-  film: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    rating: PropTypes.number.isRequired,
-    scoresCount: PropTypes.number.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    released: PropTypes.number.isRequired,
-    runTime: PropTypes.number.isRequired,
-  }).isRequired,
+  film: PropType.movie,
 };
 
 export default FilmDetails;

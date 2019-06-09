@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import GenreTabs from '../../components/genre-tabs/genre-tabs.jsx';
-import {AppGenre} from '../../reducer/data/data';
+import {AppGenre} from '../../constants';
+import PropType from '../../proptypes.js';
 
 const FILMS_PER_CHUNK = 20;
 
@@ -22,27 +23,34 @@ const withFilters = (Component) => {
       this._resetChunks = this._resetChunks.bind(this);
       this._getGenreFilteredMovies = this._getGenreFilteredMovies.bind(this);
       this._getSlicedMovies = this._getSlicedMovies.bind(this);
+      this._renderTabs = this._renderTabs.bind(this);
     }
 
     render() {
-      const {genres, renderTitle} = this.props;
-      const {genre} = this.state;
+      const {renderTitle} = this.props;
 
       return (
         <Component
           movies={this._getSlicedMovies(this._getGenreFilteredMovies())}
           renderTitle={renderTitle}
-          renderTabs={() => (
-            <GenreTabs
-              genre={genre}
-              genres={genres}
-              clickHandler={(curGenre) => {
-                this._resetChunks();
-                this._setGenre(curGenre);
-              }}
-            />
-          )}
+          renderTabs={this._renderTabs}
           renderButton={this._renderButton}
+        />
+      );
+    }
+
+    _renderTabs() {
+      const {genres} = this.props;
+      const {genre} = this.state;
+
+      return (
+        <GenreTabs
+          genre={genre}
+          genres={genres}
+          clickHandler={(curGenre) => {
+            this._resetChunks();
+            this._setGenre(curGenre);
+          }}
         />
       );
     }
@@ -102,10 +110,7 @@ const withFilters = (Component) => {
 
   WithFilters.propTypes = {
     genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-    movies: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      posterImage: PropTypes.string.isRequired,
-    })).isRequired,
+    movies: PropTypes.arrayOf(PropType.movie).isRequired,
     renderTitle: PropTypes.func.isRequired,
   };
 
