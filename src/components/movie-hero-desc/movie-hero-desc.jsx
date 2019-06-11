@@ -36,7 +36,7 @@ const MovieHeroDesc = (props) => {
             disabled={item.disabled}
           />
         ))}
-        {reviewsLinkRequired && <Link to="/" className="btn movie-card__button">
+        {reviewsLinkRequired && <Link to={`/film/${movie.id}/review`} className="btn movie-card__button">
         Add review
         </Link>}
       </div>

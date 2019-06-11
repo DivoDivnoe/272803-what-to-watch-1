@@ -6,7 +6,7 @@ import UserBlock from '../user-block/user-block.jsx';
 import PropType from '../../proptypes.js';
 
 const MovieHeroHead = (props) => {
-  const {movie, userData, isMainPage} = props;
+  const {movie, userData, isMainPage, renderBreadCrumbs} = props;
 
   return (
     <React.Fragment>
@@ -18,6 +18,7 @@ const MovieHeroHead = (props) => {
 
       <Header extraClassName="movie-card__head">
         <Logo isMainPage={isMainPage} isLight={false} />
+        {renderBreadCrumbs && renderBreadCrumbs()}
         <UserBlock userData={userData} />
       </Header>
     </React.Fragment>
@@ -28,6 +29,7 @@ MovieHeroHead.propTypes = {
   userData: PropType.userData,
   isMainPage: PropTypes.bool.isRequired,
   movie: PropType.movie,
+  renderBreadCrumbs: PropTypes.func,
 };
 
 export default MovieHeroHead;

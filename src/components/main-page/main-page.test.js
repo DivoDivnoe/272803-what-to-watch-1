@@ -36,7 +36,7 @@ const mock = {
       previewImage: ``,
     },
   ],
-  promoFilm: {
+  film: {
     name: `Major Payne`,
     description: `very interesting film`,
     director: `Steven Spielberg`,
@@ -54,7 +54,6 @@ const mock = {
   favorites: [],
   genres: [`All`, `Crime`, `Thriller`],
   userData: {},
-  isPlayerActive: false,
   switchPlayer: jest.fn(),
   setToFavoritesHandler: jest.fn(),
   history: {},
@@ -63,7 +62,7 @@ const mock = {
 describe(`MainPage component`, () => {
   const {
     movies,
-    promoFilm,
+    film,
     favorites,
     genres,
     userData,
@@ -78,7 +77,7 @@ describe(`MainPage component`, () => {
         <BrowserRouter>
           <MainPage
             movies={movies}
-            promoFilm={promoFilm}
+            film={film}
             favorites={favorites}
             genres={genres}
             userData={userData}

@@ -21,6 +21,7 @@ const SignInPage = (props) => {
     changePassword,
     statusCode,
     setStatusCode,
+    isLoading,
   } = props;
 
   const path = history.location.search.split(`=`)[1];
@@ -102,6 +103,7 @@ SignInPage.propTypes = {
   changePassword: PropTypes.func.isRequired,
   statusCode: PropTypes.number,
   setStatusCode: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default SignInPage;

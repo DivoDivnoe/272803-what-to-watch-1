@@ -39,8 +39,6 @@ export const Operation = {
           const film = transformObjProps(response.data);
 
           dispatch(ActionCreator[`UPDATE_FAVORITES`](film));
-        } else if (response.response.status === StatusCode.FORBIDDEN) {
-          onFail();
         }
       })
       .catch((error) => {
