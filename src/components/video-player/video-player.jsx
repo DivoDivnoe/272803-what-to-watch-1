@@ -8,6 +8,22 @@ class VideoPlayer extends PureComponent {
     this._videoRef = React.createRef();
   }
 
+  render() {
+    const {image, size, className} = this.props;
+
+    return (
+      <video
+        ref={this._videoRef}
+        width={size.width}
+        height={size.height}
+        poster={image}
+        className={className || ``}
+      >
+        Your browser does not support the video tag.
+      </video>
+    );
+  }
+
   componentDidMount() {
     const {isFull, updateTimeHandler, handleLoaded} = this.props;
     const video = this._videoRef.current;
@@ -51,22 +67,6 @@ class VideoPlayer extends PureComponent {
     video.oncanplaythrough = null;
     video.ontimeupdate = null;
     video.src = ``;
-  }
-
-  render() {
-    const {image, size, className} = this.props;
-
-    return (
-      <video
-        ref={this._videoRef}
-        width={size.width}
-        height={size.height}
-        poster={image}
-        className={className || ``}
-      >
-        Your browser does not support the video tag.
-      </video>
-    );
   }
 }
 

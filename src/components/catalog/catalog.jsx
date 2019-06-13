@@ -21,11 +21,11 @@ const Catalog = (props) => {
     <section className={`catalog ${extraClass}`}>
       {renderTitle()}
 
-      {renderTabs()}
+      {renderTabs && renderTabs()}
 
       <FilmsListWithState movies={movies} />
 
-      {renderButton()}
+      {renderButton && renderButton()}
     </section>
   );
 };
@@ -33,8 +33,8 @@ const Catalog = (props) => {
 Catalog.propTypes = {
   movies: PropTypes.arrayOf(PropType.movie).isRequired,
   renderTitle: PropTypes.func.isRequired,
-  renderTabs: PropTypes.func.isRequired,
-  renderButton: PropTypes.func.isRequired,
+  renderTabs: PropTypes.func,
+  renderButton: PropTypes.func,
   extraClassName: PropTypes.string,
 };
 

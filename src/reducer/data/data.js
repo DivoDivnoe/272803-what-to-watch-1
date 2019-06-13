@@ -7,6 +7,7 @@ const initialState = {
   favorites: [],
   genres: [],
   promoFilm: {},
+  comments: [],
 };
 
 Object.freeze(initialState);
@@ -31,14 +32,15 @@ export const Operation = {
         }
       });
   },
-  setToFavorites: (id, status = 1, onFail) => (dispatch, _getState, api) => {
+  setToFavorites: (id, status, onFail) => (dispatch, _getState, api) => {
     return api
       .post(`/favorite/${id}/${status}`)
       .then((response) => {
         if (response.status === StatusCode.OK) {
           const film = transformObjProps(response.data);
+          const actionType = [`REMOVE_FAVORITE`, `UPDATE_FAVORITES`][status];
 
-          dispatch(ActionCreator[`UPDATE_FAVORITES`](film));
+          dispatch(ActionCreator[actionType](film));
         }
       })
       .catch((error) => {
@@ -69,6 +71,15 @@ export const Operation = {
         }
       });
   },
+  loadComments: (id) => (dispatch, _getState, api) => {
+    return api
+      .get(`/comments/${id}`)
+      .then((response) => {
+        if (response.status === StatusCode.OK) {
+          dispatch(ActionCreator[`LOAD_COMMENTS`](response.data));
+        }
+      });
+  },
 };
 
 const ActionCreator = {
@@ -88,10 +99,18 @@ const ActionCreator = {
     type: `UPDATE_FAVORITES`,
     payload: film,
   }),
+  REMOVE_FAVORITE: (film) => ({
+    type: `REMOVE_FAVORITE`,
+    payload: film,
+  }),
   SET_GENRES: (genres) => ({
     type: `SET_GENRES`,
     payload: genres,
-  })
+  }),
+  LOAD_COMMENTS: (comments) => ({
+    type: `LOAD_COMMENTS`,
+    payload: comments,
+  }),
 };
 
 export const reducer = (state = initialState, action) => {
@@ -102,10 +121,16 @@ export const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {favorites: action.payload});
     case `UPDATE_FAVORITES`:
       return Object.assign({}, state, {favorites: state.favorites.concat(action.payload)});
+    case `REMOVE_FAVORITE`:
+      const favorites = state.favorites.filter((film) => film.id !== action.payload.id);
+
+      return Object.assign({}, state, {favorites});
     case `SET_GENRES`:
       return Object.assign({}, state, {genres: action.payload});
     case `LOAD_PROMO_FILM`:
       return Object.assign({}, state, {promoFilm: action.payload});
+    case `LOAD_COMMENTS`:
+      return Object.assign({}, state, {comments: action.payload});
   }
 
   return state;

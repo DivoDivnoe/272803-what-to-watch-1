@@ -15,7 +15,7 @@ const createAPI = (dispatch) => {
       dispatch(ActionCreator[`SET_SERVER_STATUS`](false));
     }
 
-    return Promise.reject(error);
+    throw error;
   };
 
   api.interceptors.response.use(onSuccess, onFail);

@@ -10,16 +10,22 @@ import PropType from '../../proptypes.js';
 const MovieHeroWithTabs = withTabsSwitch(MovieHeroFilm);
 
 class FilmPage extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this._handleSetToFavorites = this._handleSetToFavorites.bind(this);
+    this._onFail = this._onFail.bind(this);
+  }
   render() {
     const {
       userData,
-      match,
       switchPlayer,
-      setToFavoritesHandler,
       favorites,
-      history,
       film,
       similarFilms,
+      comments,
+      loadComments,
+      deleteComments,
     } = this.props;
 
     return (
@@ -28,11 +34,12 @@ class FilmPage extends PureComponent {
           movie={film}
           userData={userData}
           switchPlayer={switchPlayer}
-          id={+match.params.id}
-          setToFavoritesHandler={() => {
-            setToFavoritesHandler(+match.params.id, 1, () => history.push(`/login?redirect=/film/${+match.params.id}`));
-          }}
-          isInList={favorites.some((movie) => movie.id === +match.params.id)}
+          comments={comments}
+          loadComments={loadComments}
+          deleteComments={deleteComments}
+          id={film.id}
+          setToFavoritesHandler={this._handleSetToFavorites}
+          isInList={favorites.some((movie) => movie.id === film.id)}
         />
 
         <PageContent>
@@ -49,17 +56,32 @@ class FilmPage extends PureComponent {
       </React.Fragment>
     );
   }
+
+  _handleSetToFavorites() {
+    const {setToFavoritesHandler, film, favorites} = this.props;
+    const status = +!favorites.some((movie) => movie.id === film.id);
+
+    setToFavoritesHandler(film.id, status, this._onFail);
+  }
+
+  _onFail() {
+    const {history, film} = this.props;
+
+    history.push(`/login?redirect=/film/${film.id}`);
+  }
 }
 
 FilmPage.propTypes = {
   userData: PropType.userData,
   favorites: PropTypes.arrayOf(PropType.movie).isRequired,
-  match: PropTypes.object.isRequired,
   switchPlayer: PropTypes.func.isRequired,
   setToFavoritesHandler: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   film: PropType.movie,
   similarFilms: PropTypes.arrayOf(PropType.movie).isRequired,
+  comments: PropTypes.arrayOf(PropType.review),
+  loadComments: PropTypes.func.isRequired,
+  deleteComments: PropTypes.func.isRequired,
 };
 
 export default FilmPage;

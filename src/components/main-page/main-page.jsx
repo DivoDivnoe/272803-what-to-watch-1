@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Footer from '../footer/footer.jsx';
 import Catalog from '../catalog/catalog.jsx';
 import PageContent from '../page-content/page-content.jsx';
@@ -22,8 +21,6 @@ const MainPage = (props) => {
     history,
   } = props;
 
-  const renderTitle = () => <h2 className="catalog__title visually-hidden">Catalog</h2>;
-
   return (
     <React.Fragment>
       <MovieHero
@@ -38,7 +35,7 @@ const MainPage = (props) => {
 
       <PageContent>
         <CatalogInteractive
-          renderTitle={renderTitle}
+          renderTitle={() => <h2 className="catalog__title visually-hidden">Catalog</h2>}
           movies={movies}
           genres={genres}
         />

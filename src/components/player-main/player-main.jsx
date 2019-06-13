@@ -1,7 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Fullscreen from 'react-full-screen';
+import Preloader from '../preloader/preloader.jsx';
 import {parseTime} from '../../utils/utils';
+
+const renderButtonContent = (isPlaying) => {
+  if (isPlaying) {
+    return (
+      <React.Fragment>
+        <svg viewBox="0 0 14 21" width="14" height="21">
+          <use xlinkHref="#pause"></use>
+        </svg>
+        <span>Pause</span>
+      </React.Fragment>
+    );
+  }
+
+  return (
+    <React.Fragment>
+      <svg viewBox="0 0 19 19" width="19" height="19">
+        <use xlinkHref="#play-s"></use>
+      </svg>
+      <span>Play</span>
+    </React.Fragment>
+  );
+};
 
 const PlayerMain = (props) => {
   const {
@@ -19,44 +42,13 @@ const PlayerMain = (props) => {
 
   const timeElapsed = parseTime(duration - currentTime);
 
-  const renderPreloader = () => (
-    <div
-      className="player__preloader"
-      style={{position: `absolute`, left: `50%`, top: `50%`, transform: `translate(-50%, -50%)`}}
-    >
-      <img src="/img/preloader.gif" width="50" height="50" alt="preload" />
-    </div>
-  );
-
-  const renderButtonContent = () => {
-    if (isPlaying) {
-      return (
-        <React.Fragment>
-          <svg viewBox="0 0 14 21" width="14" height="21">
-            <use xlinkHref="#pause"></use>
-          </svg>
-          <span>Pause</span>
-        </React.Fragment>
-      );
-    }
-
-    return (
-      <React.Fragment>
-        <svg viewBox="0 0 19 19" width="19" height="19">
-          <use xlinkHref="#play-s"></use>
-        </svg>
-        <span>Play</span>
-      </React.Fragment>
-    );
-  };
-
   return (
     <Fullscreen
       enabled={isFullScreen}
       onChange={(isFull) => setFullScreen(isFull)}
     >
       <div className="player">
-        {isLoading && renderPreloader()}
+        {isLoading && <Preloader />}
         {renderPlayer({
           size: {width: `100%`, height: `100%`},
           className: `player__video`
@@ -77,7 +69,7 @@ const PlayerMain = (props) => {
 
           <div className="player__controls-row">
             <button type="button" className="player__play" onClick={togglePlay}>
-              {renderButtonContent()}
+              {renderButtonContent(isPlaying)}
             </button>
             <div className="player__name">Transpotting</div>
 

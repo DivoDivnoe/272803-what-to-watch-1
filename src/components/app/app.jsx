@@ -14,11 +14,11 @@ import withPrivateRoute from '../../hocs/with-private-route/with-private-route';
 import withPublicRedirect from '../../hocs/with-public-redirect/with-public-redirect';
 import withPlayerActive from '../../hocs/with-player-active/with-player-active';
 import withSignInData from '../../hocs/with-sign-in-data/with-sign-in-data';
-import withCurrentMovie from '../../hocs/with-current-movie/with-current-movie.jsx';
+import withCurrentMovie from '../../hocs/with-current-movie/with-current-movie';
 import withReviewData from '../../hocs/with-review-data/with-review-data';
 
 import DataActionCreator, {Operation as DataOperation} from '../../reducer/data/data';
-import {getFilms, getFavorites, getGenres, getPromoFilm} from '../../reducer/data/selectors';
+import {getFilms, getFavorites, getGenres, getPromoFilm, getComments} from '../../reducer/data/selectors';
 import {getUserData} from '../../reducer/user/selectors';
 import {getServerStatus} from '../../reducer/application/selectors';
 import {ActionCreator as AppActionCreator} from '../../reducer/application/application';
@@ -35,14 +35,6 @@ const SignInPageWithState = withSignInData(SignInPage);
 const AddReviewPageWithState = withCurrentMovie(withReviewData(AddReviewPage));
 
 class App extends PureComponent {
-  componentDidUpdate(prevProps) {
-    const {userData, loadFavorites} = this.props;
-
-    if (!Object.keys(prevProps.userData).length && Object.keys(userData).length) {
-      loadFavorites();
-    }
-  }
-
   render() {
     const {
       authUserHandler,
@@ -53,6 +45,9 @@ class App extends PureComponent {
       promoFilm,
       setToFavoritesHandler,
       isServerResponding,
+      comments,
+      loadComments,
+      deleteComments,
     } = this.props;
 
     const isAuthenticated = !!Object.keys(userData).length;
@@ -94,6 +89,9 @@ class App extends PureComponent {
             setToFavoritesHandler={setToFavoritesHandler}
             favorites={favorites}
             history={history}
+            comments={comments}
+            loadComments={loadComments}
+            deleteComments={deleteComments}
           />
         )} />
         <RoutePublicRedirect
@@ -125,6 +123,14 @@ class App extends PureComponent {
       </Switch>
     );
   }
+
+  componentDidUpdate(prevProps) {
+    const {userData, loadFavorites} = this.props;
+
+    if (!Object.keys(prevProps.userData).length && Object.keys(userData).length) {
+      loadFavorites();
+    }
+  }
 }
 
 
@@ -136,12 +142,15 @@ App.propTypes = {
     posterImage: PropTypes.string.isRequired,
   })).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  comments: PropTypes.arrayOf(PropType.review),
   userData: PropType.userData,
   authUserHandler: PropTypes.func.isRequired,
   setToFavoritesHandler: PropTypes.func.isRequired,
   loadFavorites: PropTypes.func.isRequired,
   setServerStatus: PropTypes.func.isRequired,
   isServerResponding: PropTypes.bool.isRequired,
+  loadComments: PropTypes.func.isRequired,
+  deleteComments: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -152,6 +161,7 @@ const mapStateToProps = (state, ownProps) => {
     genres: getGenres(state),
     promoFilm: getPromoFilm(state),
     isServerResponding: getServerStatus(state),
+    comments: getComments(state),
   });
 };
 
@@ -171,6 +181,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     setServerStatus: (status) => {
       dispatch(AppActionCreator[`SET_SERVER_STATUS`](status));
+    },
+    loadComments: (id) => {
+      dispatch(DataOperation.loadComments(id));
+    },
+    deleteComments: () => {
+      dispatch(DataActionCreator[`LOAD_COMMENTS`]([]));
     }
   };
 };

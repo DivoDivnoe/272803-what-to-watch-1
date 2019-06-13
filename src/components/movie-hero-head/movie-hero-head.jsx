@@ -26,9 +26,9 @@ const MovieHeroHead = (props) => {
 };
 
 MovieHeroHead.propTypes = {
-  userData: PropType.userData,
+  userData: PropType.userData.isRequired,
   isMainPage: PropTypes.bool.isRequired,
-  movie: PropType.movie,
+  movie: PropType.movie.isRequired,
   renderBreadCrumbs: PropTypes.func,
 };
 

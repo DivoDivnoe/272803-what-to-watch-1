@@ -3,6 +3,7 @@ import {appGenres} from './constants';
 
 const PropType = {
   movie: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
     posterImage: PropTypes.string,
     description: PropTypes.string,
@@ -16,6 +17,9 @@ const PropType = {
     genre: PropTypes.oneOf(appGenres),
     previewVideoLink: PropTypes.string,
     previewImage: PropTypes.string,
+    videoLink: PropTypes.string,
+    runTime: PropTypes.number,
+    isFavorite: PropTypes.bool,
   }),
   userData: PropTypes.shape({
     id: PropTypes.number,
@@ -23,7 +27,7 @@ const PropType = {
     avatarUrl: PropTypes.string,
     name: PropTypes.string,
   }),
-  reviews: PropTypes.arrayOf(PropTypes.shape({
+  review: PropTypes.shape({
     id: PropTypes.number.isRequired,
     comment: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
@@ -31,7 +35,7 @@ const PropType = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
     }),
-  })).isRequired,
+  }),
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node

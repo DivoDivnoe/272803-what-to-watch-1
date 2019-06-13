@@ -28,13 +28,13 @@ const MovieHero = (props) => {
             />
           </div>
 
-          <MovieHeroDesc
+          {!!Object.keys(movie).length && <MovieHeroDesc
             reviewsLinkRequired={false}
             movie={movie}
             switchPlayer={switchPlayer}
             setToFavoritesHandler={setToFavoritesHandler}
             isInList={isInList}
-          />
+          />}
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import PropType from '../../proptypes.js';
 
 const TIMEOUT = 1000;
@@ -10,6 +10,7 @@ class FilmCard extends PureComponent {
     super(props);
 
     this._articleRef = React.createRef();
+
     this._mouseEnterHandler = this._mouseEnterHandler.bind(this);
   }
 

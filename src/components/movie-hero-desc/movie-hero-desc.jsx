@@ -14,8 +14,8 @@ const MovieHeroDesc = (props) => {
   } = props;
 
   const buttonObjs = [
-    {type: `play`, handler: switchPlayer, disabled: false},
-    {type: `list`, handler: setToFavoritesHandler, disabled: isInList}
+    {type: `play`, handler: switchPlayer},
+    {type: `list`, handler: setToFavoritesHandler}
   ];
 
   return (
@@ -33,7 +33,6 @@ const MovieHeroDesc = (props) => {
             key={`${item.type}-${index}`}
             clickHandler={item.handler}
             isInList={isInList}
-            disabled={item.disabled}
           />
         ))}
         {reviewsLinkRequired && <Link to={`/film/${movie.id}/review`} className="btn movie-card__button">

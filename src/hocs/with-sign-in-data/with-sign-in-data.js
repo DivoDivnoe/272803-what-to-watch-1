@@ -17,6 +17,7 @@ const withSignInData = (Component) => {
       this._setPassword = this._setPassword.bind(this);
       this._setStatusCode = this._setStatusCode.bind(this);
       this._toggleIsLoading = this._toggleIsLoading.bind(this);
+      this._submitForm = this._submitForm.bind(this);
     }
 
     render() {
@@ -32,6 +33,7 @@ const withSignInData = (Component) => {
           changeEmail={this._setEmail}
           changePassword={this._setPassword}
           setStatusCode={this._setStatusCode}
+          handleSubmitForm={this._submitForm}
         />
       );
     }

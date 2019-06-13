@@ -18,10 +18,6 @@ const withPlayerActive = (Component) => {
       this._togglePlayerMode = this._togglePlayerMode.bind(this);
     }
 
-    _togglePlayerMode() {
-      this.setState({isPlayerActive: !this.state.isPlayerActive});
-    }
-
     render() {
       const {isPlayerActive} = this.state;
       const {film} = this.props;
@@ -36,6 +32,10 @@ const withPlayerActive = (Component) => {
       }
 
       return <Player movie={film} switchPlayer={this._togglePlayerMode} />;
+    }
+
+    _togglePlayerMode() {
+      this.setState({isPlayerActive: !this.state.isPlayerActive});
     }
   }
 
