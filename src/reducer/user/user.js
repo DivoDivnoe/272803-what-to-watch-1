@@ -34,7 +34,7 @@ export const Operation = {
       .then((response) => {
         dispatchUserData(dispatch, response);
       })
-      .catch((error) => error);
+      .catch((err) => err);
   }
 };
 

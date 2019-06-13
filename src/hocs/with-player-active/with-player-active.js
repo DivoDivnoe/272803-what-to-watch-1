@@ -1,6 +1,10 @@
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import PropType from '../../proptypes.js';
+import PlayerMain from '../../components/player-main/player-main.jsx';
+import withLoading from '../with-loading/with-loading';
+import withPlayerControls from '../with-player-controls/with-player-controls';
+
+const Player = withPlayerControls(withLoading(PlayerMain));
 
 const withPlayerActive = (Component) => {
   class WithPlayerActive extends PureComponent {
@@ -14,25 +18,29 @@ const withPlayerActive = (Component) => {
       this._togglePlayerMode = this._togglePlayerMode.bind(this);
     }
 
-    _togglePlayerMode() {
-      this.setState({isPlayerActive: !this.state.isPlayerActive});
-    }
-
     render() {
       const {isPlayerActive} = this.state;
+      const {film} = this.props;
 
-      return (
-        <Component
-          {...this.props}
-          isPlayerActive={isPlayerActive}
-          switchPlayer={this._togglePlayerMode}
-        />
-      );
+      if (!isPlayerActive) {
+        return (
+          <Component
+            {...this.props}
+            switchPlayer={this._togglePlayerMode}
+          />
+        );
+      }
+
+      return <Player movie={film} switchPlayer={this._togglePlayerMode} />;
+    }
+
+    _togglePlayerMode() {
+      this.setState({isPlayerActive: !this.state.isPlayerActive});
     }
   }
 
   WithPlayerActive.propTypes = {
-    movies: PropTypes.arrayOf(PropType.movie).isRequired,
+    film: PropType.movie,
   };
 
   return WithPlayerActive;

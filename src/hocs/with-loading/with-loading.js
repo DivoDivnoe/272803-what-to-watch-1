@@ -15,7 +15,6 @@ const withLoading = (Component) => {
       };
 
       this._handleLoaded = this._handleLoaded.bind(this);
-      this._setDuration = this._setDuration.bind(this);
       this._setCurrentTime = this._setCurrentTime.bind(this);
       this._renderPlayer = this._renderPlayer.bind(this);
     }
@@ -32,12 +31,11 @@ const withLoading = (Component) => {
       />;
     }
 
-    _handleLoaded() {
-      this.setState({isLoading: false});
-    }
-
-    _setDuration(duration) {
-      this.setState({duration});
+    _handleLoaded(duration) {
+      this.setState({
+        isLoading: false,
+        duration,
+      });
     }
 
     _setCurrentTime(time) {
@@ -56,7 +54,6 @@ const withLoading = (Component) => {
           size={options.size}
           className={options.className}
           isFull={isFull}
-          setDuration={this._setDuration}
           updateTimeHandler={this._setCurrentTime}
         />
       );

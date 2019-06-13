@@ -50,7 +50,7 @@ const FilmOverview = (props) => {
 };
 
 FilmOverview.propTypes = {
-  film: PropType.movie,
+  film: PropType.movie.isRequired,
 };
 
 export default FilmOverview;

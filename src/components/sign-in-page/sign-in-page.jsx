@@ -11,35 +11,29 @@ const Message = {
   [StatusCode.BAD_REQUEST]: <p>Please enter a valid email address</p>,
 };
 
+const renderSignInMessage = (message) => {
+  return (
+    <div className="sign-in__message">
+      {message}
+    </div>
+  );
+};
+
 const SignInPage = (props) => {
   const {
-    history,
-    authUserHandler,
     email,
     password,
     changeEmail,
     changePassword,
     statusCode,
-    setStatusCode,
+    isLoading,
+    handleSubmitForm,
   } = props;
-
-  const path = history.location.search.split(`=`)[1];
-
-  const redirect = () => history.push(path);
-  const renderSignInMessage = (message) => {
-    return (
-      <div className="sign-in__message">
-        {message}
-      </div>
-    );
-  };
 
   const submitFormHandler = (evt) => {
     evt.preventDefault();
 
-    if (email.length && password.length) {
-      authUserHandler({email, password}, redirect, setStatusCode);
-    }
+    handleSubmitForm();
   };
 
   return (
@@ -81,7 +75,7 @@ const SignInPage = (props) => {
             <button
               className="sign-in__btn"
               type="submit"
-              disabled={!email.length || !password.length}
+              disabled={!email.length || !password.length || isLoading}
             >Sign in</button>
           </div>
         </form>
@@ -93,15 +87,14 @@ const SignInPage = (props) => {
 };
 
 SignInPage.propTypes = {
-  authUserHandler: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
+  handleSubmitForm: PropTypes.func.isRequired,
   userData: PropType.userData,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   changeEmail: PropTypes.func.isRequired,
   changePassword: PropTypes.func.isRequired,
   statusCode: PropTypes.number,
-  setStatusCode: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default SignInPage;

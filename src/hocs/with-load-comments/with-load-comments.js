@@ -1,34 +1,25 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import createAPI from '../../api';
-import {StatusCode} from '../../constants';
 
 const withLoadComments = (Component) => {
   class WithLoadComments extends PureComponent {
-    constructor(props) {
-      super(props);
-
-      this.state = {reviews: []};
-      this.api = createAPI();
+    render() {
+      return <Component {...this.props} />;
     }
 
     componentDidMount() {
-      this.api
-        .get(`/comments/${this.props.id}`)
-        .then((response) => {
-          if (response.status === StatusCode.OK) {
-            this.setState({reviews: response.data});
-          }
-        });
+      this.props.loadComments(this.props.id);
     }
 
-    render() {
-      return <Component reviews={this.state.reviews} />;
+    componentWillUnmount() {
+      this.props.deleteComments();
     }
   }
 
   WithLoadComments.propTypes = {
     id: PropTypes.number.isRequired,
+    loadComments: PropTypes.func.isRequired,
+    deleteComments: PropTypes.func.isRequired,
   };
 
   return WithLoadComments;

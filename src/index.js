@@ -8,9 +8,10 @@ import {compose} from 'recompose';
 import App from './components/app/app.jsx';
 import reducer from './reducer/reducer';
 import {Operation} from './reducer/data/data';
+import {Operation as UserOperation} from './reducer/user/user';
 import createAPI from './api';
 
-const api = createAPI();
+const api = createAPI((...args) => store.dispatch(...args));
 
 const store = createStore(
     reducer,
@@ -22,6 +23,7 @@ const store = createStore(
 
 store.dispatch(Operation.loadFilms());
 store.dispatch(Operation.loadPromoFilm());
+store.dispatch(UserOperation.checkIsAuthUser());
 
 const init = () => {
   const root = document.querySelector(`#root`);

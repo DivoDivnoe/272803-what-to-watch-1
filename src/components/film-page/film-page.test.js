@@ -6,6 +6,7 @@ import {BrowserRouter} from 'react-router-dom';
 const mock = {
   movies: [
     {
+      id: 3,
       name: `Fantastic Beasts`,
       description: `very interesting film`,
       director: `Steven Spielberg`,
@@ -21,6 +22,7 @@ const mock = {
       previewImage: ``,
     },
     {
+      id: 2,
       name: `Major Payne`,
       description: `very interesting film`,
       director: `Steven Spielberg`,
@@ -36,6 +38,22 @@ const mock = {
       previewImage: ``,
     },
   ],
+  film: {
+    id: 1,
+    name: `Fantastic Beasts`,
+    description: `very interesting film`,
+    director: `Steven Spielberg`,
+    starring: [`Andrey Ivanov`, `Sergey Rubets`],
+    rating: 10,
+    scoresCount: 100000,
+    backgroundImage: ``,
+    backgroundColor: `cyan`,
+    released: 2019,
+    posterImage: ``,
+    genre: `Comedy`,
+    previewVideoLink: ``,
+    previewImage: ``,
+  },
   userData: {},
   favorites: [],
   match: {
@@ -45,14 +63,13 @@ const mock = {
   genres: [`All`, `Crime`, `Thriller`],
   switchPlayer: jest.fn(),
   authUserHandler: jest.fn(),
-  isPlayerActive: false,
   setToFavoritesHandler: jest.fn(),
   history: {},
 };
 
 describe(`FilmPage component`, () => {
   const {
-    movies,
+    film,
     userData,
     favorites,
     match,
@@ -62,14 +79,16 @@ describe(`FilmPage component`, () => {
     authUserHandler,
     setToFavoritesHandler,
     history,
-    isPlayerActive
+    isPlayerActive,
+    movies,
   } = mock;
 
   it(`renders correctly`, () => {
     const tree = renderer.create(
         <BrowserRouter>
           <FilmPage
-            movies={movies}
+            film={film}
+            similarFilms={movies}
             favorites={favorites}
             match={match}
             genre={genre}

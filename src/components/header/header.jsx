@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PropType from '../../proptypes.js';
 
 const Header = (props) => {
-  const {extraClassName} = props;
+  const extraClassName = props.extraClassName || ``;
 
   return (
     <header className={`page-header ${extraClassName}`}>
@@ -13,7 +13,7 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  extraClassName: PropTypes.string.isRequired,
+  extraClassName: PropTypes.string,
   children: PropType.children,
 };
 

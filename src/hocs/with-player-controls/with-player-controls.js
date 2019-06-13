@@ -16,6 +16,24 @@ const withPlayerControls = (Component) => {
       this._setFullScreen = this._setFullScreen.bind(this);
     }
 
+    render() {
+      const {isPlaying, isFullScreen} = this.state;
+
+      return (
+        <Component
+          {...this.props}
+          isPlaying={isPlaying}
+          isFullScreen={isFullScreen}
+          resetPlayer={this._resetState}
+          togglePlay={this._togglePlay}
+          toggleFullScreen={this._toggleFullScreen}
+          setFullScreen={this._setFullScreen}
+          setDuration={this._setDuration}
+          isFull={true}
+        />
+      );
+    }
+
     _togglePlay() {
       this.setState({
         isPlaying: !this.state.isPlaying,
@@ -39,24 +57,6 @@ const withPlayerControls = (Component) => {
         isPlaying: false,
         isFullScreen: false,
       });
-    }
-
-    render() {
-      const {isPlaying, isFullScreen} = this.state;
-
-      return (
-        <Component
-          {...this.props}
-          isPlaying={isPlaying}
-          isFullScreen={isFullScreen}
-          resetPlayer={this._resetState}
-          togglePlay={this._togglePlay}
-          toggleFullScreen={this._toggleFullScreen}
-          setFullScreen={this._setFullScreen}
-          setDuration={this._setDuration}
-          isFull={true}
-        />
-      );
     }
   }
 
