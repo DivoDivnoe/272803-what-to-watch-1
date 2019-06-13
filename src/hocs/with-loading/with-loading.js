@@ -15,7 +15,7 @@ const withLoading = (Component) => {
       };
 
       this._handleLoaded = this._handleLoaded.bind(this);
-      this._setCurrentTime = this._setCurrentTime.bind(this);
+      this._handleSetCurrentTime = this._handleSetCurrentTime.bind(this);
       this._renderPlayer = this._renderPlayer.bind(this);
     }
 
@@ -38,7 +38,7 @@ const withLoading = (Component) => {
       });
     }
 
-    _setCurrentTime(time) {
+    _handleSetCurrentTime(time) {
       this.setState({currentTime: time});
     }
 
@@ -50,11 +50,11 @@ const withLoading = (Component) => {
           image={isFull ? movie.backgroundImage : movie.previewImage}
           video={isFull ? movie.videoLink : movie.previewVideoLink}
           isPlaying={isPlaying}
-          handleLoaded={this._handleLoaded}
           size={options.size}
           className={options.className}
           isFull={isFull}
-          updateTimeHandler={this._setCurrentTime}
+          onLoad={this._handleLoaded}
+          onUpdateTime={this._handleSetCurrentTime}
         />
       );
     }

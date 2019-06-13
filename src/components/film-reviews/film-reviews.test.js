@@ -3,7 +3,7 @@ import {create} from 'react-test-renderer';
 import FilmReviews from './film-reviews.jsx';
 
 const mock = {
-  reviews: [
+  comments: [
     {
       id: 11,
       comment: `Yohoho`,
@@ -18,10 +18,10 @@ const mock = {
 
 describe(`FilmReviews component`, () => {
   it(`renders correctly`, () => {
-    const {reviews} = mock;
+    const {comments} = mock;
 
     const tree = create(
-        <FilmReviews reviews={reviews} />
+        <FilmReviews comments={comments} />
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

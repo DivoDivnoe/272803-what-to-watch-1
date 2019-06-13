@@ -96,7 +96,6 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
-              disabled={false}
               onClick={[MockFunction]}
               type="button"
             >
@@ -115,7 +114,6 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
-              disabled={false}
               onClick={[Function]}
               type="button"
             >
@@ -132,13 +130,6 @@ Array [
                 My list
               </span>
             </button>
-            <a
-              className="btn movie-card__button"
-              href="/"
-              onClick={[Function]}
-            >
-              Add review
-            </a>
           </div>
         </div>
       </div>
@@ -268,66 +259,7 @@ Array [
       </h2>
       <div
         className="catalog__movies-list"
-      >
-        <article
-          className="small-movie-card catalog__movies-card"
-          onMouseEnter={null}
-        >
-          <a
-            href="/film/3"
-            onClick={[Function]}
-          >
-            <video
-              className=""
-              height="175"
-              poster=""
-              width="280"
-            >
-              Your browser does not support the video tag.
-            </video>
-          </a>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="/film/3"
-              onClick={[Function]}
-            >
-              Fantastic Beasts
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onMouseEnter={null}
-        >
-          <a
-            href="/film/2"
-            onClick={[Function]}
-          >
-            <video
-              className=""
-              height="175"
-              poster=""
-              width="280"
-            >
-              Your browser does not support the video tag.
-            </video>
-          </a>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="/film/2"
-              onClick={[Function]}
-            >
-              Major Payne
-            </a>
-          </h3>
-        </article>
-      </div>
+      />
     </section>
     <footer
       className="page-footer"

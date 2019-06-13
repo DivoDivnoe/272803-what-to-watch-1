@@ -22,23 +22,23 @@ const mock = {
     previewVideoLink: ``,
     previewImage: ``,
   },
-  handlePreview: jest.fn(),
-  stopPreview: jest.fn(),
+  onStartPreview: jest.fn(),
+  onStopPreview: jest.fn(),
   isLoading: false,
 };
 
 describe(`FilmCard component`, () => {
   it(`renders correctly`, () => {
-    const {movie, handlePreview, stopPreview, isLoading} = mock;
+    const {movie, onStartPreview, onStopPreview, isLoading} = mock;
 
     const tree = create(
         <BrowserRouter>
           <FilmCard
             movie={movie}
-            renderPlayer={renderPlayer}
-            handlePreview={handlePreview}
-            stopPreview={stopPreview}
             isLoading={isLoading}
+            renderPlayer={renderPlayer}
+            onStartPreview={onStartPreview}
+            onStopPreview={onStopPreview}
           />
         </BrowserRouter>
     ).toJSON();

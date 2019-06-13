@@ -25,22 +25,22 @@ const mock = {
     previewVideoLink: ``,
     previewImage: ``,
   },
-  handlePreview: jest.fn(),
-  stopPreview: jest.fn(),
+  onStartPreview: jest.fn(),
+  onStopPreview: jest.fn(),
   isLoading: false,
 };
 
 describe(`FilmCard component`, () => {
   it(`handles correctly mouseenter event`, (done) => {
-    const {movie, handlePreview, stopPreview, isLoading} = mock;
+    const {movie, onStartPreview, onStopPreview, isLoading} = mock;
 
     const filmCard = mount(
         <BrowserRouter>
           <FilmCard
             movie={movie}
             renderPlayer={renderPlayer}
-            handlePreview={handlePreview}
-            stopPreview={stopPreview}
+            onStartPreview={onStartPreview}
+            onStopPreview={onStopPreview}
             isLoading={isLoading}
           />
         </BrowserRouter>
@@ -49,7 +49,7 @@ describe(`FilmCard component`, () => {
     filmCard.find(`article`).simulate(`mouseenter`);
 
     setTimeout(() => {
-      expect(handlePreview).toHaveBeenCalledWith(movie.name);
+      expect(onStartPreview).toHaveBeenCalledWith(movie.name);
       done();
     }, 1000);
   });

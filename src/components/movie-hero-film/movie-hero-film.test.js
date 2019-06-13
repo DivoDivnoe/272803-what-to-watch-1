@@ -5,7 +5,8 @@ import {BrowserRouter} from 'react-router-dom';
 
 const mock = {
   movie: {
-    name: `Fantastic Beasts`,
+    id: 2,
+    name: `Major Payne`,
     description: `very interesting film`,
     director: `Steven Spielberg`,
     starring: [`Andrey Ivanov`, `Sergey Rubets`],
@@ -17,26 +18,34 @@ const mock = {
     posterImage: ``,
     genre: `Comedy`,
     previewVideoLink: ``,
+    previewImage: ``,
+    videoLink: ``,
+    runTime: 600,
+    isFavorite: false,
   },
   userData: {},
-  switchPlayer: jest.fn(),
-  renderTabs: jest.fn(),
-  id: 1,
   tab: `Details`,
-  setToFavoritesHandler: jest.fn(),
   isInList: false,
+  comments: [],
+  renderTabs: jest.fn(),
+  onSwitchPlayer: jest.fn(),
+  onSetToFavorites: jest.fn(),
+  onLoadComments: jest.fn(),
+  onDeleteComments: jest.fn(),
 };
 
 describe(`MovieHeroFilm component`, () => {
   const {
     movie,
     userData,
-    switchPlayer,
-    renderTabs,
-    id,
     tab,
-    setToFavoritesHandler,
     isInList,
+    comments,
+    renderTabs,
+    onSwitchPlayer,
+    onLoadComments,
+    onDeleteComments,
+    onSetToFavorites,
   } = mock;
 
   it(`renders correctly`, () => {
@@ -44,13 +53,16 @@ describe(`MovieHeroFilm component`, () => {
         <BrowserRouter>
           <MovieHeroFilm
             movie={movie}
-            switchPlayer={switchPlayer}
             userData={userData}
-            renderTabs={renderTabs}
             tab={tab}
-            setToFavoritesHandler={setToFavoritesHandler}
-            id={id}
             isInList={isInList}
+            comments={comments}
+            renderTabs={renderTabs}
+            onSwitchPlayer={onSwitchPlayer}
+            onLoadComments={onLoadComments}
+            onSetToFavorites={onSetToFavorites}
+            onDeleteComments={onDeleteComments}
+
           />
         </BrowserRouter>).toJSON();
 

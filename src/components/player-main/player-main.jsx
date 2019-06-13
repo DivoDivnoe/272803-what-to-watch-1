@@ -32,12 +32,12 @@ const PlayerMain = (props) => {
     duration,
     isLoading,
     renderPlayer,
-    switchPlayer,
     isPlaying,
-    togglePlay,
     isFullScreen,
-    toggleFullScreen,
-    setFullScreen,
+    onSwitchPlayer,
+    onTogglePlay,
+    onToggleFullScreen,
+    onSetFullScreen,
   } = props;
 
   const timeElapsed = parseTime(duration - currentTime);
@@ -45,7 +45,7 @@ const PlayerMain = (props) => {
   return (
     <Fullscreen
       enabled={isFullScreen}
-      onChange={(isFull) => setFullScreen(isFull)}
+      onChange={(isFull) => onSetFullScreen(isFull)}
     >
       <div className="player">
         {isLoading && <Preloader />}
@@ -54,7 +54,7 @@ const PlayerMain = (props) => {
           className: `player__video`
         })}
 
-        <button type="button" className="player__exit" onClick={switchPlayer}>Exit</button>
+        <button type="button" className="player__exit" onClick={onSwitchPlayer}>Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">
@@ -68,12 +68,12 @@ const PlayerMain = (props) => {
           </div>
 
           <div className="player__controls-row">
-            <button type="button" className="player__play" onClick={togglePlay}>
+            <button type="button" className="player__play" onClick={onTogglePlay}>
               {renderButtonContent(isPlaying)}
             </button>
             <div className="player__name">Transpotting</div>
 
-            <button type="button" className="player__full-screen" onClick={toggleFullScreen}>
+            <button type="button" className="player__full-screen" onClick={onToggleFullScreen}>
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen"></use>
               </svg>
@@ -87,17 +87,17 @@ const PlayerMain = (props) => {
 };
 
 PlayerMain.propTypes = {
-  renderPlayer: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   isFullScreen: PropTypes.bool.isRequired,
   currentTime: PropTypes.number.isRequired,
   duration: PropTypes.number.isRequired,
-  resetPlayer: PropTypes.func.isRequired,
-  togglePlay: PropTypes.func.isRequired,
-  toggleFullScreen: PropTypes.func.isRequired,
-  switchPlayer: PropTypes.func.isRequired,
-  setFullScreen: PropTypes.func.isRequired,
+  renderPlayer: PropTypes.func.isRequired,
+  onResetPlayer: PropTypes.func.isRequired,
+  onTogglePlay: PropTypes.func.isRequired,
+  onToggleFullScreen: PropTypes.func.isRequired,
+  onSwitchPlayer: PropTypes.func.isRequired,
+  onSetFullScreen: PropTypes.func.isRequired,
 };
 
 export default PlayerMain;

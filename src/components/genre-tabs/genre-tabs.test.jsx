@@ -4,16 +4,16 @@ import GenreTabs from './genre-tabs.jsx';
 
 const mock = {
   genre: `Horror`,
-  clickHandler: jest.fn(),
   genres: [`All`, `Crime`, `Thriller`],
+  onClick: jest.fn(),
 };
 
 describe(`GenreTabs component`, () => {
   it(`renders correctly`, () => {
-    const {genre, clickHandler, genres} = mock;
+    const {genre, onClick, genres} = mock;
 
     const tree = create(
-        <GenreTabs genre={genre} clickHandler={clickHandler} genres={genres} />
+        <GenreTabs genre={genre} onClick={onClick} genres={genres} />
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

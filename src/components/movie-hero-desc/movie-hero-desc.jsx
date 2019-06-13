@@ -7,15 +7,15 @@ import PropType from '../../proptypes.js';
 const MovieHeroDesc = (props) => {
   const {
     movie,
-    switchPlayer,
     reviewsLinkRequired,
     isInList,
-    setToFavoritesHandler,
+    onSwitchPlayer,
+    onSetToFavorites,
   } = props;
 
   const buttonObjs = [
-    {type: `play`, handler: switchPlayer},
-    {type: `list`, handler: setToFavoritesHandler}
+    {type: `play`, handler: onSwitchPlayer},
+    {type: `list`, handler: onSetToFavorites}
   ];
 
   return (
@@ -31,7 +31,7 @@ const MovieHeroDesc = (props) => {
           <MovieHeroButton
             type={item.type}
             key={`${item.type}-${index}`}
-            clickHandler={item.handler}
+            onClick={item.handler}
             isInList={isInList}
           />
         ))}
@@ -45,10 +45,10 @@ const MovieHeroDesc = (props) => {
 
 MovieHeroDesc.propTypes = {
   movie: PropType.movie,
-  switchPlayer: PropTypes.func.isRequired,
   reviewsLinkRequired: PropTypes.bool.isRequired,
   isInList: PropTypes.bool.isRequired,
-  setToFavoritesHandler: PropTypes.func.isRequired,
+  onSwitchPlayer: PropTypes.func.isRequired,
+  onSetToFavorites: PropTypes.func.isRequired,
 };
 
 export default MovieHeroDesc;

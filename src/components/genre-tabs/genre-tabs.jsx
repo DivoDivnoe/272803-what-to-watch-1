@@ -18,7 +18,9 @@ const TabName = {
   [AppGenre.FANTASY_GENRE]: `Fantasy`,
 };
 
-const GenreTabs = ({genre, clickHandler, genres}) => {
+const GenreTabs = (props) => {
+  const {genre, genres, onClick} = props;
+
   return (
     <ul className="catalog__genres-list">
       {genres.map((appGenre, index) => {
@@ -28,7 +30,7 @@ const GenreTabs = ({genre, clickHandler, genres}) => {
           <li className={className} key={`tab-${index}`} onClick={(evt) => {
             evt.preventDefault();
 
-            clickHandler(appGenre);
+            onClick(appGenre);
           }}>
             <a href="#" className="catalog__genres-link">
               {TabName[appGenre]}
@@ -42,8 +44,8 @@ const GenreTabs = ({genre, clickHandler, genres}) => {
 
 GenreTabs.propTypes = {
   genre: PropTypes.oneOf(appGenres).isRequired,
-  clickHandler: PropTypes.func.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default GenreTabs;

@@ -8,18 +8,18 @@ const withLoadComments = (Component) => {
     }
 
     componentDidMount() {
-      this.props.loadComments(this.props.id);
+      this.props.onLoadComments(this.props.id);
     }
 
     componentWillUnmount() {
-      this.props.deleteComments();
+      this.props.onDeleteComments();
     }
   }
 
   WithLoadComments.propTypes = {
     id: PropTypes.number.isRequired,
-    loadComments: PropTypes.func.isRequired,
-    deleteComments: PropTypes.func.isRequired,
+    onLoadComments: PropTypes.func.isRequired,
+    onDeleteComments: PropTypes.func.isRequired,
   };
 
   return WithLoadComments;

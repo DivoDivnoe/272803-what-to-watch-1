@@ -16,11 +16,11 @@ const withFilters = (Component) => {
         chunks: 1,
       };
 
-      this._showMore = this._showMore.bind(this);
+      this._handleClick = this._handleClick.bind(this);
       this._renderButton = this._renderButton.bind(this);
-      this._setGenre = this._setGenre.bind(this);
-      this._resetGenre = this._resetGenre.bind(this);
-      this._resetChunks = this._resetChunks.bind(this);
+      this._handleSetGenre = this._handleSetGenre.bind(this);
+      this._handleResetGenre = this._handleResetGenre.bind(this);
+      this._handleResetChunks = this._handleResetChunks.bind(this);
       this._getGenreFilteredMovies = this._getGenreFilteredMovies.bind(this);
       this._getSlicedMovies = this._getSlicedMovies.bind(this);
       this._renderTabs = this._renderTabs.bind(this);
@@ -47,9 +47,9 @@ const withFilters = (Component) => {
         <GenreTabs
           genre={genre}
           genres={genres}
-          clickHandler={(curGenre) => {
-            this._resetChunks();
-            this._setGenre(curGenre);
+          onClick={(curGenre) => {
+            this._handleResetChunks();
+            this._handleSetGenre(curGenre);
           }}
         />
       );
@@ -60,14 +60,14 @@ const withFilters = (Component) => {
 
       return chunks * FILMS_PER_CHUNK < this._getGenreFilteredMovies().length && (
         <div className="catalog__more">
-          <button className="catalog__button" type="button" onClick={this._showMore}>
+          <button className="catalog__button" type="button" onClick={this._handleClick}>
             Show more
           </button>
         </div>
       );
     }
 
-    _showMore() {
+    _handleClick() {
       const {chunks} = this.state;
 
       if (chunks * FILMS_PER_CHUNK < this._getGenreFilteredMovies().length) {
@@ -95,15 +95,15 @@ const withFilters = (Component) => {
       return filteredMovies.slice(0, chunks * FILMS_PER_CHUNK);
     }
 
-    _setGenre(genre) {
+    _handleSetGenre(genre) {
       this.setState({genre});
     }
 
-    _resetGenre() {
+    _handleResetGenre() {
       this.setState({genre: AppGenre.ALL_GENRES_LABEL});
     }
 
-    _resetChunks() {
+    _handleResetChunks() {
       this.setState({chunks: 1});
     }
   }

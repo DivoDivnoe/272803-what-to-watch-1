@@ -13,11 +13,11 @@ const withSignInData = (Component) => {
         isLoading: false,
       };
 
-      this._setEmail = this._setEmail.bind(this);
-      this._setPassword = this._setPassword.bind(this);
-      this._setStatusCode = this._setStatusCode.bind(this);
+      this._handleSetEmail = this._handleSetEmail.bind(this);
+      this._handleSetPassword = this._handleSetPassword.bind(this);
+      this._handleSetStatusCode = this._handleSetStatusCode.bind(this);
       this._toggleIsLoading = this._toggleIsLoading.bind(this);
-      this._submitForm = this._submitForm.bind(this);
+      this._handleSubmitForm = this._handleSubmitForm.bind(this);
     }
 
     render() {
@@ -30,23 +30,23 @@ const withSignInData = (Component) => {
           password={password}
           statusCode={statusCode}
           isLoading={isLoading}
-          changeEmail={this._setEmail}
-          changePassword={this._setPassword}
-          setStatusCode={this._setStatusCode}
-          handleSubmitForm={this._submitForm}
+          onChangeEmail={this._handleSetEmail}
+          onChangePassword={this._handleSetPassword}
+          onSetStatusCode={this._handleSetStatusCode}
+          onSubmitForm={this._handleSubmitForm}
         />
       );
     }
 
-    _setEmail(email) {
+    _handleSetEmail(email) {
       this.setState({email});
     }
 
-    _setPassword(password) {
+    _handleSetPassword(password) {
       this.setState({password});
     }
 
-    _setStatusCode(statusCode) {
+    _handleSetStatusCode(statusCode) {
       this.setState({statusCode});
     }
 
@@ -54,25 +54,26 @@ const withSignInData = (Component) => {
       this.setState({isLoading: !this.state.isLoading});
     }
 
-    _submitForm() {
-      const {authUserHandler, history} = this.props;
+    _handleSubmitForm() {
+      const {onAuthUser, history} = this.props;
       const {email, password} = this.state;
 
       this._toggleIsLoading();
 
       const path = history.location.search.split(`=`)[1];
-      const onSuccess = () => history.push(path);
-      const onFail = (status) => {
-        this._setStatusCode(status);
+
+      const handleSuccess = () => history.push(path);
+      const handleFail = (status) => {
+        this._handleSetStatusCode(status);
         this._toggleIsLoading();
       };
 
-      authUserHandler({email, password}, onSuccess, onFail);
+      onAuthUser({email, password}, handleSuccess, handleFail);
     }
   }
 
   WithSignInData.propTypes = {
-    authUserHandler: PropTypes.func.isRequired,
+    onAuthUser: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
   };
 

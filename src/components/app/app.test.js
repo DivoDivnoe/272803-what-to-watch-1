@@ -6,7 +6,9 @@ import {BrowserRouter} from 'react-router-dom';
 const mock = {
   movies: [
     {
+      id: 1,
       name: `Fantastic Beasts`,
+      posterImage: ``,
       description: `very interesting film`,
       director: `Steven Spielberg`,
       starring: [`Andrey Ivanov`, `Sergey Rubets`],
@@ -15,12 +17,15 @@ const mock = {
       backgroundImage: ``,
       backgroundColor: `cyan`,
       released: 2019,
-      posterImage: ``,
       genre: `Comedy`,
       previewVideoLink: ``,
       previewImage: ``,
+      videoLink: ``,
+      runTime: 600,
+      isFavorite: false,
     },
     {
+      id: 2,
       name: `Major Payne`,
       description: `very interesting film`,
       director: `Steven Spielberg`,
@@ -34,9 +39,13 @@ const mock = {
       genre: `Comedy`,
       previewVideoLink: ``,
       previewImage: ``,
+      videoLink: ``,
+      runTime: 600,
+      isFavorite: false,
     },
   ],
   promoFilm: {
+    id: 3,
     name: `Major Payne`,
     description: `very interesting film`,
     director: `Steven Spielberg`,
@@ -50,15 +59,21 @@ const mock = {
     genre: `Comedy`,
     previewVideoLink: ``,
     previewImage: ``,
+    videoLink: ``,
+    runTime: 600,
+    isFavorite: false,
   },
   favorites: [],
-  genre: `All`,
-  genres: [`All`, `Crime`, `Thriller`],
+  comments: [],
+  isServerResponding: true,
+  genres: [`All`, `Crime`, `Thriller`, `Comedy`],
   userData: {},
-  authUserHandler: jest.fn(),
-  checkIsAuthUser: jest.fn(),
-  setToFavoritesHandler: jest.fn(),
-  loadFavorites: jest.fn(),
+  onAuthUser: jest.fn(),
+  onSetToFavorites: jest.fn(),
+  onLoadFavorites: jest.fn(),
+  onSetServerStatus: jest.fn(),
+  onLoadComments: jest.fn(),
+  onDeleteComments: jest.fn(),
 };
 
 describe(`App component`, () => {
@@ -66,13 +81,16 @@ describe(`App component`, () => {
     movies,
     promoFilm,
     favorites,
-    genre,
+    comments,
+    isServerResponding,
     genres,
     userData,
-    authUserHandler,
-    checkIsAuthUser,
-    setToFavoritesHandler,
-    loadFavorites,
+    onAuthUser,
+    onSetToFavorites,
+    onLoadFavorites,
+    onSetServerStatus,
+    onLoadComments,
+    onDeleteComments,
   } = mock;
 
   it(`renders correctly`, () => {
@@ -82,13 +100,16 @@ describe(`App component`, () => {
             movies={movies}
             promoFilm={promoFilm}
             favorites={favorites}
-            genre={genre}
+            comments={comments}
+            isServerResponding={isServerResponding}
             genres={genres}
             userData={userData}
-            authUserHandler={authUserHandler}
-            checkIsAuthUser={checkIsAuthUser}
-            setToFavoritesHandler={setToFavoritesHandler}
-            loadFavorites={loadFavorites}
+            onAuthUser={onAuthUser}
+            onSetToFavorites={onSetToFavorites}
+            onLoadFavorites={onLoadFavorites}
+            onSetServerStatus={onSetServerStatus}
+            onLoadComments={onLoadComments}
+            onDeleteComments={onDeleteComments}
           />
         </BrowserRouter>,
         {createNodeMock: (el) => {

@@ -16,7 +16,7 @@ exports[`MovieHeroFilm component renders correctly 1`] = `
       }
     >
       <img
-        alt="Fantastic Beasts"
+        alt="Major Payne"
         src=""
       />
     </div>
@@ -74,7 +74,7 @@ exports[`MovieHeroFilm component renders correctly 1`] = `
         <h2
           className="movie-card__title"
         >
-          Fantastic Beasts
+          Major Payne
         </h2>
         <p
           className="movie-card__meta"
@@ -95,7 +95,6 @@ exports[`MovieHeroFilm component renders correctly 1`] = `
         >
           <button
             className="btn btn--play movie-card__button"
-            disabled={false}
             onClick={[MockFunction]}
             type="button"
           >
@@ -114,7 +113,6 @@ exports[`MovieHeroFilm component renders correctly 1`] = `
           </button>
           <button
             className="btn btn--list movie-card__button"
-            disabled={false}
             onClick={[MockFunction]}
             type="button"
           >
@@ -131,13 +129,6 @@ exports[`MovieHeroFilm component renders correctly 1`] = `
               My list
             </span>
           </button>
-          <a
-            className="btn movie-card__button"
-            href="/"
-            onClick={[Function]}
-          >
-            Add review
-          </a>
         </div>
       </div>
     </div>
@@ -152,7 +143,7 @@ exports[`MovieHeroFilm component renders correctly 1`] = `
         className="movie-card__poster movie-card__poster--big"
       >
         <img
-          alt="Fantastic Beasts poster"
+          alt="Major Payne poster"
           height="327"
           src=""
           width="218"
@@ -217,7 +208,9 @@ exports[`MovieHeroFilm component renders correctly 1`] = `
               </strong>
               <span
                 className="movie-card__details-value"
-              />
+              >
+                600
+              </span>
             </p>
             <p
               className="movie-card__details-item"

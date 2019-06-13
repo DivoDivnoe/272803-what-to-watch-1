@@ -15,9 +15,9 @@ const withReviewData = (Component) => {
         isLoading: false,
       };
 
-      this._setRating = this._setRating.bind(this);
-      this._setMessage = this._setMessage.bind(this);
-      this._submitForm = this._submitForm.bind(this);
+      this._handleSetRating = this._handleSetRating.bind(this);
+      this._handleSetMessage = this._handleSetMessage.bind(this);
+      this._handleSubmitForm = this._handleSubmitForm.bind(this);
       this._toggleIsLoading = this._toggleIsLoading.bind(this);
     }
 
@@ -30,20 +30,20 @@ const withReviewData = (Component) => {
           rating={rating}
           comment={comment}
           isLoading={isLoading}
-          setRating={this._setRating}
-          setMessage={this._setMessage}
-          submitHandler={this._submitForm}
+          onSetRating={this._handleSetRating}
+          onSetMessage={this._handleSetMessage}
+          onSubmit={this._handleSubmitForm}
         />
       );
     }
 
-    _setRating(newRating) {
+    _handleSetRating(newRating) {
       this.setState({
         rating: newRating,
       });
     }
 
-    _setMessage(newMessage) {
+    _handleSetMessage(newMessage) {
       this.setState({
         comment: newMessage,
       });
@@ -53,7 +53,7 @@ const withReviewData = (Component) => {
       this.setState({isLoading: !this.state.isLoading});
     }
 
-    _submitForm() {
+    _handleSubmitForm() {
       const api = createAPI();
       const {film, history} = this.props;
       const {rating, comment} = this.state;

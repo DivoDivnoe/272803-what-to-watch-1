@@ -3,7 +3,6 @@
 exports[`MovieHeroButton component renders correctly 1`] = `
 <button
   className="btn btn--play movie-card__button"
-  disabled={false}
   onClick={[MockFunction]}
   type="button"
 >

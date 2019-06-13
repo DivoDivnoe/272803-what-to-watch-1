@@ -23,17 +23,17 @@ const SignInPage = (props) => {
   const {
     email,
     password,
-    changeEmail,
-    changePassword,
     statusCode,
     isLoading,
-    handleSubmitForm,
+    onChangeEmail,
+    onChangePassword,
+    onSubmitForm,
   } = props;
 
-  const submitFormHandler = (evt) => {
+  const handleSubmitForm = (evt) => {
     evt.preventDefault();
 
-    handleSubmitForm();
+    onSubmitForm();
   };
 
   return (
@@ -45,7 +45,7 @@ const SignInPage = (props) => {
       </Header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={submitFormHandler}>
+        <form action="#" className="sign-in__form" onSubmit={handleSubmitForm}>
           {statusCode && renderSignInMessage(Message[statusCode])}
           <div className="sign-in__fields">
             <div className="sign-in__field">
@@ -55,7 +55,7 @@ const SignInPage = (props) => {
                 placeholder="Email address"
                 name="user-email"
                 id="user-email"
-                onChange={(evt) => changeEmail(evt.target.value)}
+                onChange={(evt) => onChangeEmail(evt.target.value)}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
@@ -66,7 +66,7 @@ const SignInPage = (props) => {
                 placeholder="Password"
                 name="user-password"
                 id="user-password"
-                onChange={(evt) => changePassword(evt.target.value)}
+                onChange={(evt) => onChangePassword(evt.target.value)}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
@@ -87,14 +87,14 @@ const SignInPage = (props) => {
 };
 
 SignInPage.propTypes = {
-  handleSubmitForm: PropTypes.func.isRequired,
   userData: PropType.userData,
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
-  changeEmail: PropTypes.func.isRequired,
-  changePassword: PropTypes.func.isRequired,
   statusCode: PropTypes.number,
   isLoading: PropTypes.bool.isRequired,
+  onSubmitForm: PropTypes.func.isRequired,
+  onChangeEmail: PropTypes.func.isRequired,
+  onChangePassword: PropTypes.func.isRequired,
 };
 
 export default SignInPage;
