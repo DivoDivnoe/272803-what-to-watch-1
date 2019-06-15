@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import PropType from '../../proptypes.js';
 
 const withPlayerControls = (Component) => {
   class WithPlayerControls extends PureComponent {
@@ -59,10 +58,6 @@ const withPlayerControls = (Component) => {
       });
     }
   }
-
-  WithPlayerControls.propTypes = {
-    movie: PropType.movie,
-  };
 
   return WithPlayerControls;
 };

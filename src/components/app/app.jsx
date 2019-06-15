@@ -115,7 +115,6 @@ class App extends PureComponent {
             />
           )}
         />
-
         <Route
           path="/"
           component={PageNotExistMessage}
@@ -144,7 +143,6 @@ App.propTypes = {
   comments: PropTypes.arrayOf(PropType.review),
   userData: PropType.userData,
   isServerResponding: PropTypes.bool.isRequired,
-
   onAuthUser: PropTypes.func.isRequired,
   onSetToFavorites: PropTypes.func.isRequired,
   onLoadFavorites: PropTypes.func.isRequired,
