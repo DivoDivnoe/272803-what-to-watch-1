@@ -15,10 +15,10 @@ const AddReviewPage = (props) => {
     userData,
     rating,
     comment,
-    setRating,
-    setMessage,
-    submitHandler,
     isLoading,
+    onSetRating,
+    onSetMessage,
+    onSubmit,
   } = props;
 
   const disabled = !rating || comment.length < MIN_MESSAGE_LENGTH || comment.length > MAX_MESSAGE_LENGTH || isLoading;
@@ -52,7 +52,7 @@ const AddReviewPage = (props) => {
       <div className="add-review">
         <form action="#" className="add-review__form" onSubmit={(evt) => {
           evt.preventDefault();
-          submitHandler();
+          onSubmit();
         }}>
           <div className="rating">
             <div className="rating__stars">
@@ -64,7 +64,7 @@ const AddReviewPage = (props) => {
                     type="radio"
                     name="rating"
                     value={value}
-                    onChange={() => setRating(value)}
+                    onChange={() => onSetRating(value)}
                   />
                   <label className="rating__label" htmlFor={`star-${value}`}>{`Rating ${value}`}</label>
                 </React.Fragment>
@@ -78,7 +78,7 @@ const AddReviewPage = (props) => {
               name="review-text"
               id="review-text"
               placeholder="Review text"
-              onChange={(evt) => setMessage(evt.target.value)}
+              onChange={(evt) => onSetMessage(evt.target.value)}
             />
             <div className="add-review__submit">
               <button
@@ -103,10 +103,10 @@ AddReviewPage.propTypes = {
   film: PropType.movie,
   rating: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,
   comment: PropTypes.string.isRequired,
-  setRating: PropTypes.func.isRequired,
-  setMessage: PropTypes.func.isRequired,
-  submitHandler: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  onSetRating: PropTypes.func.isRequired,
+  onSetMessage: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default AddReviewPage;

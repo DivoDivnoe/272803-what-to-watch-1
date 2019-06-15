@@ -8,8 +8,8 @@ const MovieHero = (props) => {
   const {
     userData,
     movie,
-    switchPlayer,
-    setToFavoritesHandler,
+    onSwitchPlayer,
+    onSetToFavorites,
     isInList,
   } = props;
 
@@ -31,9 +31,9 @@ const MovieHero = (props) => {
           {!!Object.keys(movie).length && <MovieHeroDesc
             reviewsLinkRequired={false}
             movie={movie}
-            switchPlayer={switchPlayer}
-            setToFavoritesHandler={setToFavoritesHandler}
             isInList={isInList}
+            onSwitchPlayer={onSwitchPlayer}
+            onSetToFavorites={onSetToFavorites}
           />}
         </div>
       </div>
@@ -44,9 +44,9 @@ const MovieHero = (props) => {
 MovieHero.propTypes = {
   userData: PropType.userData,
   movie: PropType.movie,
-  switchPlayer: PropTypes.func.isRequired,
-  setToFavoritesHandler: PropTypes.func.isRequired,
   isInList: PropTypes.bool.isRequired,
+  onSwitchPlayer: PropTypes.func.isRequired,
+  onSetToFavorites: PropTypes.func.isRequired,
 };
 
 export default MovieHero;

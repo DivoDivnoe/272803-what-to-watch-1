@@ -5,6 +5,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 const mock = {
   movie: {
+    id: 3,
     name: `Major Payne`,
     description: `very interesting film`,
     director: `Steven Spielberg`,
@@ -17,20 +18,24 @@ const mock = {
     posterImage: ``,
     genre: `Comedy`,
     previewVideoLink: ``,
+    previewImage: ``,
+    videoLink: ``,
+    runTime: 600,
+    isFavorite: false,
   },
   userData: {},
-  switchPlayer: jest.fn(),
-  setToFavoritesHandler: jest.fn(),
   isInList: true,
+  onSwitchPlayer: jest.fn(),
+  onSetToFavorites: jest.fn(),
 };
 
 describe(`MovieHero component`, () => {
   const {
     movie,
     userData,
-    switchPlayer,
-    setToFavoritesHandler,
     isInList,
+    onSwitchPlayer,
+    onSetToFavorites,
   } = mock;
 
   it(`renders correctly`, () => {
@@ -39,9 +44,9 @@ describe(`MovieHero component`, () => {
           <MovieHero
             movie={movie}
             userData={userData}
-            switchPlayer={switchPlayer}
-            setToFavoritesHandler={setToFavoritesHandler}
             isInList={isInList}
+            onSwitchPlayer={onSwitchPlayer}
+            onSetToFavorites={onSetToFavorites}
           />
         </BrowserRouter>,
         {createNodeMock: (el) => {

@@ -4,26 +4,23 @@ import MovieHeroButton from './move-hero-button.jsx';
 
 const mock = {
   type: `play`,
-  clickHandler: jest.fn(),
+  onClick: jest.fn(),
   isInList: false,
-  disabled: false,
 };
 
 describe(`MovieHeroButton component`, () => {
   const {
     type,
-    clickHandler,
+    onClick,
     isInList,
-    disabled,
   } = mock;
 
   it(`renders correctly`, () => {
     const tree = renderer.create(
         <MovieHeroButton
           type={type}
-          clickHandler={clickHandler}
+          onClick={onClick}
           isInList={isInList}
-          disabled={disabled}
         />).toJSON();
 
     expect(tree).toMatchSnapshot();

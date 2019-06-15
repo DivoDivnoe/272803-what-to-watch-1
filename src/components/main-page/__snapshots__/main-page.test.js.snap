@@ -104,7 +104,6 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
-              disabled={false}
               onClick={[MockFunction]}
               type="button"
             >
@@ -123,7 +122,6 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
-              disabled={false}
               onClick={[Function]}
               type="button"
             >
@@ -201,7 +199,7 @@ Array [
           onMouseEnter={null}
         >
           <a
-            href="/film/undefined"
+            href="/film/1"
             onClick={[Function]}
           >
             <video
@@ -218,7 +216,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="/film/undefined"
+              href="/film/1"
               onClick={[Function]}
             >
               Fantastic Beasts
@@ -230,7 +228,7 @@ Array [
           onMouseEnter={null}
         >
           <a
-            href="/film/undefined"
+            href="/film/2"
             onClick={[Function]}
           >
             <video
@@ -247,7 +245,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="/film/undefined"
+              href="/film/2"
               onClick={[Function]}
             >
               Major Payne

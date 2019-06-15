@@ -11,11 +11,9 @@ const withPlayerActive = (Component) => {
     constructor(props) {
       super(props);
 
-      this.state = {
-        isPlayerActive: false,
-      };
+      this.state = {isPlayerActive: false};
 
-      this._togglePlayerMode = this._togglePlayerMode.bind(this);
+      this._handleTogglePlayerMode = this._handleTogglePlayerMode.bind(this);
     }
 
     render() {
@@ -26,15 +24,15 @@ const withPlayerActive = (Component) => {
         return (
           <Component
             {...this.props}
-            switchPlayer={this._togglePlayerMode}
+            onSwitchPlayer={this._handleTogglePlayerMode}
           />
         );
       }
 
-      return <Player movie={film} switchPlayer={this._togglePlayerMode} />;
+      return <Player movie={film} onSwitchPlayer={this._handleTogglePlayerMode} />;
     }
 
-    _togglePlayerMode() {
+    _handleTogglePlayerMode() {
       this.setState({isPlayerActive: !this.state.isPlayerActive});
     }
   }

@@ -14,32 +14,32 @@ class FilmPage extends PureComponent {
     super(props);
 
     this._handleSetToFavorites = this._handleSetToFavorites.bind(this);
-    this._onFail = this._onFail.bind(this);
+    this._handleFail = this._handleFail.bind(this);
   }
   render() {
     const {
       userData,
-      switchPlayer,
       favorites,
       film,
       similarFilms,
       comments,
-      loadComments,
-      deleteComments,
+      onSwitchPlayer,
+      onLoadComments,
+      onDeleteComments,
     } = this.props;
 
     return (
       <React.Fragment>
         <MovieHeroWithTabs
+          id={film.id}
           movie={film}
           userData={userData}
-          switchPlayer={switchPlayer}
           comments={comments}
-          loadComments={loadComments}
-          deleteComments={deleteComments}
-          id={film.id}
-          setToFavoritesHandler={this._handleSetToFavorites}
           isInList={favorites.some((movie) => movie.id === film.id)}
+          onSwitchPlayer={onSwitchPlayer}
+          onLoadComments={onLoadComments}
+          onDeleteComments={onDeleteComments}
+          onSetToFavorites={this._handleSetToFavorites}
         />
 
         <PageContent>
@@ -58,13 +58,13 @@ class FilmPage extends PureComponent {
   }
 
   _handleSetToFavorites() {
-    const {setToFavoritesHandler, film, favorites} = this.props;
+    const {onSetToFavorites, film, favorites} = this.props;
     const status = +!favorites.some((movie) => movie.id === film.id);
 
-    setToFavoritesHandler(film.id, status, this._onFail);
+    onSetToFavorites(film.id, status, this._handleFail);
   }
 
-  _onFail() {
+  _handleFail() {
     const {history, film} = this.props;
 
     history.push(`/login?redirect=/film/${film.id}`);
@@ -74,14 +74,14 @@ class FilmPage extends PureComponent {
 FilmPage.propTypes = {
   userData: PropType.userData,
   favorites: PropTypes.arrayOf(PropType.movie).isRequired,
-  switchPlayer: PropTypes.func.isRequired,
-  setToFavoritesHandler: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   film: PropType.movie,
   similarFilms: PropTypes.arrayOf(PropType.movie).isRequired,
   comments: PropTypes.arrayOf(PropType.review),
-  loadComments: PropTypes.func.isRequired,
-  deleteComments: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  onSetToFavorites: PropTypes.func.isRequired,
+  onSwitchPlayer: PropTypes.func.isRequired,
+  onLoadComments: PropTypes.func.isRequired,
+  onDeleteComments: PropTypes.func.isRequired,
 };
 
 export default FilmPage;

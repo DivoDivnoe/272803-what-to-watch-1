@@ -6,7 +6,9 @@ import {BrowserRouter} from 'react-router-dom';
 const mock = {
   movies: [
     {
+      id: 1,
       name: `Fantastic Beasts`,
+      posterImage: ``,
       description: `very interesting film`,
       director: `Steven Spielberg`,
       starring: [`Andrey Ivanov`, `Sergey Rubets`],
@@ -15,12 +17,15 @@ const mock = {
       backgroundImage: ``,
       backgroundColor: `cyan`,
       released: 2019,
-      posterImage: ``,
       genre: `Comedy`,
       previewVideoLink: ``,
       previewImage: ``,
+      videoLink: ``,
+      runTime: 600,
+      isFavorite: false,
     },
     {
+      id: 2,
       name: `Major Payne`,
       description: `very interesting film`,
       director: `Steven Spielberg`,
@@ -34,9 +39,13 @@ const mock = {
       genre: `Comedy`,
       previewVideoLink: ``,
       previewImage: ``,
+      videoLink: ``,
+      runTime: 600,
+      isFavorite: false,
     },
   ],
   film: {
+    id: 3,
     name: `Major Payne`,
     description: `very interesting film`,
     director: `Steven Spielberg`,
@@ -50,13 +59,16 @@ const mock = {
     genre: `Comedy`,
     previewVideoLink: ``,
     previewImage: ``,
+    videoLink: ``,
+    runTime: 600,
+    isFavorite: false,
   },
-  favorites: [],
   genres: [`All`, `Crime`, `Thriller`],
   userData: {},
-  switchPlayer: jest.fn(),
-  setToFavoritesHandler: jest.fn(),
+  favorites: [],
   history: {},
+  onSwitchPlayer: jest.fn(),
+  onSetToFavorites: jest.fn(),
 };
 
 describe(`MainPage component`, () => {
@@ -66,9 +78,8 @@ describe(`MainPage component`, () => {
     favorites,
     genres,
     userData,
-    isPlayerActive,
-    switchPlayer,
-    setToFavoritesHandler,
+    onSwitchPlayer,
+    onSetToFavorites,
     history,
   } = mock;
 
@@ -81,9 +92,8 @@ describe(`MainPage component`, () => {
             favorites={favorites}
             genres={genres}
             userData={userData}
-            isPlayerActive={isPlayerActive}
-            switchPlayer={switchPlayer}
-            setToFavoritesHandler={setToFavoritesHandler}
+            onSwitchPlayer={onSwitchPlayer}
+            onSetToFavorites={onSetToFavorites}
             history={history}
           />
         </BrowserRouter>,

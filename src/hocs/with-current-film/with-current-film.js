@@ -13,8 +13,8 @@ const withCurrentFilm = (Component) => {
 
       this.state = {currentFilm: ``};
 
-      this._setCurrentFilm = this._setCurrentFilm.bind(this);
-      this._resetFilm = this._resetFilm.bind(this);
+      this._handleStartPreview = this._handleStartPreview.bind(this);
+      this._handleStopPreview = this._handleStopPreview.bind(this);
       this._renderFilmCard = this._renderFilmCard.bind(this);
     }
 
@@ -27,11 +27,11 @@ const withCurrentFilm = (Component) => {
       />;
     }
 
-    _setCurrentFilm(name) {
+    _handleStartPreview(name) {
       this.setState({currentFilm: name});
     }
 
-    _resetFilm() {
+    _handleStopPreview() {
       this.setState({currentFilm: ``});
     }
 
@@ -42,10 +42,10 @@ const withCurrentFilm = (Component) => {
         <FilmCardWithState
           movie={movie}
           isFull={false}
-          handlePreview={(this._setCurrentFilm)}
-          stopPreview={this._resetFilm}
           isPlaying={currentFilm === movie.name}
           key={movie.name}
+          onStartPreview={this._handleStartPreview}
+          onStopPreview={this._handleStopPreview}
         />
       );
     }

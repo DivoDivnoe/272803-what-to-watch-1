@@ -240,7 +240,7 @@ describe(`loadFavorites function`, () => {
     const favoritesLoader = Operation.loadFavorites();
 
     apiMock
-      .onGet(`/films/promo`)
+      .onGet(`/favorite`)
       .reply(200, [{fake: true}]);
 
     favoritesLoader(dispatch, jest.fn(), api)

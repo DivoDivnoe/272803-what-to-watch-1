@@ -37,17 +37,17 @@ const AddReviewPageWithState = withCurrentMovie(withReviewData(AddReviewPage));
 class App extends PureComponent {
   render() {
     const {
-      authUserHandler,
       userData,
       favorites,
       genres,
       movies,
       promoFilm,
-      setToFavoritesHandler,
-      isServerResponding,
       comments,
-      loadComments,
-      deleteComments,
+      isServerResponding,
+      onAuthUser,
+      onSetToFavorites,
+      onLoadComments,
+      onDeleteComments,
     } = this.props;
 
     const isAuthenticated = !!Object.keys(userData).length;
@@ -64,9 +64,9 @@ class App extends PureComponent {
             movies={movies}
             userData={userData}
             film={promoFilm}
-            setToFavoritesHandler={setToFavoritesHandler}
             favorites={favorites}
             history={history}
+            onSetToFavorites={onSetToFavorites}
           />
         )} />
         <PrivateRoute
@@ -84,14 +84,14 @@ class App extends PureComponent {
         <Route path="/film/:id" render={({match, history}) => (
           <FilmPageWithStateAndPlayerSwitch
             userData={userData}
-            match={match}
             movies={movies}
-            setToFavoritesHandler={setToFavoritesHandler}
             favorites={favorites}
-            history={history}
             comments={comments}
-            loadComments={loadComments}
-            deleteComments={deleteComments}
+            match={match}
+            history={history}
+            onSetToFavorites={onSetToFavorites}
+            onLoadComments={onLoadComments}
+            onDeleteComments={onDeleteComments}
           />
         )} />
         <RoutePublicRedirect
@@ -99,9 +99,9 @@ class App extends PureComponent {
           isAuthenticated={isAuthenticated}
           render={({history}) => (
             <SignInPageWithState
-              authUserHandler={authUserHandler}
-              history={history}
               userData={userData}
+              history={history}
+              onAuthUser={onAuthUser}
             />
           )}
         />
@@ -115,7 +115,6 @@ class App extends PureComponent {
             />
           )}
         />
-
         <Route
           path="/"
           component={PageNotExistMessage}
@@ -125,14 +124,13 @@ class App extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const {userData, loadFavorites} = this.props;
+    const {userData, onLoadFavorites} = this.props;
 
     if (!Object.keys(prevProps.userData).length && Object.keys(userData).length) {
-      loadFavorites();
+      onLoadFavorites();
     }
   }
 }
-
 
 App.propTypes = {
   movies: PropTypes.arrayOf(PropType.movie).isRequired,
@@ -144,13 +142,13 @@ App.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   comments: PropTypes.arrayOf(PropType.review),
   userData: PropType.userData,
-  authUserHandler: PropTypes.func.isRequired,
-  setToFavoritesHandler: PropTypes.func.isRequired,
-  loadFavorites: PropTypes.func.isRequired,
-  setServerStatus: PropTypes.func.isRequired,
   isServerResponding: PropTypes.bool.isRequired,
-  loadComments: PropTypes.func.isRequired,
-  deleteComments: PropTypes.func.isRequired,
+  onAuthUser: PropTypes.func.isRequired,
+  onSetToFavorites: PropTypes.func.isRequired,
+  onLoadFavorites: PropTypes.func.isRequired,
+  onSetServerStatus: PropTypes.func.isRequired,
+  onLoadComments: PropTypes.func.isRequired,
+  onDeleteComments: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -167,25 +165,22 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    authUserHandler: (data, onSuccess, onFail) => {
+    onAuthUser: (data, onSuccess, onFail) => {
       dispatch(UserOperation.setUserData(data, onSuccess, onFail));
     },
-    loadFavorites: () => {
+    onLoadFavorites: () => {
       dispatch(DataOperation.loadFavorites());
     },
-    setToFavoritesHandler: (id, status, onFail) => {
+    onSetToFavorites: (id, status, onFail) => {
       dispatch(DataOperation.setToFavorites(id, status, onFail));
     },
-    setGenresList: (genres) => {
-      dispatch(DataActionCreator[`SET_GENRES`](genres));
-    },
-    setServerStatus: (status) => {
+    onSetServerStatus: (status) => {
       dispatch(AppActionCreator[`SET_SERVER_STATUS`](status));
     },
-    loadComments: (id) => {
+    onLoadComments: (id) => {
       dispatch(DataOperation.loadComments(id));
     },
-    deleteComments: () => {
+    onDeleteComments: () => {
       dispatch(DataActionCreator[`LOAD_COMMENTS`]([]));
     }
   };

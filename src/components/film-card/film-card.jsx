@@ -11,14 +11,14 @@ class FilmCard extends PureComponent {
 
     this._articleRef = React.createRef();
 
-    this._mouseEnterHandler = this._mouseEnterHandler.bind(this);
+    this._handleMouseEnter = this._handleMouseEnter.bind(this);
   }
 
   render() {
     const {
-      renderPlayer,
       isLoading,
       movie,
+      renderPlayer,
     } = this.props;
 
     const link = `/film/${movie.id}`;
@@ -27,7 +27,7 @@ class FilmCard extends PureComponent {
       <article
         ref={this._articleRef}
         className="small-movie-card catalog__movies-card"
-        onMouseEnter={isLoading ? null : this._mouseEnterHandler}
+        onMouseEnter={isLoading ? null : this._handleMouseEnter}
       >
         <Link to={link}>
           {renderPlayer({
@@ -55,16 +55,16 @@ class FilmCard extends PureComponent {
     }
   }
 
-  _mouseEnterHandler(evt) {
+  _handleMouseEnter(evt) {
     const {currentTarget} = evt;
-    const {movie, handlePreview, stopPreview} = this.props;
+    const {movie, onStartPreview, onStopPreview} = this.props;
 
     this.timeoutId = setTimeout(() => {
-      handlePreview(movie.name);
+      onStartPreview(movie.name);
     }, TIMEOUT);
 
     currentTarget.onmouseleave = () => {
-      stopPreview();
+      onStopPreview();
       clearTimeout(this.timeoutId);
       currentTarget.onmouseleave = null;
       delete this.timeoutId;
@@ -74,10 +74,10 @@ class FilmCard extends PureComponent {
 
 FilmCard.propTypes = {
   movie: PropType.movie,
-  renderPlayer: PropTypes.func.isRequired,
-  stopPreview: PropTypes.func.isRequired,
-  handlePreview: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  renderPlayer: PropTypes.func.isRequired,
+  onStopPreview: PropTypes.func.isRequired,
+  onStartPreview: PropTypes.func.isRequired,
 };
 
 export default FilmCard;

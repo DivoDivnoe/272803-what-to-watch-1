@@ -5,7 +5,6 @@ import VideoPlayer from './video-player.jsx';
 const mock = {
   image: ``,
   video: ``,
-  handleLoaded: jest.fn(),
   isPlaying: false,
   isFull: false,
   className: `f`,
@@ -13,8 +12,8 @@ const mock = {
     width: `300`,
     height: `150`,
   },
-  updateTimeHandler: jest.fn(),
-  setDuration: jest.fn(),
+  onLoad: jest.fn(),
+  onUpdateTime: jest.fn(),
 };
 
 describe(`VideoPlayer component`, () => {
@@ -22,26 +21,24 @@ describe(`VideoPlayer component`, () => {
     const {
       image,
       video,
-      handleLoaded,
       isPlaying,
       isFull,
       className,
       size,
-      updateTimeHandler,
-      setDuration,
+      onUpdateTime,
+      onLoad,
     } = mock;
 
     const tree = renderer.create(
         <VideoPlayer
           image={image}
           video={video}
-          handleLoaded={handleLoaded}
           isPlaying={isPlaying}
           isFull={isFull}
           className={className}
           size={size}
-          updateTimeHandler={updateTimeHandler}
-          setDuration={setDuration}
+          onUpdateTime={onUpdateTime}
+          onLoad={onLoad}
         />,
         {createNodeMock: (el) => {
           return el;

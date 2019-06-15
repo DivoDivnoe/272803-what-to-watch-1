@@ -5,6 +5,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 const mock = {
   movie: {
+    id: 3,
     name: `Major Payne`,
     description: `very interesting film`,
     director: `Steven Spielberg`,
@@ -17,20 +18,24 @@ const mock = {
     posterImage: ``,
     genre: `Comedy`,
     previewVideoLink: ``,
+    previewImage: ``,
+    videoLink: ``,
+    runTime: 600,
+    isFavorite: false,
   },
-  switchPlayer: jest.fn(),
   reviewsLinkRequired: true,
   isInList: true,
-  setToFavoritesHandler: jest.fn(),
+  onSwitchPlayer: jest.fn(),
+  onSetToFavorites: jest.fn(),
 };
 
 describe(`MovieHeroDesc component`, () => {
   const {
     movie,
-    switchPlayer,
     reviewsLinkRequired,
     isInList,
-    setToFavoritesHandler,
+    onSwitchPlayer,
+    onSetToFavorites,
   } = mock;
 
   it(`renders correctly`, () => {
@@ -38,10 +43,10 @@ describe(`MovieHeroDesc component`, () => {
         <BrowserRouter>
           <MovieHeroDesc
             movie={movie}
-            switchPlayer={switchPlayer}
             reviewsLinkRequired={reviewsLinkRequired}
-            setToFavoritesHandler={setToFavoritesHandler}
             isInList={isInList}
+            onSwitchPlayer={onSwitchPlayer}
+            onSetToFavorites={onSetToFavorites}
           />
         </BrowserRouter>).toJSON();
 

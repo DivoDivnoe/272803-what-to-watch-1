@@ -1,5 +1,4 @@
 import React, {PureComponent} from 'react';
-import PropType from '../../proptypes.js';
 
 const withPlayerControls = (Component) => {
   class WithPlayerControls extends PureComponent {
@@ -11,9 +10,10 @@ const withPlayerControls = (Component) => {
         isFullScreen: false,
       };
 
-      this._togglePlay = this._togglePlay.bind(this);
-      this._toggleFullScreen = this._toggleFullScreen.bind(this);
-      this._setFullScreen = this._setFullScreen.bind(this);
+      this._handleTogglePlay = this._handleTogglePlay.bind(this);
+      this._handleToggleFullScreen = this._handleToggleFullScreen.bind(this);
+      this._handleSetFullScreen = this._handleSetFullScreen.bind(this);
+      this._handleResetState = this._handleResetState.bind(this);
     }
 
     render() {
@@ -24,45 +24,40 @@ const withPlayerControls = (Component) => {
           {...this.props}
           isPlaying={isPlaying}
           isFullScreen={isFullScreen}
-          resetPlayer={this._resetState}
-          togglePlay={this._togglePlay}
-          toggleFullScreen={this._toggleFullScreen}
-          setFullScreen={this._setFullScreen}
-          setDuration={this._setDuration}
           isFull={true}
+          onResetPlayer={this._handleResetState}
+          onTogglePlay={this._handleTogglePlay}
+          onToggleFullScreen={this._handleToggleFullScreen}
+          onSetFullScreen={this._handleSetFullScreen}
         />
       );
     }
 
-    _togglePlay() {
+    _handleTogglePlay() {
       this.setState({
         isPlaying: !this.state.isPlaying,
       });
     }
 
-    _toggleFullScreen() {
+    _handleToggleFullScreen() {
       this.setState({
         isFullScreen: !this.state.isFullScreen,
       });
     }
 
-    _setFullScreen(isFull) {
+    _handleSetFullScreen(isFull) {
       this.setState({
         isFullScreen: isFull,
       });
     }
 
-    _resetState() {
+    _handleResetState() {
       this.setState({
         isPlaying: false,
         isFullScreen: false,
       });
     }
   }
-
-  WithPlayerControls.propTypes = {
-    movie: PropType.movie,
-  };
 
   return WithPlayerControls;
 };

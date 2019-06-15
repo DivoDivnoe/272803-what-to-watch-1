@@ -28,7 +28,6 @@ exports[`MovieHeroDesc component renders correctly 1`] = `
   >
     <button
       className="btn btn--play movie-card__button"
-      disabled={false}
       onClick={[MockFunction]}
       type="button"
     >
@@ -47,7 +46,6 @@ exports[`MovieHeroDesc component renders correctly 1`] = `
     </button>
     <button
       className="btn btn--list movie-card__button"
-      disabled={true}
       onClick={[MockFunction]}
       type="button"
     >
@@ -66,7 +64,7 @@ exports[`MovieHeroDesc component renders correctly 1`] = `
     </button>
     <a
       className="btn movie-card__button"
-      href="/"
+      href="/film/3/review"
       onClick={[Function]}
     >
       Add review

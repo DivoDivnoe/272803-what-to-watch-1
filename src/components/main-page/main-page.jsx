@@ -13,31 +13,33 @@ const MainPage = (props) => {
   const {
     movies,
     genres,
-    switchPlayer,
     userData,
     film,
-    setToFavoritesHandler,
     favorites,
     history,
+    onSetToFavorites,
+    onSwitchPlayer,
   } = props;
+
+  const isInList = favorites.some((movie) => movie.id === film.id);
 
   return (
     <React.Fragment>
       <MovieHero
         userData={userData}
         movie={film}
-        switchPlayer={switchPlayer}
-        setToFavoritesHandler={() => {
-          setToFavoritesHandler(film.id, 1, () => history.push(`/login`));
+        isInList={isInList}
+        onSwitchPlayer={onSwitchPlayer}
+        onSetToFavorites={() => {
+          onSetToFavorites(film.id, +!isInList, () => history.push(`/login`));
         }}
-        isInList={favorites.some((movie) => movie.id === film.id)}
       />
 
       <PageContent>
         <CatalogInteractive
-          renderTitle={() => <h2 className="catalog__title visually-hidden">Catalog</h2>}
           movies={movies}
           genres={genres}
+          renderTitle={() => <h2 className="catalog__title visually-hidden">Catalog</h2>}
         />
 
         <Footer isMainPage={true} />
@@ -50,11 +52,11 @@ MainPage.propTypes = {
   movies: PropTypes.arrayOf(PropType.movie).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   userData: PropType.userData,
-  switchPlayer: PropTypes.func.isRequired,
   film: PropType.movie,
   favorites: PropTypes.arrayOf(PropType.movie).isRequired,
-  setToFavoritesHandler: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  onSetToFavorites: PropTypes.func.isRequired,
+  onSwitchPlayer: PropTypes.func.isRequired,
 };
 
 export default MainPage;

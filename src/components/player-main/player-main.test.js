@@ -10,11 +10,11 @@ const mock = {
   isFullScreen: false,
   currentTime: 100,
   duration: 1000,
-  resetPlayer: jest.fn(),
-  togglePlay: jest.fn(),
-  toggleFullScreen: jest.fn(),
-  switchPlayer: jest.fn(),
-  setFullScreen: jest.fn(),
+  onResetPlayer: jest.fn(),
+  onTogglePlay: jest.fn(),
+  onToggleFullScreen: jest.fn(),
+  onSwitchPlayer: jest.fn(),
+  onSetFullScreen: jest.fn(),
 };
 
 describe(`PlayerMain component`, () => {
@@ -24,11 +24,11 @@ describe(`PlayerMain component`, () => {
     isFullScreen,
     currentTime,
     duration,
-    resetPlayer,
-    togglePlay,
-    toggleFullScreen,
-    switchPlayer,
-    setFullScreen,
+    onResetPlayer,
+    onTogglePlay,
+    onToggleFullScreen,
+    onSwitchPlayer,
+    onSetFullScreen,
   } = mock;
 
   it(`renders correctly`, () => {
@@ -40,11 +40,11 @@ describe(`PlayerMain component`, () => {
           isFullScreen={isFullScreen}
           currentTime={currentTime}
           duration={duration}
-          resetPlayer={resetPlayer}
-          togglePlay={togglePlay}
-          toggleFullScreen={toggleFullScreen}
-          switchPlayer={switchPlayer}
-          setFullScreen={setFullScreen}
+          onResetPlayer={onResetPlayer}
+          onTogglePlay={onTogglePlay}
+          onToggleFullScreen={onToggleFullScreen}
+          onSwitchPlayer={onSwitchPlayer}
+          onSetFullScreen={onSetFullScreen}
         />).toJSON();
 
     expect(tree).toMatchSnapshot();

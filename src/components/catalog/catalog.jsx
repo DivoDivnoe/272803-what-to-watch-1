@@ -9,9 +9,9 @@ const FilmsListWithState = withCurrentFilm(FilmsList);
 const Catalog = (props) => {
   const {
     movies,
+    extraClassName,
     renderTabs,
     renderButton,
-    extraClassName,
     renderTitle
   } = props;
 
@@ -32,10 +32,10 @@ const Catalog = (props) => {
 
 Catalog.propTypes = {
   movies: PropTypes.arrayOf(PropType.movie).isRequired,
+  extraClassName: PropTypes.string,
   renderTitle: PropTypes.func.isRequired,
   renderTabs: PropTypes.func,
   renderButton: PropTypes.func,
-  extraClassName: PropTypes.string,
 };
 
 export default Catalog;

@@ -19,10 +19,11 @@ const TabContentRenderer = {
 
 const renderTabContent = (Component, film, id, comments, loadComments, deleteComments) => {
   return <Component
-    film={film} id={id}
+    film={film}
+    id={id}
     comments={comments}
-    loadComments={loadComments}
-    deleteComments={deleteComments}
+    onLoadComments={loadComments}
+    onDeleteComments={deleteComments}
   />;
 };
 
@@ -30,14 +31,14 @@ const MovieHeroFilm = (props) => {
   const {
     userData,
     movie,
-    switchPlayer,
+    onSwitchPlayer,
     renderTabs,
     tab,
-    setToFavoritesHandler,
+    onSetToFavorites,
     isInList,
     comments,
-    loadComments,
-    deleteComments,
+    onLoadComments,
+    onDeleteComments,
   } = props;
 
   return (
@@ -49,9 +50,9 @@ const MovieHeroFilm = (props) => {
           {!!Object.keys(movie).length && <MovieHeroDesc
             reviewsLinkRequired={!!Object.keys(userData).length}
             movie={movie}
-            switchPlayer={switchPlayer}
-            setToFavoritesHandler={setToFavoritesHandler}
             isInList={isInList}
+            onSwitchPlayer={onSwitchPlayer}
+            onSetToFavorites={onSetToFavorites}
           />}
         </div>
       </div>
@@ -67,7 +68,7 @@ const MovieHeroFilm = (props) => {
               {renderTabs()}
             </nav>
 
-            {!!Object.keys(movie).length && renderTabContent(TabContentRenderer[tab], movie, movie.id, comments, loadComments, deleteComments)}
+            {!!Object.keys(movie).length && renderTabContent(TabContentRenderer[tab], movie, movie.id, comments, onLoadComments, onDeleteComments)}
           </div>
         </div>
       </div>
@@ -78,14 +79,14 @@ const MovieHeroFilm = (props) => {
 MovieHeroFilm.propTypes = {
   userData: PropType.userData,
   movie: PropType.movie,
-  switchPlayer: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   tab: PropTypes.string.isRequired,
-  setToFavoritesHandler: PropTypes.func.isRequired,
   isInList: PropTypes.bool.isRequired,
   comments: PropTypes.arrayOf(PropType.review),
-  loadComments: PropTypes.func.isRequired,
-  deleteComments: PropTypes.func.isRequired,
+  onSwitchPlayer: PropTypes.func.isRequired,
+  onSetToFavorites: PropTypes.func.isRequired,
+  onLoadComments: PropTypes.func.isRequired,
+  onDeleteComments: PropTypes.func.isRequired,
 };
 
 export default MovieHeroFilm;

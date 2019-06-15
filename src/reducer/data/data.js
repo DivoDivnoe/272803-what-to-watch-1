@@ -1,6 +1,7 @@
 import {transformObjProps} from '../../utils/utils';
 import {StatusCode} from '../../constants';
 import {AppGenre, appGenres} from '../../constants';
+import UserActionCreator from '../user/user';
 
 const initialState = {
   films: [],
@@ -45,6 +46,7 @@ export const Operation = {
       })
       .catch((error) => {
         if (error.response.status === StatusCode.FORBIDDEN) {
+          dispatch(UserActionCreator[`SET_USER_DATA`]({}));
           onFail();
         }
       });
@@ -68,6 +70,11 @@ export const Operation = {
           const films = response.data.map((obj) => transformObjProps(obj));
 
           dispatch(ActionCreator[`LOAD_FAVORITES`](films));
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === StatusCode.FORBIDDEN) {
+          dispatch(UserActionCreator[`SET_USER_DATA`]({}));
         }
       });
   },

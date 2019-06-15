@@ -104,7 +104,6 @@ Array [
           >
             <button
               className="btn btn--play movie-card__button"
-              disabled={false}
               onClick={[Function]}
               type="button"
             >
@@ -123,7 +122,6 @@ Array [
             </button>
             <button
               className="btn btn--list movie-card__button"
-              disabled={false}
               onClick={[Function]}
               type="button"
             >
@@ -192,6 +190,17 @@ Array [
             Thrillers
           </a>
         </li>
+        <li
+          className="catalog__genres-item "
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Comedies
+          </a>
+        </li>
       </ul>
       <div
         className="catalog__movies-list"
@@ -201,7 +210,7 @@ Array [
           onMouseEnter={null}
         >
           <a
-            href="/film/undefined"
+            href="/film/1"
             onClick={[Function]}
           >
             <video
@@ -218,7 +227,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="/film/undefined"
+              href="/film/1"
               onClick={[Function]}
             >
               Fantastic Beasts
@@ -230,7 +239,7 @@ Array [
           onMouseEnter={null}
         >
           <a
-            href="/film/undefined"
+            href="/film/2"
             onClick={[Function]}
           >
             <video
@@ -247,7 +256,7 @@ Array [
           >
             <a
               className="small-movie-card__link"
-              href="/film/undefined"
+              href="/film/2"
               onClick={[Function]}
             >
               Major Payne

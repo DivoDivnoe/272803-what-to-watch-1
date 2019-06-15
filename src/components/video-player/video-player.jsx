@@ -25,18 +25,18 @@ class VideoPlayer extends PureComponent {
   }
 
   componentDidMount() {
-    const {isFull, updateTimeHandler, handleLoaded} = this.props;
+    const {isFull, onUpdateTime, onLoad} = this.props;
     const video = this._videoRef.current;
 
     video.src = this.props.video;
 
     video.oncanplaythrough = () => {
-      handleLoaded(Math.round(video.duration));
+      onLoad(Math.round(video.duration));
     };
 
     if (isFull) {
       video.ontimeupdate = () => {
-        updateTimeHandler(Math.round(video.currentTime));
+        onUpdateTime(Math.round(video.currentTime));
       };
     } else {
       video.muted = true;
@@ -74,14 +74,14 @@ VideoPlayer.propTypes = {
   image: PropTypes.string.isRequired,
   video: PropTypes.string.isRequired,
   isPlaying: PropTypes.bool.isRequired,
-  handleLoaded: PropTypes.func.isRequired,
   isFull: PropTypes.bool.isRequired,
   className: PropTypes.string,
   size: PropTypes.shape({
     width: PropTypes.string,
     height: PropTypes.string,
   }),
-  updateTimeHandler: PropTypes.func.isRequired,
+  onLoad: PropTypes.func.isRequired,
+  onUpdateTime: PropTypes.func.isRequired,
 };
 
 export default VideoPlayer;
