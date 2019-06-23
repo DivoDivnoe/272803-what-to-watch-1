@@ -81,7 +81,7 @@ class App extends PureComponent {
             />
           )}
         />
-        <Route path="/film/:id" render={({match, history}) => (
+        <Route path="/film/:id" exact render={({match, history}) => (
           <FilmPageWithStateAndPlayerSwitch
             userData={userData}
             movies={movies}
@@ -106,7 +106,7 @@ class App extends PureComponent {
           )}
         />
         <PrivateRoute
-          path="/favorites"
+          path="/mylist"
           isAuthenticated={isAuthenticated}
           render={() => (
             <Favorites

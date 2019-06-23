@@ -17,7 +17,7 @@ const Favorites = (props) => {
 
         <h1 className="page-title user-page__title">My list</h1>
 
-        <UserBlock userData={userData} />
+        <UserBlock userData={userData} isLinkRequired={false} />
       </Header>
 
       <Catalog

@@ -19,7 +19,7 @@ const MovieHeroHead = (props) => {
       <Header extraClassName="movie-card__head">
         <Logo isMainPage={isMainPage} isLight={false} />
         {renderBreadCrumbs && renderBreadCrumbs()}
-        <UserBlock userData={userData} />
+        <UserBlock userData={userData} isLinkRequired={true} />
       </Header>
     </React.Fragment>
   );

@@ -9,6 +9,10 @@ const MAX_STARS = 5;
 const MIN_MESSAGE_LENGTH = 50;
 const MAX_MESSAGE_LENGTH = 400;
 
+const Message = {
+  REVIEW: `Message should have at least ${MIN_MESSAGE_LENGTH} and maximum ${MAX_MESSAGE_LENGTH} characters!`,
+};
+
 const AddReviewPage = (props) => {
   const {
     film,
@@ -21,7 +25,11 @@ const AddReviewPage = (props) => {
     onSubmit,
   } = props;
 
-  const disabled = !rating || comment.length < MIN_MESSAGE_LENGTH || comment.length > MAX_MESSAGE_LENGTH || isLoading;
+  const isMessageShort = comment.length < MIN_MESSAGE_LENGTH;
+  const isMessageLong = comment.length > MAX_MESSAGE_LENGTH;
+  const isRatingNotSet = !rating;
+
+  const disabled = isRatingNotSet || isMessageShort || isMessageLong || isLoading;
 
   return (
     <section className="movie-card movie-card--full">
@@ -78,13 +86,17 @@ const AddReviewPage = (props) => {
               name="review-text"
               id="review-text"
               placeholder="Review text"
+              maxLength={MAX_MESSAGE_LENGTH}
+              title={isMessageShort || isMessageLong ? Message.REVIEW : null}
               onChange={(evt) => onSetMessage(evt.target.value)}
+              required={true}
             />
             <div className="add-review__submit">
               <button
                 className="add-review__btn"
                 type="submit"
                 disabled={disabled}
+                style={{pointerEvents: disabled ? `none` : `auto`}}
               >
               Post
               </button>

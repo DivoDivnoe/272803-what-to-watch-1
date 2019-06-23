@@ -196,9 +196,12 @@ exports[`AddReviewPage component renders correctly 1`] = `
         <textarea
           className="add-review__textarea"
           id="review-text"
+          maxLength={400}
           name="review-text"
           onChange={[Function]}
           placeholder="Review text"
+          required={true}
+          title="Message should have at least 50 and maximum 400 characters!"
         />
         <div
           className="add-review__submit"
@@ -206,6 +209,11 @@ exports[`AddReviewPage component renders correctly 1`] = `
           <button
             className="add-review__btn"
             disabled={true}
+            style={
+              Object {
+                "pointerEvents": "none",
+              }
+            }
             type="submit"
           >
             Post
