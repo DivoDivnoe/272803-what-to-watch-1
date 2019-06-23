@@ -9,18 +9,26 @@ const Rating = {
   GREAT: `Awesome`,
 };
 
+const RatingValue = {
+  GREAT_VALUE: 10,
+  VERY_GOOD_MIN_VALUE: 8,
+  GOOD_MIN_VALUE: 5,
+  NORMAL_MIN_VALUE: 3,
+  BAD_MIN_VALUE: 0,
+};
+
 const getRatingString = (rating) => {
   let result;
 
-  if (rating >= 0 && rating < 3) {
+  if (rating >= RatingValue.BAD_MIN_VALUE && rating < RatingValue.NORMAL_MIN_VALUE) {
     result = Rating.BAD;
-  } else if (rating < 5) {
+  } else if (rating < RatingValue.GOOD_MIN_VALUE) {
     result = Rating.NORMAL;
-  } else if (rating < 8) {
+  } else if (rating < RatingValue.VERY_GOOD_MIN_VALUE) {
     result = Rating.GOOD;
-  } else if (rating < 10) {
+  } else if (rating < RatingValue.GREAT_VALUE) {
     result = Rating.VERY_GOOD;
-  } else if (rating === 10) {
+  } else if (rating === RatingValue.GREAT_VALUE) {
     result = Rating.GREAT;
   }
 
